@@ -27,14 +27,6 @@ import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.swerve.DriveTrain;
 import frc.robot.subsystems.Hood;
 
-// Commands
-//import frc.robot.commands.LetsRoll1Joystick;
-//import frc.robot.commands.LetsRoll2Joysticks;
-//import frc.robot.commands.ZeroCanCoders;
-//import frc.robot.commands.PullNTSwerveParams;
-//import frc.robot.commands.SaveSwerveParameters;
-//import frc.robot.commands.TestModulePID;
-
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
  * each mode, as described in the TimedRobot documentation. If you change the name of this class or
