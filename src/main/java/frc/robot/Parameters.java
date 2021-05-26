@@ -9,7 +9,7 @@ package frc.robot;
 
 // Internal libraries
 import frc.robot.DriverProfiles.DriverProfile;
-import frc.robot.swerve.PID_PARAMS;
+import frc.robot.subsystems.swerve.PID_PARAMS;
 
 // Vendor libraries
 import com.revrobotics.CANSparkMax.IdleMode;
@@ -213,6 +213,72 @@ public final class Parameters {
         public static final double POWER_CELL_HEIGHT = 7;
     }
 
+    // Shooter parameters
+    public static final class shooter {
+        public static final int MOTOR_ID = 10; // CAN ID# //SHOOTER MOTOR
+        public static final boolean INVERTED = true; // Going the wrong way?
+
+        public static final double DESIRED_RPM = 3600;
+        public static final double WHEEL_VOLTAGE = 11.6;
+        public static final double UNLOAD_TIME = 2; // The amount of time (in s) required to empty the shooter
+        public static final double PROPORTIONAL_CONSTANT = 6;
+        public static final double INTEGRAL_CONSTANT = 5;
+        public static final double DERIVATIVE_CONSTANT = 4;
+
+        public static final double AUTON_SPEED = .7;
+        public static final double ROBOT_HEIGHT = 31.75 / 12;
+        public static final double WHEEL_CIRCUMFERENCE = 5 * Math.PI / 12;
+        public static final double MOUTH_WIDTH = 6.25 / 12; // Currently a placeholder; best be in feet
+    }
+
+    // Hood parameters
+    public static final class hood {
+        public static final int MOTOR_ID = 9; // CAN ID#
+        public static final boolean INVERTED = true; // Going the wrong way?
+        public static final double ANGLE_INCREMENT = 0.1;
+        public static final double GEAR_RATIO = 18 / 66;
+        public static final int LIMIT_SWITCH_PORT = 9;
+        public static final double ANGLE_TOLERANCE = 2 * Math.PI / 120;
+        public static final double MOVEMENT_SPEED = 1;
+        public static final double HOME_SPEED = 0.25;
+    }
+
+    // Intake Constants
+    public static final class intake {
+        public static final int MOTOR_ID = 7; // CAN ID#
+        public static final boolean INVERTED = false; // Going the wrong way?
+        public static final double INTAKE_SPEED = 1;
+        public static final double EXPORT_SPEED = 0.5;
+    }
+
+    // Conveyor Constants
+    public static final class conveyor {
+        public static final int MOTOR_ID = 8; // CAN ID#
+        public static final boolean INVERTED = true; // Going the wrong way?
+        public static final int BALL_SENSOR_PORT = 0; // DIO Port# //Bottom Sensor
+        public static final int EMPTY_SENSOR_PORT = 5; // DIO Port# //Top Sensor
+        public static final double AUTON_SPEED = 0.5;
+        public static final double FORWARD_SPEED = 0.6;
+        public static final double DEFAULT_BACKWARD_SPEED = -0.75;
+    }
 
 
+    // Auton Constants
+    public static final class auton {
+        public static final double CONVEYOR_RUN_TIME = 3;
+        public static final double CONVEYOR_SPEED = 1;
+    }
+
+     // LED Values (for style)
+    public static final class LEDColors {
+        public static final double LAVA_RAINBOW = -.87;
+        public static final double STROBE_RED = -.11;
+        public static final double PARTY = -.43;
+        public static final double PINK = .57;
+        public static final double GLITTER_RAINBOW = -.89;
+        public static final double OCEAN = -.95;
+        public static final double WHITE_HB = .25;
+        public static final double BLUE_VIOLET = .89;
+        public static final double SKY_BLUE = .83;
+    }
 }

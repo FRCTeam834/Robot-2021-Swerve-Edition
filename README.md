@@ -1,3 +1,3 @@
-# Swerve Base
+# Robot 2021 Swerve Edition
 
-A prototype for future swerve code. Also implements new features such as pose estimation, driver profiling, and robot modes
+A rewrite of the 2021 robot code, using SwerveBase as a starting point

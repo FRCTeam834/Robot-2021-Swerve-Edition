@@ -7,26 +7,28 @@
 
 package frc.robot;
 
-// User files
-import frc.robot.commands.LetsRoll1Joystick;
-import frc.robot.commands.LetsRoll2Joysticks;
-import frc.robot.commands.PullNTSwerveParams;
-import frc.robot.commands.TestModulePID;
-import frc.robot.commands.TestModulePositioning;
-import frc.robot.commands.TestModuleVelocity;
-import frc.robot.commands.TestMovementPID;
-import frc.robot.commands.ZeroCanCoders;
+// Import Parameters
 import frc.robot.Parameters;
+
+// Import all the folders of subsystems
+import frc.robot.commands.conveyor.*;
+import frc.robot.commands.shooter.*;
+import frc.robot.commands.hood.*;
+import frc.robot.commands.swerve.*;
+import frc.robot.commands.intake.*;
+
+// Enums
 import frc.robot.enums.ROBOT_STATE;
-import frc.robot.commands.SaveSwerveParameters;
 
 // WPI Libraries
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.Timer;
 
 /**
@@ -54,13 +56,28 @@ public class RobotContainer {
   private final TestModuleVelocity testModuleVelocity = new TestModuleVelocity();
   private final SaveSwerveParameters saveSwerveParameters = new SaveSwerveParameters();
 
+  private final RunIntake runIntake = new RunIntake();
+  private final RunIntakeBackwards runIntakeBackwards = new RunIntakeBackwards();
+
+  private final RunShooter runShooter = new RunShooter();
+
+  private final HoodHome hoodHome = new HoodHome();
+  private final RunHoodUp runHoodUp = new RunHoodUp();
+  private final RunHoodDown runHoodDown = new RunHoodDown();
+
+  private final RunConveyor runConveyor = new RunConveyor();
+  private final RunConveyorSensor runConveyorSensor = new RunConveyorSensor();
+  private final RunConveyorBackward runConveyorBackward = new RunConveyorBackward();
+
   // Timer (for delays)
   public static Timer timer = new Timer();
 
   // Define the joysticks (need to be public so commands can access axes)
   public static Joystick leftJoystick = new Joystick(0);
   public static Joystick rightJoystick = new Joystick(1);
-  //public static XboxController xbox = new XboxController(2);
+  public static XboxController xbox = new XboxController(2);
+  public static Joystick launchpad = new Joystick(3);
+  private final SendableChooser<Command> autonChooser = new SendableChooser<>();
 
   // Left Joystick button array
   //public static JoystickButton leftJoystickButtons[];
@@ -68,9 +85,11 @@ public class RobotContainer {
   // Right Joystick button array
   //public static JoystickButton rightJoystickButtons[];
 
+  // The number of balls currently in the robot
+  public static int ballCount;
+
   // The robot's state
   public static ROBOT_STATE robotState;
-
 
   public static final JoystickButton
   // Left Joystick
@@ -87,7 +106,7 @@ public class RobotContainer {
   rJoystick5 = new JoystickButton(rightJoystick, 5), rJoystick6 = new JoystickButton(rightJoystick, 6),
   rJoystick7 = new JoystickButton(rightJoystick, 7), rJoystick8 = new JoystickButton(rightJoystick, 8),
   rJoystick9 = new JoystickButton(rightJoystick, 9), rJoystick10 = new JoystickButton(rightJoystick, 10),
-  rJoystick11 = new JoystickButton(rightJoystick, 11);
+  rJoystick11 = new JoystickButton(rightJoystick, 11),
 
   // Arcade Buttons
   /*
@@ -103,21 +122,19 @@ public class RobotContainer {
   BM = Bottom Middle
   BR = Bottom Right
   */
-  /*
+
   BGTL = new JoystickButton(launchpad, 7), BGTM = new JoystickButton(launchpad, 2),
   BGTR = new JoystickButton(launchpad, 4), BGML = new JoystickButton(launchpad, 1),
   BGMM = new JoystickButton(launchpad, 6),
   BGMR = new JoystickButton(launchpad, 3),
   BGBL = new JoystickButton(launchpad, 10), BGBM = new JoystickButton(launchpad, 9),
   BGBR = new JoystickButton(launchpad, 8);
-  */
 
-// Xbox Buttons
-/*
+  // Xbox Buttons
   private final JoystickButton xboxStart = new JoystickButton(xbox, Button.kStart.value), xboxBack = new JoystickButton(xbox, Button.kBack.value),
   xboxB = new JoystickButton(xbox, Button.kB.value), xboxA = new JoystickButton(xbox, Button.kA.value), xboxY = new JoystickButton(xbox, Button.kY.value),
   xboxX = new JoystickButton(xbox, Button.kX.value), xboxLB = new JoystickButton(xbox, Button.kBumperLeft.value), xboxRB = new JoystickButton(xbox, Button.kBumperRight.value),
-  xboxLJB = new JoystickButton(xbox, 9); */
+  xboxLJB = new JoystickButton(xbox, 9);
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
@@ -135,14 +152,40 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
 
+    // Swerve
     lJoystick1.toggleWhenPressed(letsRoll2Joysticks);
     lJoystick2.whenPressed(saveSwerveParameters);
     lJoystick3.whenPressed(pullNtSwerveParams);
     lJoystick4.whenPressed(testModulePID);
     lJoystick5.whenPressed(testMovementPID);
     lJoystick8.whenPressed(zeroCanCoders);
+    //rJoystick1.toggleWhenPressed(testModuleVelocity);
 
-    rJoystick1.toggleWhenPressed(testModuleVelocity);
+    //Start the shooter
+    BGTL.toggleWhenPressed(runShooter);
+
+    //Run conveyor
+    xboxB.toggleWhenPressed(runConveyorSensor);
+
+    // Move conveyor forward
+    BGML.whileHeld(runConveyor);
+
+    // Run conveyor backward
+    BGMR.whenPressed(() -> Robot.conveyor.setSpeed(-.75));
+
+    // Stop conveyor
+    BGMM.whenPressed(new InstantCommand(Robot.conveyor::stop, Robot.conveyor));
+
+    // Pivot
+    xboxA.whileHeld(runHoodDown);
+    xboxY.whileHeld(runHoodUp);
+    xboxX.whenPressed(hoodHome);
+    
+    // Start intake
+    xboxRB.toggleWhenPressed(runIntake);
+
+    // Reverse intake
+    xboxLB.whenHeld(runIntakeBackwards);
 
     /*
     // Try to assign the left joystick
@@ -250,6 +293,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return null;
+    return autonChooser.getSelected();
   }
 }

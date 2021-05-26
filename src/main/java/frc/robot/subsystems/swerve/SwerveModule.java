@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.swerve;
+package frc.robot.subsystems.swerve;
 
 // Parameters
 import frc.robot.Parameters;

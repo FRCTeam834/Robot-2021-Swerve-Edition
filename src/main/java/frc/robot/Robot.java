@@ -7,22 +7,33 @@
 
 package frc.robot;
 
+// WPI libraries
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.cscore.UsbCamera;
+//import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.geometry.Pose2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Spark;
 
 // Subsystems
 import frc.robot.subsystems.NavX;
-import frc.robot.swerve.DriveTrain;
 import frc.robot.DriverProfiles.ProfilingManagement;
+import frc.robot.subsystems.BallIntake;
+import frc.robot.subsystems.Conveyor;
+import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.swerve.DriveTrain;
+import frc.robot.subsystems.Hood;
 
 // Commands
-import frc.robot.commands.LetsRoll1Joystick;
-import frc.robot.commands.LetsRoll2Joysticks;
-import frc.robot.commands.ZeroCanCoders;
-import frc.robot.commands.PullNTSwerveParams;
-import frc.robot.commands.SaveSwerveParameters;
-import frc.robot.commands.TestModulePID;
+//import frc.robot.commands.LetsRoll1Joystick;
+//import frc.robot.commands.LetsRoll2Joysticks;
+//import frc.robot.commands.ZeroCanCoders;
+//import frc.robot.commands.PullNTSwerveParams;
+//import frc.robot.commands.SaveSwerveParameters;
+//import frc.robot.commands.TestModulePID;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -31,12 +42,28 @@ import frc.robot.commands.TestModulePID;
  * project.
  */
 public class Robot extends TimedRobot {
+
+  // Main defines
   private Command m_autonomousCommand;
+  private RobotContainer m_robotContainer;
 
   // Subsystems
   public static ProfilingManagement profilingManagement;
   public static NavX navX;
   public static DriveTrain driveTrain;
+  public static BallIntake ballIntake;
+  public static Shooter shooter;
+  public static Conveyor conveyor;
+  //public static Climber climber;
+  public UsbCamera camera;
+  public static Hood hood;
+
+  // Lights!
+  public static double colorSetting = -.45;
+  public static Spark leds;
+
+  // Global variables
+  String gameData = "";
 
   // Commands
   //public static LetsRoll2Joysticks letsRoll2Joysticks;
@@ -45,8 +72,6 @@ public class Robot extends TimedRobot {
   //public static PullNTSwerveParams pullNTSwerveParams;
   //public static TestModulePID testPID;
   //public static SaveSwerveParameters saveSwerveParameters;
-
-  private RobotContainer m_robotContainer;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -59,6 +84,16 @@ public class Robot extends TimedRobot {
     profilingManagement = new ProfilingManagement();
     navX = new NavX();
     driveTrain = new DriveTrain();
+    shooter = new Shooter();
+    hood = new Hood();
+    //climber = new Climber();
+    ballIntake = new BallIntake();
+    //controlPanelManip = new ControlPanelManip();
+    conveyor = new Conveyor();
+    //EVSNetworkTables = new EVSNetworkTables();
+    m_robotContainer = new RobotContainer();
+    driveTrain.resetOdometry(new Pose2d());
+    leds = new Spark(9);
 
     // Commands
     //letsRoll2Joysticks = new LetsRoll2Joysticks();
@@ -72,7 +107,8 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
 
-    navX.resetGyro();
+    // Reset the robot's yaw
+    navX.resetYaw();
   }
 
   /**
@@ -88,7 +124,12 @@ public class Robot extends TimedRobot {
     // commands, running already-scheduled commands, removing finished or interrupted commands,
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
+    gameData = DriverStation.getInstance().getGameSpecificMessage();
     CommandScheduler.getInstance().run();
+  }
+
+  public void simulationPeriodic() {
+    DriverStation.getInstance().silenceJoystickConnectionWarning(true);
   }
 
   /**
@@ -120,6 +161,9 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousPeriodic() {
+
+    // Set the LED value
+    leds.set(colorSetting);
   }
 
   @Override
@@ -139,6 +183,12 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
 
+    // Set the LED value
+    leds.set(colorSetting);
+
+    // Publish dashboard values
+    SmartDashboard.putNumber("Rot2DAng", navX.getRotation2d().getDegrees());
+    SmartDashboard.putNumber("Shooter RPM", shooter.getVelocity());
   }
 
   @Override
