@@ -281,4 +281,13 @@ public final class Parameters {
         public static final double BLUE_VIOLET = .89;
         public static final double SKY_BLUE = .83;
     }
+    
+        public static final int CLIMBER_MOTOR_PORT = 11; //CAN ID#
+        public static final boolean CLIMBER_INVERTED = false;//if it is going the wrong direction
+        public static final double CLIMBER_MOTOR_SPEED = 1;
+        public static final int CLIMBER_LIMIT_SWITCH_PORT = 8;
+		public void stop() {
+		
+        }
+
 }

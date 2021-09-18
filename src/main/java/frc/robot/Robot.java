@@ -11,6 +11,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.cscore.UsbCamera;
 //import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
@@ -21,6 +22,7 @@ import edu.wpi.first.wpilibj.Spark;
 // Subsystems
 import frc.robot.subsystems.NavX;
 import frc.robot.DriverProfiles.ProfilingManagement;
+import frc.robot.subsystems.climber.Climber;
 import frc.robot.subsystems.BallIntake;
 import frc.robot.subsystems.Conveyor;
 import frc.robot.subsystems.Shooter;
@@ -46,7 +48,7 @@ public class Robot extends TimedRobot {
   public static BallIntake ballIntake;
   public static Shooter shooter;
   public static Conveyor conveyor;
-  //public static Climber climber;
+  public static Climber climber;
   public UsbCamera camera;
   public static Hood hood;
 
@@ -86,6 +88,7 @@ public class Robot extends TimedRobot {
     m_robotContainer = new RobotContainer();
     driveTrain.resetOdometry(new Pose2d());
     leds = new Spark(9);
+    climber = new Climber();
 
     // Commands
     //letsRoll2Joysticks = new LetsRoll2Joysticks();
