@@ -68,7 +68,7 @@ public final class Parameters {
             // DriverProfile NAME, double JOYSTICK_DEADZONE, double MAX_STEER_SPEED (deg/s),
             // double DRIVE_RAMP_RATE, boolean LOCKEM_UP, boolean FIELD_CENTRIC, double
             // MAX_SPEED (m/s), IdleMode DRIVE_IDLE_MODE)
-            new DriverProfile("CAP1Sup", 0.05, 180.0, 0.5, true, false, 8.0, IdleMode.kBrake, IdleMode.kBrake),
+            new DriverProfile("CAP1Sup", 0.075, 180.0, 0.5, true, false, 8.0, IdleMode.kBrake, IdleMode.kBrake),
             new DriverProfile("Test", 0.05, 45.0, 0.5, true, false, 1.0, IdleMode.kBrake, IdleMode.kBrake)
         };
 
@@ -215,7 +215,7 @@ public final class Parameters {
 
     // Shooter parameters
     public static final class shooter {
-        public static final int MOTOR_ID = 10; // CAN ID# //SHOOTER MOTOR
+        public static final int MOTOR_ID = 17; // CAN ID# //SHOOTER MOTOR
         public static final boolean INVERTED = true; // Going the wrong way?
 
         public static final double DESIRED_RPM = 3600;
@@ -233,7 +233,7 @@ public final class Parameters {
 
     // Hood parameters
     public static final class hood {
-        public static final int MOTOR_ID = 9; // CAN ID#
+        public static final int MOTOR_ID = 15; // CAN ID#
         public static final boolean INVERTED = true; // Going the wrong way?
         public static final double ANGLE_INCREMENT = 0.1;
         public static final double GEAR_RATIO = 18 / 66;
@@ -245,7 +245,7 @@ public final class Parameters {
 
     // Intake Constants
     public static final class intake {
-        public static final int MOTOR_ID = 7; // CAN ID#
+        public static final int MOTOR_ID = 13; // CAN ID#
         public static final boolean INVERTED = false; // Going the wrong way?
         public static final double INTAKE_SPEED = 1;
         public static final double EXPORT_SPEED = 0.5;
@@ -253,7 +253,7 @@ public final class Parameters {
 
     // Conveyor Constants
     public static final class conveyor {
-        public static final int MOTOR_ID = 8; // CAN ID#
+        public static final int MOTOR_ID = 14; // CAN ID#
         public static final boolean INVERTED = true; // Going the wrong way?
         public static final int BALL_SENSOR_PORT = 0; // DIO Port# //Bottom Sensor
         public static final int EMPTY_SENSOR_PORT = 5; // DIO Port# //Top Sensor
@@ -282,7 +282,7 @@ public final class Parameters {
         public static final double SKY_BLUE = .83;
     }
     
-        public static final int CLIMBER_MOTOR_PORT = 11; //CAN ID#
+        public static final int CLIMBER_MOTOR_PORT = 16; //CAN ID#
         public static final boolean CLIMBER_INVERTED = false;//if it is going the wrong direction
         public static final double CLIMBER_MOTOR_SPEED = 1;
         public static final int CLIMBER_LIMIT_SWITCH_PORT = 8;
