@@ -5,6 +5,10 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
+/**
+ * @author Christian Piper (@CAP1Sup), Krishna Dihora (@kjdih2)
+ * @since 5/8/21
+ */
 package frc.robot;
 
 import edu.wpi.first.wpilibj.RobotBase;

@@ -5,6 +5,11 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
+/**
+ * @author Christian Piper (@CAP1Sup), Mohammed Durrani (@mdurrani808), Jadon Trackim (@JadonTrackim), Krishna Dihora (@kjdih2)
+ * @since 5/8/21
+ */
+
 package frc.robot;
 
 // Import Parameters
@@ -180,7 +185,7 @@ public class RobotContainer {
     xboxA.whileHeld(runHoodDown);
     xboxY.whileHeld(runHoodUp);
     xboxX.whenPressed(hoodHome);
-    
+
     // Start intake
     xboxRB.toggleWhenPressed(runIntake);
 
