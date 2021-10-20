@@ -21,7 +21,7 @@ public class ClimberDown extends CommandBase {
   public void initialize() {
     finished = false;
     if(!Robot.climber.getLimitBottom()) {
-    Robot.climber.down(Parameters.CLIMBER_MOTOR_SPEED);
+    Robot.climber.down(Parameters.climber.CLIMBER_MOTOR_SPEED);
     } else {
     finished = true;
     }
@@ -40,7 +40,7 @@ public class ClimberDown extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     Robot.climber.stop();
-    
+
   }
 
   // Returns true when the command should end.

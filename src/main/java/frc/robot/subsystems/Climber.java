@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.subsystems.climber;
+package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
@@ -19,11 +19,11 @@ public class Climber extends SubsystemBase {
   /**
    * Creates a new Climber.
    */
-  WPI_VictorSPX climberMotor = new WPI_VictorSPX(Parameters.CLIMBER_MOTOR_PORT);
-  DigitalInput limitBottom = new DigitalInput(Parameters.CLIMBER_LIMIT_SWITCH_PORT);
+  WPI_VictorSPX climberMotor = new WPI_VictorSPX(Parameters.climber.CLIMBER_MOTOR_PORT);
+  DigitalInput limitBottom = new DigitalInput(Parameters.climber.CLIMBER_LIMIT_SWITCH_PORT);
 
   public Climber() {
-    climberMotor.setInverted(Parameters.CLIMBER_INVERTED);
+    climberMotor.setInverted(Parameters.climber.CLIMBER_INVERTED);
   }
 
   @Override

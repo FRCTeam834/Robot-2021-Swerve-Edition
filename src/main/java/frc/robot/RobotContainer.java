@@ -14,7 +14,8 @@ package frc.robot;
 
 // Import Parameters
 import frc.robot.Parameters;
-
+import frc.robot.commands.ClimberDown;
+import frc.robot.commands.ClimberUp;
 // Import all the folders of subsystems
 import frc.robot.commands.conveyor.*;
 import frc.robot.commands.shooter.*;
@@ -73,6 +74,10 @@ public class RobotContainer {
   private final RunConveyor runConveyor = new RunConveyor();
   private final RunConveyorSensor runConveyorSensor = new RunConveyorSensor();
   private final RunConveyorBackward runConveyorBackward = new RunConveyorBackward();
+  
+  //private final ClimberDown climberDown = new ClimberDown();
+  //private final ClimberUp climberUp = new ClimberUp();
+
 
   // Timer (for delays)
   public static Timer timer = new Timer();
@@ -191,6 +196,10 @@ public class RobotContainer {
 
     // Reverse intake
     xboxLB.whenHeld(runIntakeBackwards);
+
+    // Climber
+    //BGTR.whileHeld(climberUp);
+    //BGMR.whileHeld(climberDown);
 
     /*
     // Try to assign the left joystick
