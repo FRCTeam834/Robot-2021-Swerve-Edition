@@ -264,6 +264,7 @@ public final class Parameters {
         public static final int EMPTY_SENSOR_PORT = 5; // DIO Port# //Top Sensor
         public static final double AUTON_SPEED = 0.5;
         public static final double FORWARD_SPEED = 0.6;
+        public static final double TIME = .35;
         public static final double DEFAULT_BACKWARD_SPEED = -0.75;
     }
 

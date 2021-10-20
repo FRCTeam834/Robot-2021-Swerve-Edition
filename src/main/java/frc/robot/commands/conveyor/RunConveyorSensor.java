@@ -7,6 +7,7 @@
 // ! Needs more work
 package frc.robot.commands.conveyor;
 
+import frc.robot.Parameters;
 // Robot, RobotContainer
 import frc.robot.Robot;
 import frc.robot.RobotContainer;
@@ -20,11 +21,6 @@ public class RunConveyorSensor extends CommandBase {
    * Creates a new RunConveyorSensor.
    */
   boolean sensorClear;
-  int trueCounter, falseCounter;
-
-  //ok so this variable will say if the sensor was previously covered or uncovered so we can tell when a new ball is passing in front of it.
-  boolean prevBottomSensorStatus;
-  boolean prevTopSensorStatus; //same deal as bottom sensor
   Timer timer = new Timer();
 
   public RunConveyorSensor() {
@@ -36,12 +32,7 @@ public class RunConveyorSensor extends CommandBase {
   @Override
   public void initialize() {
     sensorClear = false;
-    //falseCounter = 0;
-    //trueCounter = 0;
-
-    prevBottomSensorStatus = Robot.conveyor.getBottomSensor();
-    prevTopSensorStatus = Robot.conveyor.getTopSensor();
-    Robot.ballIntake.setSpeed(0.5);
+    Robot.ballIntake.setSpeed(Parameters.intake.EXPORT_SPEED);
     
 
     Robot.conveyor.stop();
@@ -59,38 +50,17 @@ public class RunConveyorSensor extends CommandBase {
       Robot.conveyor.setSpeed(.75);
     }
 
-    if (timer.hasElapsed(0.35)) {
-      Robot.ballIntake.setSpeed(.5);
+    if (timer.hasElapsed(Parameters.conveyor.TIME)) {
+      Robot.ballIntake.setSpeed(Parameters.intake.EXPORT_SPEED);
       Robot.conveyor.stop();
       timer.stop();
       timer.reset();
-    }
-      //trueCounter = 0;
-      //falseCounter++;
-    //} else if (isBall == false) {
-    //}
-    // Check if sensor is clear, if it's been long enough, stop the motor
-  
-    if (Robot.conveyor.getBottomSensor() == true && prevBottomSensorStatus == false) {
-      prevBottomSensorStatus = true;
-      RobotContainer.ballCount++;
-    } else if (Robot.conveyor.getTopSensor() == true && prevTopSensorStatus == false) {
-      prevTopSensorStatus = true;
-      RobotContainer.ballCount--;
-    }
-
-    if (Robot.conveyor.getBottomSensor() == false && prevBottomSensorStatus == true) {
-      prevBottomSensorStatus = false;
-    } else if (Robot.conveyor.getTopSensor() == false && prevTopSensorStatus == true) {
-      prevTopSensorStatus = false;
     }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    trueCounter = 0;
-    falseCounter = 0;
     sensorClear = false;
     Robot.ballIntake.stop();
     Robot.conveyor.stop();

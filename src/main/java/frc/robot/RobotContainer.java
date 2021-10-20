@@ -75,8 +75,8 @@ public class RobotContainer {
   private final RunConveyorSensor runConveyorSensor = new RunConveyorSensor();
   private final RunConveyorBackward runConveyorBackward = new RunConveyorBackward();
   
-  //private final ClimberDown climberDown = new ClimberDown();
-  //private final ClimberUp climberUp = new ClimberUp();
+  private final ClimberDown climberDown = new ClimberDown();
+  private final ClimberUp climberUp = new ClimberUp();
 
 
   // Timer (for delays)
@@ -172,35 +172,42 @@ public class RobotContainer {
     //rJoystick1.toggleWhenPressed(testModuleVelocity);
 
     //Start the shooter
-    BGTL.toggleWhenPressed(runShooter);
+    xboxY.toggleWhenPressed(runShooter);
 
     //Run conveyor
     xboxB.toggleWhenPressed(runConveyorSensor);
 
+    xboxA.whileHeld(runConveyorBackward);
+    BGTL.whenHeld(climberDown);
+    BGTR.whenHeld(climberUp);
+
+    /*
     // Move conveyor forward
     BGML.whileHeld(runConveyor);
-
+    */
     // Run conveyor backward
-    BGMR.whenPressed(() -> Robot.conveyor.setSpeed(-.75));
-
+    // BGMR.whenPressed(() -> Robot.conveyor.setSpeed(-.75));
+    
+    //BGMR.whenPressed(new ParallelCommandGroup(() -> Robot.conveyor.setSpeed(-.75)),runIntakeBackwards));
     // Stop conveyor
     BGMM.whenPressed(new InstantCommand(Robot.conveyor::stop, Robot.conveyor));
 
-    // Pivot
+    /*Pivot
     xboxA.whileHeld(runHoodDown);
     xboxY.whileHeld(runHoodUp);
     xboxX.whenPressed(hoodHome);
+    */
 
     // Start intake
     xboxRB.toggleWhenPressed(runIntake);
 
     // Reverse intake
-    xboxLB.whenHeld(runIntakeBackwards);
+    //xboxLB.whenHeld(runIntakeBackwards);
 
-    // Climber
-    //BGTR.whileHeld(climberUp);
-    //BGMR.whileHeld(climberDown);
-
+    /*Climber
+    BGTR.whileHeld(climberUp);
+    BGMR.whileHeld(climberDown);
+    */
     /*
     // Try to assign the left joystick
     try {
