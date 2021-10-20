@@ -32,7 +32,7 @@ public class RunConveyorBackward extends CommandBase {
 
     // Set the conveyor to the correct speed
     Robot.conveyor.setSpeed(Parameters.conveyor.DEFAULT_BACKWARD_SPEED);
-    Robot.ballIntake.set(-.5);
+    Robot.ballIntake.setSpeed(-.5);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
