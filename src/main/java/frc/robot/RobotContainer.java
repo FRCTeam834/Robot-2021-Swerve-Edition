@@ -16,12 +16,14 @@ package frc.robot;
 import frc.robot.Parameters;
 import frc.robot.commands.ClimberDown;
 import frc.robot.commands.ClimberUp;
+
 // Import all the folders of subsystems
 import frc.robot.commands.conveyor.*;
 import frc.robot.commands.shooter.*;
 import frc.robot.commands.hood.*;
 import frc.robot.commands.swerve.*;
 import frc.robot.commands.intake.*;
+import frc.robot.commands.swerve.*;
 
 // Enums
 import frc.robot.enums.ROBOT_STATE;
@@ -61,6 +63,7 @@ public class RobotContainer {
   private final TestMovementPID testMovementPID = new TestMovementPID();
   private final TestModuleVelocity testModuleVelocity = new TestModuleVelocity();
   private final SaveSwerveParameters saveSwerveParameters = new SaveSwerveParameters();
+  private final ZeroNavX zeroNavX = new ZeroNavX();
 
   private final RunIntake runIntake = new RunIntake();
   private final RunIntakeBackwards runIntakeBackwards = new RunIntakeBackwards();
@@ -127,7 +130,7 @@ public class RobotContainer {
   TR = Top Right
   ML = Middle Left
   MM = Middle Middle
-  MR = Middle RIght
+  MR = Middle Right
   BL = Bottom Left
   BM = Bottom Middle
   BR = Bottom Right
@@ -162,20 +165,22 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
 
-    // Swerve
+    // Left joystick
     lJoystick1.toggleWhenPressed(letsRoll2Joysticks);
-    lJoystick2.whenPressed(saveSwerveParameters);
-    lJoystick3.whenPressed(pullNtSwerveParams);
-    lJoystick4.whenPressed(testModulePID);
-    lJoystick5.whenPressed(testMovementPID);
+    //lJoystick2.whenPressed(saveSwerveParameters);
+    //lJoystick3.whenPressed(pullNtSwerveParams);
+    //lJoystick4.whenPressed(testModulePID);
+    //lJoystick5.whenPressed(testMovementPID);
     lJoystick8.whenPressed(zeroCanCoders);
-    //rJoystick1.toggleWhenPressed(testModuleVelocity);
 
-    //Start the shooter
+    // Start the shooter
     xboxY.toggleWhenPressed(runShooter);
 
-    //Run conveyor
+    // Run conveyor
     xboxB.toggleWhenPressed(runConveyorSensor);
+
+    // Right joystick
+    rJoystick1.toggleWhenPressed(zeroNavX);
 
     xboxA.whileHeld(runConveyorBackward);
     BGTL.whenHeld(climberDown);
@@ -301,8 +306,15 @@ public class RobotContainer {
     if (Math.abs(rawValue) < Parameters.driver.CURRENT_PROFILE.JOYSTICK_DEADZONE) {
       return 0;
     }
-    else {
-      return rawValue;
+    else { 
+      // Implements the equation: output = (x - t) / (1 - t)
+      // Unfortunately, we need to deal with negative values, so we need to take the abs value, then 
+      // multiply by x/abs(x) (comes out to 1 or -1 based on the sign of the number)
+      // Pop this into Desmos, you can see a visual output: y=\frac{x-t}{1-t}\left\{0\le y\le1\right\}
+      // Define t as a variable between 0 and 1
+      // This equation allows the output to start at 0 when leaving the threshold,
+      // then scales it so that the maximum output of the joysticks is always 1
+      return (Math.abs(rawValue) / rawValue) * ((Math.abs(rawValue) - Parameters.driver.CURRENT_PROFILE.JOYSTICK_DEADZONE) / (1 - Parameters.driver.CURRENT_PROFILE.JOYSTICK_DEADZONE));
     }
   }
 
