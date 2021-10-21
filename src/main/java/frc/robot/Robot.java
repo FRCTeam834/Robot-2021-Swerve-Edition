@@ -84,7 +84,7 @@ public class Robot extends TimedRobot {
     driveTrain = new DriveTrain();
     shooter = new Shooter();
     hood = new Hood();
-    //climber = new Climber();
+    climber = new Climber();
     ballIntake = new BallIntake();
     //controlPanelManip = new ControlPanelManip();
     conveyor = new Conveyor();
@@ -92,7 +92,6 @@ public class Robot extends TimedRobot {
     m_robotContainer = new RobotContainer();
     driveTrain.resetOdometry(new Pose2d());
     leds = new Spark(9);
-    climber = new Climber();
 
     // Commands
     //letsRoll2Joysticks = new LetsRoll2Joysticks();

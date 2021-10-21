@@ -75,7 +75,7 @@ public class SwerveModule {
     steerMotor = new CANSparkMax(steerMID, CANSparkMax.MotorType.kBrushless);
     //steerMotor.setOpenLoopRampRate(Parameters.driver.CURRENT_PROFILE.DRIVE_RAMP_RATE);
     steerMotor.setIdleMode(Parameters.driver.CURRENT_PROFILE.DRIVE_IDLE_MODE);
-    steerMotor.setInverted(false);
+    //steerMotor.setInverted(false);
 
     // For later?
     //steerMotor.enableVoltageCompensation(nominalVoltage);
@@ -84,7 +84,6 @@ public class SwerveModule {
     // Steer motor encoder (position is converted from rotations to degrees)
     steerMotorEncoder = steerMotor.getEncoder();
     steerMotorEncoder.setPositionConversionFactor(360/Parameters.driveTrain.ratios.STEER_GEAR_RATIO);
-    steerMotorEncoder.setPosition(getAngle());
 
     // Steering PID controller (from motor)
     steerMotorPID = steerMotor.getPIDController();
@@ -114,7 +113,6 @@ public class SwerveModule {
     // Drive motor encoder
     driveMotorEncoder = driveMotor.getEncoder();
     driveMotorEncoder.setVelocityConversionFactor((Math.PI * Parameters.driveTrain.dimensions.MODULE_WHEEL_DIA_M) / (60 * Parameters.driveTrain.ratios.DRIVE_GEAR_RATIO)); // (Math.PI * Parameters.driveTrain.dimensions.MODULE_WHEEL_DIA_M) / (60 * Parameters.driveTrain.ratios.DRIVE_GEAR_RATIO));
-    driveMotorEncoder.setInverted(false);
 
     // Drive motor PID controller (from motor)
     driveMotorPID = driveMotor.getPIDController();
