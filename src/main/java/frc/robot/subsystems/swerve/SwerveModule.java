@@ -5,6 +5,11 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
+/**
+ * @author Christian Piper (@CAP1Sup)
+ * @since 5/8/20
+ */
+
 package frc.robot.subsystems.swerve;
 
 // Parameters
@@ -508,6 +513,8 @@ public class SwerveModule {
 
   // Print out a debug string
   public void printDebugString(double targetAngle) {
-    System.out.println(name + ": TAR_A: " + Math.round(targetAngle) + " ACT_A: " + Math.round(getAngle()) + " ADJ_A: " + Math.round(getAdjustedSteerMotorAngle()) + " STR_A: " + Math.round(getActualSteerMotorAngle()) + " OFF_A: " + Math.round(angularOffset));
+    System.out.println(name + ": TAR_A: " + Math.round(targetAngle) + " ACT_A: " + Math.round(getAngle()) + " ADJ_A: " +
+                      Math.round(getAdjustedSteerMotorAngle()) + " STR_A: " + Math.round(getActualSteerMotorAngle()) +
+                      " OFF_A: " + Math.round(angularOffset));
   }
 }
