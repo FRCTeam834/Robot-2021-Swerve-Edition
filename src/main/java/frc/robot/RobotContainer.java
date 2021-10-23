@@ -77,7 +77,7 @@ public class RobotContainer {
   private final RunConveyor runConveyor = new RunConveyor();
   private final RunConveyorSensor runConveyorSensor = new RunConveyorSensor();
   private final RunConveyorBackward runConveyorBackward = new RunConveyorBackward();
-  
+
   private final ClimberDown climberDown = new ClimberDown();
   private final ClimberUp climberUp = new ClimberUp();
 
@@ -192,7 +192,7 @@ public class RobotContainer {
     */
     // Run conveyor backward
     // BGMR.whenPressed(() -> Robot.conveyor.setSpeed(-.75));
-    
+
     //BGMR.whenPressed(new ParallelCommandGroup(() -> Robot.conveyor.setSpeed(-.75)),runIntakeBackwards));
     // Stop conveyor
     BGMM.whenPressed(new InstantCommand(Robot.conveyor::stop, Robot.conveyor));
@@ -303,18 +303,48 @@ public class RobotContainer {
   public static double constrainJoystick(double rawValue) {
 
     // If the value is out of tolerance, then zero it. Otherwise return the value of the joystick
-    if (Math.abs(rawValue) < Parameters.driver.CURRENT_PROFILE.JOYSTICK_DEADZONE) {
+    if (Math.abs(rawValue) < Parameters.driver.currentProfile.joystickParams.getDeadzone()) {
       return 0;
     }
-    else { 
-      // Implements the equation: output = (x - t) / (1 - t)
-      // Unfortunately, we need to deal with negative values, so we need to take the abs value, then 
-      // multiply by the sign of the number
-      // Pop this into Desmos, you can see a visual output: y=\frac{x-t}{1-t}\left\{0\le y\le1\right\}
-      // Define t as a variable between 0 and 1
-      // This equation allows the output to start at 0 when leaving the threshold,
-      // then scales it so that the maximum output of the joysticks is always 1
-      return Math.signum(rawValue) * ((Math.abs(rawValue) - Parameters.driver.CURRENT_PROFILE.JOYSTICK_DEADZONE) / (1 - Parameters.driver.CURRENT_PROFILE.JOYSTICK_DEADZONE));
+    else {
+      switch (Parameters.driver.currentProfile.joystickParams.getOutputType()) {
+        case LINEAR: {
+          return rawValue;
+        }
+        case ZEROED_LINEAR: {
+          /**
+           * Implements the equation: output = (x - t) / (1 - t)
+           * Unfortunately, we need to deal with negative values, so we need to take the abs value, then
+           * multiply by the sign of the number
+           * Pop this into Desmos, you can see a visual output: y=\frac{x-t}{1-t}\left\{0\le y\le1\right\}
+           * Define t as a variable between 0 and 1
+           * This equation allows the output to start at 0 when leaving the threshold,
+           * then scales it so that the maximum output of the joysticks is always 1
+           */
+          return Math.signum(rawValue) * ((Math.abs(rawValue) - Parameters.driver.currentProfile.joystickParams.getDeadzone()) / (1 - Parameters.driver.currentProfile.joystickParams.getDeadzone()));
+        }
+        case ZEROED_QUAD_LINEAR: {
+          /**
+           * Implements an output for the joysticks that uses a quadratic on the lower end and a linear slope up to 1.
+           * I'm not going to bother explaining it, here's the graph: https://www.desmos.com/calculator/5lqgnstb1k
+           */
+
+          // No need to implement the threshold checking, that is done above
+          if (Math.abs(rawValue) < Parameters.driver.currentProfile.joystickParams.getCrossoverValue()) {
+
+            // This is the quadratic range, return the result of the scaled quadratic
+            return (Math.signum(rawValue) * Parameters.driver.currentProfile.joystickParams.getRampRate()
+                   * Math.pow(Math.abs(rawValue) - Parameters.driver.currentProfile.joystickParams.getDeadzone(), 2));
+          }
+          else {
+            // Linear equation range
+            return Math.signum(rawValue) * ((Parameters.driver.currentProfile.joystickParams.getLinearSlope() * (Math.abs(rawValue) - 1)) + 1);
+          }
+        }
+        default:
+          // This will never be reached, but a default case is needed (0 for no output)
+          return 0;
+      }
     }
   }
 
