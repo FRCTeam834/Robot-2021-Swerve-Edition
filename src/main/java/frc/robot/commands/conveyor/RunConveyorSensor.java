@@ -20,7 +20,7 @@ public class RunConveyorSensor extends CommandBase {
   /**
    * Creates a new RunConveyorSensor.
    */
-  boolean sensorClear;
+  boolean sensorClear = false;
   Timer timer = new Timer();
 
   public RunConveyorSensor() {
@@ -32,26 +32,25 @@ public class RunConveyorSensor extends CommandBase {
   @Override
   public void initialize() {
     sensorClear = false;
-    Robot.ballIntake.setSpeed(Parameters.intake.EXPORT_SPEED);
-    
-
+    Robot.ballIntake.setSpeed(Parameters.intake.INTAKE_SPEED);
     Robot.conveyor.stop();
+    Robot.leds.set(Parameters.LEDColors.ORANGE);
+    
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     sensorClear = Robot.conveyor.getBottomSensor();
-
     //check if ball blocking sensor, if it's been long enough, start the motor
     if (sensorClear == false) {
       Robot.ballIntake.stop();
-      timer.start();
       Robot.conveyor.setSpeed(.75);
+      timer.start();
     }
 
     if (timer.hasElapsed(Parameters.conveyor.TIME)) {
-      Robot.ballIntake.setSpeed(Parameters.intake.EXPORT_SPEED);
+      Robot.ballIntake.setSpeed(Parameters.intake.INTAKE_SPEED);
       Robot.conveyor.stop();
       timer.stop();
       timer.reset();
@@ -64,6 +63,7 @@ public class RunConveyorSensor extends CommandBase {
     sensorClear = false;
     Robot.ballIntake.stop();
     Robot.conveyor.stop();
+    Robot.leds.set(-.43);
   }
 
   // Returns true when the command should end.
