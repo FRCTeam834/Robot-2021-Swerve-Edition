@@ -27,6 +27,11 @@ public class DriveForwardDistance extends CommandBase {
   double linearVel;
 
   // Move forward at the set linear velocity
+  /**
+   * Move forward at a specified linear velocity
+   * @param distance Distance to move forward (m)
+   * @param linearVelocity Speed at which to move forward (m/s) (this value will be limited by the max module speeds set in the driver profile)
+   */
   public DriveForwardDistance(double distance, double linearVelocity) {
 
     // Use addRequirements() here to declare subsystem dependencies.
@@ -41,7 +46,10 @@ public class DriveForwardDistance extends CommandBase {
   }
 
 
-  // Default to current driver profile for the linear speed
+  /**
+   * Move forward specified distance, defaulting to current driver profile for the linear speed
+   * @param distance Distance to move forward (m)
+   */
   public DriveForwardDistance(double distance) {
 
     // Use addRequirements() here to declare subsystem dependencies.
