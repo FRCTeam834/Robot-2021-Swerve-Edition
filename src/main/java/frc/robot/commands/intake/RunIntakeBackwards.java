@@ -29,7 +29,7 @@ public class RunIntakeBackwards extends CommandBase {
   @Override
   public void initialize() {
 
-    Robot.ballIntake.setSpeed(-Parameters.intake.EXPORT_SPEED);
+    Robot.ballIntake.setSpeed(-Parameters.intake.INTAKE_SPEED);
 
   }
 

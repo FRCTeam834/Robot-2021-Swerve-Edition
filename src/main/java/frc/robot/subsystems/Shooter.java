@@ -45,6 +45,12 @@ public class Shooter extends SubsystemBase {
     shootMotor.setVoltage(voltage);
   }
 
+  public void setShooter()
+  {
+    shootMotor.setVoltage(Parameters.shooter.WHEEL_VOLTAGE);
+    
+  }
+
   // Returns the encoder object of the Neo motor for shooting
   public double getVelocity() {
     return shootMotor.getEncoder().getVelocity();

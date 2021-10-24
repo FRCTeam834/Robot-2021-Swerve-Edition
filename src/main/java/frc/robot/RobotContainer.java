@@ -174,7 +174,7 @@ public class RobotContainer {
     lJoystick8.whenPressed(zeroCanCoders);
 
     // Start the shooter
-    xboxY.toggleWhenPressed(runShooter);
+    xboxY.toggleWhenPressed(new StartEndCommand(Robot.shooter::setShooter,Robot.shooter::stop, Robot.shooter));
 
     // Run conveyor
     xboxB.toggleWhenPressed(runConveyorSensor);

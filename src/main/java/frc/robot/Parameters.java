@@ -266,8 +266,7 @@ public final class Parameters {
     public static final class intake {
         public static final int MOTOR_ID = 13; // CAN ID#
         public static final boolean INVERTED = false; // Going the wrong way?
-        public static final double INTAKE_SPEED = 1;
-        public static final double EXPORT_SPEED = 0.5;
+        public static final double INTAKE_SPEED = 0.5;
     }
 
     // Conveyor Constants
@@ -300,6 +299,8 @@ public final class Parameters {
         public static final double WHITE_HB = .25;
         public static final double BLUE_VIOLET = .89;
         public static final double SKY_BLUE = .83;
+        public static final double GREEN = .77;
+        public static final double ORANGE = .65;
     }
 
     public class climber {
