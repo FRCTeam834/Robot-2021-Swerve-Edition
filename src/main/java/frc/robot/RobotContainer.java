@@ -56,7 +56,8 @@ public class RobotContainer {
   //private final UltrasonicSensor ultrasonicSensor = new UltrasonicSensor();
 
   // Commands
-  private final LetsRoll2Joysticks letsRoll2Joysticks = new LetsRoll2Joysticks();
+  private final LetsRoll2JoysticksRC letsRoll2JoysticksRC = new LetsRoll2JoysticksRC();
+  private final LetsRoll2JoysticksFC letsRoll2JoysticksFC = new LetsRoll2JoysticksFC();
   private final LetsRoll1Joystick letsRoll1Joystick = new LetsRoll1Joystick();
   private final ZeroCanCoders zeroCanCoders = new ZeroCanCoders();
   private final PullNTSwerveParams pullNtSwerveParams = new PullNTSwerveParams();
@@ -167,7 +168,9 @@ public class RobotContainer {
   private void configureButtonBindings() {
 
     // Left joystick
-    lJoystick1.toggleWhenPressed(letsRoll2Joysticks);
+    lJoystick1.toggleWhenPressed(letsRoll2JoysticksRC);
+    rJoystick1.toggleWhenPressed(letsRoll2JoysticksFC);
+    lJoystick3.whenPressed(zeroNavX);
     //lJoystick2.whenPressed(saveSwerveParameters);
     //lJoystick3.whenPressed(pullNtSwerveParams);
     //lJoystick4.whenPressed(testModulePID);

@@ -21,9 +21,9 @@ import frc.robot.RobotContainer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 
-public class LetsRoll2Joysticks extends CommandBase {
+public class LetsRoll2JoysticksFC extends CommandBase {
 
-  public LetsRoll2Joysticks() {
+  public LetsRoll2JoysticksFC() {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(Robot.driveTrain);
   }
@@ -50,7 +50,7 @@ public class LetsRoll2Joysticks extends CommandBase {
 
       // Move the drivetrain with the desired values (left right values are flipped from the logical way, thanks WPI)
       Robot.driveTrain.drive((rightY * Parameters.driver.currentProfile.maxModSpeed), (rightX * Parameters.driver.currentProfile.maxModSpeed),
-                        Math.toRadians(leftX * Parameters.driver.currentProfile.maxSteerRate), Parameters.driver.currentProfile.fieldCentric);
+                        Math.toRadians(leftX * Parameters.driver.currentProfile.maxSteerRate), true);
     }
     else if (Parameters.driver.currentProfile.lockemUp) {
       Robot.driveTrain.lockemUp();

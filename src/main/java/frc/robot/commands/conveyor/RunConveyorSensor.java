@@ -36,7 +36,7 @@ public class RunConveyorSensor extends CommandBase {
     Robot.ballIntake.setSpeed(Parameters.intake.INTAKE_SPEED);
     Robot.conveyor.stop();
     Robot.leds.set(Parameters.LEDColors.ORANGE);
-    
+    timer.reset();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
