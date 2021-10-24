@@ -21,6 +21,7 @@ public class RunConveyorSensor extends CommandBase {
    * Creates a new RunConveyorSensor.
    */
   boolean sensorClear = false;
+  int counter = 0;
   Timer timer = new Timer();
 
   public RunConveyorSensor() {
@@ -42,18 +43,22 @@ public class RunConveyorSensor extends CommandBase {
   @Override
   public void execute() {
     sensorClear = Robot.conveyor.getBottomSensor();
-    //check if ball blocking sensor, if it's been long enough, start the motor
     if (sensorClear == false) {
       Robot.ballIntake.stop();
       Robot.conveyor.setSpeed(.75);
-      timer.start();
+      if(counter == 0)
+      {
+        timer.start();
+      }
+      counter++;
     }
 
-    if (timer.hasElapsed(Parameters.conveyor.TIME)) {
+    if (timer.hasElapsed(Parameters.conveyor.TIME) && sensorClear == true) {
       Robot.ballIntake.setSpeed(Parameters.intake.INTAKE_SPEED);
       Robot.conveyor.stop();
       timer.stop();
       timer.reset();
+      counter = 0;
     }
   }
 

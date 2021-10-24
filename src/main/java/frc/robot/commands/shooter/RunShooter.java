@@ -13,6 +13,10 @@ import frc.robot.Robot;
 // Parameters
 import frc.robot.Parameters;
 
+import java.lang.reflect.Parameter;
+
+import com.fasterxml.jackson.databind.deser.impl.CreatorCandidate.Param;
+
 // WPI libraries
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
@@ -35,7 +39,9 @@ public class RunShooter extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    Robot.leds.set(Parameters.LEDColors.PINK);
+  }
 
   // Called once the command ends or is interrupted.
   @Override
@@ -43,6 +49,7 @@ public class RunShooter extends CommandBase {
 
     // Stop the motor
     Robot.shooter.stop();
+    Robot.leds.set(Parameters.LEDColors.PARTY);
   }
 
   // Returns true when the command should end.
