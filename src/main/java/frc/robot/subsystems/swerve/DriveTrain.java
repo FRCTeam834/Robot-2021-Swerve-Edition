@@ -147,7 +147,7 @@ public class DriveTrain extends SubsystemBase {
 
     // Set up the modules
     if (fieldRelative) {
-      setModuleStates(ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, rot, Robot.navX.getRotation2d()));
+      setModuleStates(ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, rot, Rotation2d.fromDegrees(Robot.navX.getYaw())));
     }
     else {
       setModuleStates(new ChassisSpeeds(xSpeed, ySpeed, rot));

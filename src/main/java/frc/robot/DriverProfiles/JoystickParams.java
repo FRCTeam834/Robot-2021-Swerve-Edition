@@ -95,8 +95,9 @@ public class JoystickParams {
      */
     public void setJoystickParams(double deadzone, JOYSTICK_OUTPUT_TYPES outputType, double rampConst) {
 
-        // Set the basic parameters
-        setJoystickParams(deadzone, outputType);
+        // Save the values of the parameters
+        this.deadzone   = deadzone;
+        this.outputType = outputType;
 
         // We only need to do the fancy math if we're using the fancy scaling method
         if (outputType == JOYSTICK_OUTPUT_TYPES.ZEROED_QUAD_LINEAR) {

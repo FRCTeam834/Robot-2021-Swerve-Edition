@@ -33,7 +33,7 @@ public class RunConveyorSensor extends CommandBase {
   @Override
   public void initialize() {
     sensorClear = false;
-    Robot.ballIntake.setSpeed(Parameters.intake.INTAKE_SPEED);
+    Robot.ballIntake.setSpeed(-Parameters.intake.INTAKE_SPEED);
     Robot.conveyor.stop();
     Robot.leds.set(Parameters.LEDColors.ORANGE);
     timer.reset();
@@ -54,12 +54,13 @@ public class RunConveyorSensor extends CommandBase {
     }
 
     if (timer.hasElapsed(Parameters.conveyor.TIME) && sensorClear == true) {
-      Robot.ballIntake.setSpeed(Parameters.intake.INTAKE_SPEED);
+      Robot.ballIntake.setSpeed(-Parameters.intake.INTAKE_SPEED);
       Robot.conveyor.stop();
       timer.stop();
       timer.reset();
       counter = 0;
     }
+    Robot.leds.set(Parameters.LEDColors.ORANGE);
   }
 
   // Called once the command ends or is interrupted.

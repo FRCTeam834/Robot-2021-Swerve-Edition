@@ -60,7 +60,7 @@ public class LetsRoll2JoysticksFC extends CommandBase {
     }
 
     // Update driver profile if available
-    Robot.profilingManagement.checkForUpdate();
+    //Robot.profilingManagement.checkForUpdate();
 
   }
 
