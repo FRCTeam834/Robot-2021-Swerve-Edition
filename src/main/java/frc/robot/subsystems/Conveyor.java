@@ -25,8 +25,7 @@ public class Conveyor extends SubsystemBase {
 
   // Create all of the new objects
   WPI_VictorSPX conveyorMotor = new WPI_VictorSPX(Parameters.conveyor.MOTOR_ID);
-  DigitalInput bottomSensor = new DigitalInput(Parameters.conveyor.BALL_SENSOR_PORT);
-  DigitalInput topSensor = new DigitalInput(Parameters.conveyor.EMPTY_SENSOR_PORT);
+  DigitalInput ballSensor = new DigitalInput(Parameters.conveyor.BALL_SENSOR_PORT);
 
   public Conveyor() {
 
@@ -39,14 +38,9 @@ public class Conveyor extends SubsystemBase {
     // This method will be called once per schedule run
   }
 
-  // Gets the value of the bottom sensor. Returns true if triggered, false if not
-  public boolean getBottomSensor() {
-    return bottomSensor.get();
-  }
-
-  // Gets the value of the top sensor. Returns true if triggered, false if not
-  public boolean getTopSensor() {
-    return topSensor.get();
+  // Gets the value of the ball sensor. Returns true if triggered, false if not
+  public boolean getBallSensor() {
+    return ballSensor.get();
   }
 
   // Sets the conveyor to run at desired percentage
@@ -54,8 +48,18 @@ public class Conveyor extends SubsystemBase {
     conveyorMotor.set(speed);
   }
 
+  // Runs the conveyor forward (loads balls in)
+  public void runForward() {
+    conveyorMotor.set(Parameters.conveyor.FORWARD_SPEED);
+  }
+
+  // Runs the conveyor backward (ejects balls)
+  public void runBackward() {
+    conveyorMotor.set(Parameters.conveyor.BACKWARD_SPEED);
+  }
+
   // Stops the conveyor
   public void stop() {
-    conveyorMotor.set(0);
+    conveyorMotor.stopMotor();
   }
 }

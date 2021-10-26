@@ -31,16 +31,16 @@ public class Climber extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  public void up(double speed) {
-    climberMotor.set(speed);
+  public void up() {
+    climberMotor.set(Parameters.climber.CLIMBER_MOTOR_SPEED);
   }
 
-  public void down(double speedWagon) {
-    climberMotor.set(-speedWagon);
+  public void down() {
+    climberMotor.set(-Parameters.climber.CLIMBER_MOTOR_SPEED);
   }
 
   public void stop() {
-    climberMotor.set(0);
+    climberMotor.stopMotor();
   }
 
   //returns true if limit switch is being activated

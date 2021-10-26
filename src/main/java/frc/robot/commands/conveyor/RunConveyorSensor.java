@@ -25,14 +25,14 @@ public class RunConveyorSensor extends CommandBase {
 
   public RunConveyorSensor() {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(Robot.conveyor, Robot.ballIntake);
+    addRequirements(Robot.conveyor, Robot.intake);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
     Robot.conveyor.stop();
-    Robot.ballIntake.setSpeed(-Parameters.intake.INTAKE_SPEED);
+    Robot.intake.runForward();
     Robot.leds.set(Parameters.LEDColors.ORANGE);
   }
 
@@ -41,12 +41,12 @@ public class RunConveyorSensor extends CommandBase {
   public void execute() {
 
     // Set the current reading value (makes code faster and prevents errors)
-    currentReading = Robot.conveyor.getBottomSensor();
+    currentReading = Robot.conveyor.getBallSensor();
 
     // Start moving the conveyor if there is a new ball detected
     if (!prevReading && currentReading) {
-      Robot.ballIntake.stop();
-      Robot.conveyor.setSpeed(Parameters.conveyor.FORWARD_SPEED);
+      Robot.intake.stop();
+      Robot.conveyor.runForward();
 
     }
     // Start the timer once the ball has passed
@@ -65,13 +65,13 @@ public class RunConveyorSensor extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    Robot.ballIntake.stop();
+    Robot.intake.stop();
     Robot.conveyor.stop();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return timer.hasElapsed(Parameters.conveyor.TIME);
+    return timer.hasElapsed(Parameters.conveyor.INTAKE_TIME);
   }
 }

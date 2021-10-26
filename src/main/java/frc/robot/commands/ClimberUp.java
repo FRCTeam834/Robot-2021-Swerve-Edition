@@ -17,7 +17,7 @@ public class ClimberUp extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    Robot.climber.up(Parameters.climber.CLIMBER_MOTOR_SPEED);
+    Robot.climber.up();
   }
 
   // Called every time the scheduler runs while the command is scheduled.

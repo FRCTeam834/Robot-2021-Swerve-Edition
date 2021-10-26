@@ -5,68 +5,60 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.autonomous;
+package frc.robot.commands.conveyor;
 
-// Parameters
+// Import Parameters
 import frc.robot.Parameters;
 
-// Robot
+// Import Robot
 import frc.robot.Robot;
+import edu.wpi.first.wpilibj.Timer;
 
 // WPI libraries
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj.Timer;
 
-public class EmptyShooterNoVision extends CommandBase {
-  /**
-   * Creates a new EmptyShooterNoVision.
-   */
+public class EjectBalls extends CommandBase {
 
-  // A variable to store the start time
-  long startTime;
-
-  // Timer
   Timer timer = new Timer();
 
-  public EmptyShooterNoVision() {
+  /**
+   * Creates a new RunConveyor.
+   */
+
+  public EjectBalls() {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(Robot.shooter, Robot.conveyor);
+    addRequirements(Robot.conveyor);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
 
-    // Turn on the motors for the shooter and conveyor
-    Robot.shooter.setVoltage(Parameters.shooter.WHEEL_VOLTAGE);
-    Robot.conveyor.setSpeed(Parameters.conveyor.AUTON_SPEED);
+    // Set the conveyor to the correct speed
+    Robot.conveyor.runBackward();
+    Robot.intake.runBackward();
 
-    // Start the timer
+    // Reset, then start the timer
     timer.reset();
     timer.start();
   }
-  
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {}
 
-  // Called once the command ends or is interrupted.
+  // Called once the ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
 
-    // Stop both of the motors
-    Robot.shooter.stop();
+    // Stop the conveyor
+    Robot.intake.stop();
     Robot.conveyor.stop();
-
-    // Reset the timer
-    timer.stop();
-    timer.reset();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return timer.hasElapsed(Parameters.shooter.UNLOAD_TIME);
+    return timer.hasElapsed(Parameters.conveyor.EJECT_TIME);
   }
 }

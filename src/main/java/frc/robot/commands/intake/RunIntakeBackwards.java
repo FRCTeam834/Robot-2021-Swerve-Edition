@@ -22,14 +22,14 @@ public class RunIntakeBackwards extends CommandBase {
    */
   public RunIntakeBackwards() {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(Robot.ballIntake);
+    addRequirements(Robot.intake);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
 
-    Robot.ballIntake.setSpeed(-Parameters.intake.INTAKE_SPEED);
+    Robot.intake.runBackward();
 
   }
 
@@ -42,7 +42,7 @@ public class RunIntakeBackwards extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    Robot.ballIntake.stop();
+    Robot.intake.stop();
   }
 
   // Returns true when the command should end.

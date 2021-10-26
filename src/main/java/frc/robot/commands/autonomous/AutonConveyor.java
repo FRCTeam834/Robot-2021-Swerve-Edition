@@ -36,12 +36,12 @@ public class AutonConveyor extends CommandBase {
 
     // Set to the default auton speed
     Robot.conveyor.setSpeed(Parameters.auton.CONVEYOR_SPEED);
-    
+
     // Reset the timer, starting it from 0
     timer.reset();
   }
 
-  public void initialize(double time, double speed) {
+  public void initialize(double speed) {
 
     // Set to the set speed
     Robot.conveyor.setSpeed(speed);

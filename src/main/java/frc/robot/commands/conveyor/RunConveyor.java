@@ -31,7 +31,7 @@ public class RunConveyor extends CommandBase {
   public void initialize() {
 
     // Set the conveyor to the correct speed
-    Robot.conveyor.setSpeed(Parameters.conveyor.FORWARD_SPEED);
+    Robot.conveyor.runForward();
   }
 
   // Called every time the scheduler runs while the command is scheduled.

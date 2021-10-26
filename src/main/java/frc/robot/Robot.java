@@ -27,7 +27,7 @@ import edu.wpi.first.wpilibj.Spark;
 // Subsystems
 import frc.robot.subsystems.NavX;
 import frc.robot.DriverProfiles.ProfilingManagement;
-import frc.robot.subsystems.BallIntake;
+import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Conveyor;
 import frc.robot.subsystems.Shooter;
@@ -50,7 +50,7 @@ public class Robot extends TimedRobot {
   public static ProfilingManagement profilingManagement;
   public static NavX navX;
   public static DriveTrain driveTrain;
-  public static BallIntake ballIntake;
+  public static Intake intake;
   public static Shooter shooter;
   public static Conveyor conveyor;
   public static Climber climber;
@@ -86,7 +86,7 @@ public class Robot extends TimedRobot {
     shooter = new Shooter();
     hood = new Hood();
     climber = new Climber();
-    ballIntake = new BallIntake();
+    intake = new Intake();
     //controlPanelManip = new ControlPanelManip();
     conveyor = new Conveyor();
     //EVSNetworkTables = new EVSNetworkTables();

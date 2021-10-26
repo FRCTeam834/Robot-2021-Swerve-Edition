@@ -239,11 +239,10 @@ public final class Parameters {
 
         public static final double DESIRED_RPM = 3600;
         public static final double WHEEL_VOLTAGE = 11.6;
-        public static final double UNLOAD_TIME = 2; // The amount of time (in s) required to empty the shooter
+        public static final double SPOOL_TIME = 1; // The amount of time (in s) required to spin up the shooter
         public static final double PROPORTIONAL_CONSTANT = 6;
         public static final double INTEGRAL_CONSTANT = 5;
         public static final double DERIVATIVE_CONSTANT = 4;
-
         public static final double AUTON_SPEED = .7;
         public static final double ROBOT_HEIGHT = 31.75 / 12;
         public static final double WHEEL_CIRCUMFERENCE = 5 * Math.PI / 12;
@@ -265,20 +264,30 @@ public final class Parameters {
     // Intake Constants
     public static final class intake {
         public static final int MOTOR_ID = 13; // CAN ID#
-        public static final boolean INVERTED = false; // Going the wrong way?
-        public static final double INTAKE_SPEED = 0.5;
+        public static final boolean INVERTED = true; // Going the wrong way?
+        public static final double FORWARD_SPEED = 0.5;
+        public static final double BACKWARD_SPEED = 0.5;
     }
 
     // Conveyor Constants
     public static final class conveyor {
+
+        // Motor info
         public static final int MOTOR_ID = 14; // CAN ID#
         public static final boolean INVERTED = true; // Going the wrong way?
-        public static final int BALL_SENSOR_PORT = 0; // DIO Port# //Bottom Sensor
-        public static final int EMPTY_SENSOR_PORT = 5; // DIO Port# //Top Sensor
+
+        // Sensors
+        public static final int BALL_SENSOR_PORT = 0; // DIO Port#
+
+        // Motor speeds
         public static final double AUTON_SPEED = 0.5;
         public static final double FORWARD_SPEED = 0.6;
-        public static final double TIME = 1;
-        public static final double DEFAULT_BACKWARD_SPEED = -0.75;
+        public static final double BACKWARD_SPEED = -0.75;
+
+        // Times
+        public static final double INTAKE_TIME = 1;
+        public static final double UNLOAD_TIME = 5; // Time to unload the entire conveyor (in s)
+        public static final double EJECT_TIME = 4; // Time to eject all balls from the conveyor (in s)
     }
 
 
@@ -309,5 +318,4 @@ public final class Parameters {
         public static final double CLIMBER_MOTOR_SPEED = 1;
         public static final int CLIMBER_LIMIT_SWITCH_PORT = 8;
     }
-
 }

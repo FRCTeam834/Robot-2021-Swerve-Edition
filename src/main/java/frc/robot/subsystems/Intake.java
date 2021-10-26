@@ -9,6 +9,7 @@ package frc.robot.subsystems;
 
 // Parameters
 import frc.robot.Parameters;
+import frc.robot.Parameters.intake;
 
 // CTRE Victor library
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
@@ -16,7 +17,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 // WPI libraries
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class BallIntake extends SubsystemBase {
+public class Intake extends SubsystemBase {
   /**
    * Creates a new BallIntake.
    */
@@ -24,7 +25,7 @@ public class BallIntake extends SubsystemBase {
   // Main intake motor declaration
   WPI_VictorSPX intakeMotor = new WPI_VictorSPX(Parameters.intake.MOTOR_ID);
 
-  public BallIntake() {
+  public Intake() {
     // Set if the intake should be inverted
     intakeMotor.setInverted(Parameters.intake.INVERTED);
   }
@@ -41,9 +42,22 @@ public class BallIntake extends SubsystemBase {
     intakeMotor.set(speed);
   }
 
+
+  // Runs the intake forward (loads balls in)
+  public void runForward() {
+    intakeMotor.set(Parameters.intake.FORWARD_SPEED);
+  }
+
+
+  // Runs the intake backward (ejects balls)
+  public void runBackward() {
+    intakeMotor.set(Parameters.intake.BACKWARD_SPEED);
+  }
+
+
   // Stop the intake (by setting it to zero)
   public void stop() {
-    intakeMotor.set(0);
+    intakeMotor.stopMotor();
   }
 
 }

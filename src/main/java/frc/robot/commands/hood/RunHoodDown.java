@@ -25,7 +25,7 @@ public class RunHoodDown extends CommandBase {
   public void initialize() {
 
     // Start the motor
-    Robot.hood.setSpeed(-Parameters.hood.MOVEMENT_SPEED);
+    Robot.hood.down();
   }
 
   // Called every time the scheduler runs while the command is scheduled.

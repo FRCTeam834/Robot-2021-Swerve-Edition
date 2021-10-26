@@ -17,13 +17,17 @@ import frc.robot.Parameters;
 import frc.robot.Robot;
 import frc.robot.RobotContainer;
 
+
 // WPI libraries
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 
-public class LetsRoll2JoysticksRC extends CommandBase {
+public class LetsRoll2Joysticks extends CommandBase {
 
-  public LetsRoll2JoysticksRC() {
+  // Stores robot driving type (between FOD and ROD)
+  boolean fieldCentric = Parameters.driver.currentProfile.fieldCentric;
+
+  public LetsRoll2Joysticks() {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(Robot.driveTrain);
   }
@@ -36,6 +40,11 @@ public class LetsRoll2JoysticksRC extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+
+    // Get if the left trigger has been pressed, inverting the driving mode
+    if (RobotContainer.leftJoystick.getTriggerPressed()) {
+      fieldCentric = !fieldCentric;
+    }
 
     // Get all of the current joystick inputs
     double leftX =  RobotContainer.constrainJoystick(RobotContainer.leftJoystick.getX());
@@ -50,7 +59,7 @@ public class LetsRoll2JoysticksRC extends CommandBase {
 
       // Move the drivetrain with the desired values (left right values are flipped from the logical way, thanks WPI)
       Robot.driveTrain.drive((rightY * Parameters.driver.currentProfile.maxModSpeed), (rightX * Parameters.driver.currentProfile.maxModSpeed),
-                        Math.toRadians(leftX * Parameters.driver.currentProfile.maxSteerRate), false);
+                        Math.toRadians(leftX * Parameters.driver.currentProfile.maxSteerRate), fieldCentric);
     }
     else if (Parameters.driver.currentProfile.lockemUp) {
       Robot.driveTrain.lockemUp();

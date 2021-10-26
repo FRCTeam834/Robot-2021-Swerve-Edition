@@ -26,7 +26,7 @@ public class Hood extends SubsystemBase {
    */
 
   // Create new motor and limit switch objects
-  WPI_TalonSRX pivotMotor = new WPI_TalonSRX(Parameters.hood.MOTOR_ID);
+  WPI_TalonSRX hoodMotor = new WPI_TalonSRX(Parameters.hood.MOTOR_ID);
   DigitalInput limitSwitch = new DigitalInput(Parameters.hood.LIMIT_SWITCH_PORT);
 
   // The desired angle of the pivot
@@ -36,8 +36,8 @@ public class Hood extends SubsystemBase {
   public Hood() {
 
     // Setup the basic config of the motor
-    pivotMotor.setInverted(Parameters.hood.INVERTED);
-    pivotMotor.configSelectedFeedbackSensor(TalonSRXFeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
+    hoodMotor.setInverted(Parameters.hood.INVERTED);
+    hoodMotor.configSelectedFeedbackSensor(TalonSRXFeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
 
     // PID loop settings
     //pivot.configClosedloopRamp(0.5);
@@ -51,10 +51,24 @@ public class Hood extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
+
   // Set the motor at the desired speed
   public void setSpeed(double speed) {
-    pivotMotor.set(speed);
+    hoodMotor.set(speed);
   }
+
+
+  // Set the motor at the desired speed
+  public void up() {
+    hoodMotor.set(Parameters.hood.MOVEMENT_SPEED);
+  }
+
+
+  // Set the motor at the desired speed
+  public void down() {
+    hoodMotor.set(-Parameters.hood.MOVEMENT_SPEED);
+  }
+
 
   // Tilts the shooter up by the desired angle
   public void tiltUp(double angleInterval) {
@@ -62,6 +76,7 @@ public class Hood extends SubsystemBase {
     // Increment the desired angle, then move there
     //setDesiredAngle(desiredAngle + angleInterval);
   }
+
 
   // Tilts the shooter down by the desired angle
   public void tiltDown(double angleInterval) {
@@ -84,28 +99,32 @@ public class Hood extends SubsystemBase {
 
   // Halts the pivot
   public void stop() {
-    pivotMotor.set(0);
+    hoodMotor.set(0);
   }
+
 
   // Returns the angle of the motor
   public double getCurrentMotorAngle() {
 
     // Returns the rotations of the sensor * 360 deg per rotation
-    return ((pivotMotor.getSelectedSensorPosition() / 4096) * 360);
+    return ((hoodMotor.getSelectedSensorPosition() / 4096) * 360);
   }
+
 
   // Returns the angle of the hood
   public double getCurrentHoodAngle() {
     return getCurrentMotorAngle() * Parameters.hood.GEAR_RATIO;
   }
 
+
   // Returns if the limit switch is pressed
   public boolean getLimitSwitch() {
     return limitSwitch.get();
   }
 
+
   // Sets the encoder's reference back to zero
   public void resetEncoder() {
-    pivotMotor.setSelectedSensorPosition(0);
+    hoodMotor.setSelectedSensorPosition(0);
   }
 }

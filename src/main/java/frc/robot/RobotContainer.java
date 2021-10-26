@@ -56,8 +56,7 @@ public class RobotContainer {
   //private final UltrasonicSensor ultrasonicSensor = new UltrasonicSensor();
 
   // Commands
-  private final LetsRoll2JoysticksRC letsRoll2JoysticksRC = new LetsRoll2JoysticksRC();
-  private final LetsRoll2JoysticksFC letsRoll2JoysticksFC = new LetsRoll2JoysticksFC();
+  private final LetsRoll2Joysticks letsRoll2Joysticks = new LetsRoll2Joysticks();
   private final LetsRoll1Joystick letsRoll1Joystick = new LetsRoll1Joystick();
   private final ZeroCanCoders zeroCanCoders = new ZeroCanCoders();
   private final PullNTSwerveParams pullNtSwerveParams = new PullNTSwerveParams();
@@ -78,7 +77,8 @@ public class RobotContainer {
 
   private final RunConveyor runConveyor = new RunConveyor();
   private final RunConveyorSensor runConveyorSensor = new RunConveyorSensor();
-  private final RunConveyorBackward runConveyorBackward = new RunConveyorBackward();
+  private final EmptyConveyor emptyConveyor = new EmptyConveyor();
+  private final EjectBalls ejectBalls = new EjectBalls();
 
   private final ClimberDown climberDown = new ClimberDown();
   private final ClimberUp climberUp = new ClimberUp();
@@ -168,15 +168,14 @@ public class RobotContainer {
   private void configureButtonBindings() {
 
     // Left joystick
-    lJoystick1.toggleWhenPressed(letsRoll2JoysticksRC);
-    rJoystick1.toggleWhenPressed(letsRoll2JoysticksFC);
+    lJoystick1.whenPressed(letsRoll2Joysticks);
+    rJoystick1.whenPressed(emptyConveyor);
     lJoystick3.whenPressed(zeroNavX);
     lJoystick8.whenPressed(zeroCanCoders);
-    rJoystick1.toggleWhenPressed(zeroNavX);
     rJoystick2.whileHeld(runConveyor);
     rJoystick8.whenPressed(saveSwerveParameters);
 
-    
+
     /*
     xboxY.toggleWhenPressed(new StartEndCommand(Robot.shooter::setShooter,Robot.shooter::stop, Robot.shooter));
     xboxX.whileHeld(runIntake);
@@ -190,7 +189,7 @@ public class RobotContainer {
     BGML.toggleWhenPressed(runShooter);
     BGMR.toggleWhenPressed(runConveyorSensor);
 
-    BGBL.whileHeld(runConveyorBackward);
+    BGBL.whileHeld(ejectBalls);
     //BGBR.whenPressed(saveSwerveParameters);
 
     /*

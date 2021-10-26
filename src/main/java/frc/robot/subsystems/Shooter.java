@@ -39,16 +39,15 @@ public class Shooter extends SubsystemBase {
   public void setSpeed(double speed) {
     shootMotor.set(speed);
   }
-  
+
   // Sets the voltage of the shooter motor in voltage
   public void setVoltage(double voltage) {
     shootMotor.setVoltage(voltage);
   }
 
-  public void setShooter()
-  {
+  // Starts the shooter
+  public void startup() {
     shootMotor.setVoltage(Parameters.shooter.WHEEL_VOLTAGE);
-    
   }
 
   // Returns the encoder object of the Neo motor for shooting
@@ -63,6 +62,6 @@ public class Shooter extends SubsystemBase {
 
   // Halts the shooter motor
   public void stop() {
-    shootMotor.set(0);
+    shootMotor.stopMotor();
   }
 }
