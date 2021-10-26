@@ -20,9 +20,8 @@ public class RunConveyorSensor extends CommandBase {
   /**
    * Creates a new RunConveyorSensor.
    */
-  boolean sensorClear = false;
-  int counter = 0;
   Timer timer = new Timer();
+  boolean currentReading = false, prevReading = false;
 
   public RunConveyorSensor() {
     // Use addRequirements() here to declare subsystem dependencies.
@@ -32,49 +31,47 @@ public class RunConveyorSensor extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    sensorClear = false;
-    Robot.ballIntake.setSpeed(-Parameters.intake.INTAKE_SPEED);
     Robot.conveyor.stop();
+    Robot.ballIntake.setSpeed(-Parameters.intake.INTAKE_SPEED);
     Robot.leds.set(Parameters.LEDColors.ORANGE);
-    timer.reset();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    sensorClear = Robot.conveyor.getBottomSensor();
-    if (sensorClear == false) {
+
+    // Set the current reading value (makes code faster and prevents errors)
+    currentReading = Robot.conveyor.getBottomSensor();
+
+    // Start moving the conveyor if there is a new ball detected
+    if (!prevReading && currentReading) {
       Robot.ballIntake.stop();
-      Robot.conveyor.setSpeed(.75);
-      if(counter == 0)
-      {
-        timer.start();
-      }
-      counter++;
+      Robot.conveyor.setSpeed(Parameters.conveyor.FORWARD_SPEED);
+
+    }
+    // Start the timer once the ball has passed
+    else if (prevReading && !currentReading) {
+      timer.reset();
+      timer.start();
     }
 
-    if (timer.hasElapsed(Parameters.conveyor.TIME) && sensorClear == true) {
-      Robot.ballIntake.setSpeed(-Parameters.intake.INTAKE_SPEED);
-      Robot.conveyor.stop();
-      timer.stop();
-      timer.reset();
-      counter = 0;
-    }
+    // Fix the prev reading value for the next cycle
+    prevReading = currentReading;
+
+    // Continuously set the LED color to orange
     Robot.leds.set(Parameters.LEDColors.ORANGE);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    sensorClear = false;
     Robot.ballIntake.stop();
     Robot.conveyor.stop();
-    Robot.leds.set(-.43);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return timer.hasElapsed(Parameters.conveyor.TIME);
   }
 }
