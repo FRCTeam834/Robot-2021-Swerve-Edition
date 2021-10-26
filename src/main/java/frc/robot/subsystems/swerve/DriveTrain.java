@@ -131,6 +131,9 @@ public class DriveTrain extends SubsystemBase {
     // Push the parameters to NetworkTables
     publishTuningValues();
 
+    // Load the saved parameters from memory
+    loadParameters();
+
     // Center the odometry of the robot
     resetOdometry(Parameters.positions.STARTING_POS);
   }
@@ -546,8 +549,8 @@ public class DriveTrain extends SubsystemBase {
     // Load module values
     frontLeft.loadParameters();
     frontRight.loadParameters();
-    backLeft.saveParameters();
-    backRight.saveParameters();
+    backLeft.loadParameters();
+    backRight.loadParameters();
 
     // X Movement PID
     X_MOVE_PID.setP(Parameters.savedParams.getDouble("DRIVETRAIN_X_MOVE_PID_P", X_MOVE_PID.getP()));
