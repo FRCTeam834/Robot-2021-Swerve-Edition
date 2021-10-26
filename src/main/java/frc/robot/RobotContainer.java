@@ -171,26 +171,27 @@ public class RobotContainer {
     lJoystick1.toggleWhenPressed(letsRoll2JoysticksRC);
     rJoystick1.toggleWhenPressed(letsRoll2JoysticksFC);
     lJoystick3.whenPressed(zeroNavX);
-    //lJoystick2.whenPressed(saveSwerveParameters);
-    //lJoystick3.whenPressed(pullNtSwerveParams);
-    //lJoystick4.whenPressed(testModulePID);
-    //lJoystick5.whenPressed(testMovementPID);
     lJoystick8.whenPressed(zeroCanCoders);
+    rJoystick1.toggleWhenPressed(zeroNavX);
+    rJoystick2.whileHeld(runConveyor);
+    rJoystick8.whenPressed(saveSwerveParameters);
 
-    // Start the shooter
-    xboxY.whileHeld(new StartEndCommand(Robot.shooter::setShooter,Robot.shooter::stop, Robot.shooter));
-
-    // Run conveyor
+    
+    /*
+    xboxY.toggleWhenPressed(new StartEndCommand(Robot.shooter::setShooter,Robot.shooter::stop, Robot.shooter));
     xboxX.whileHeld(runIntake);
     xboxB.whileHeld(runConveyor);
-
-    // Right joystick
-    rJoystick1.toggleWhenPressed(zeroNavX);
-
     xboxA.whileHeld(runConveyorBackward);
+    */
+
     BGTL.whenHeld(climberDown);
     BGTR.whenHeld(climberUp);
-    BGBR.whenPressed(saveSwerveParameters);
+
+    BGML.toggleWhenPressed(runShooter);
+    BGMR.toggleWhenPressed(runConveyorSensor);
+
+    BGBL.whileHeld(runConveyorBackward);
+    //BGBR.whenPressed(saveSwerveParameters);
 
     /*
     // Move conveyor forward
