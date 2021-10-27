@@ -84,6 +84,7 @@ public class RobotContainer {
   private final Auton auton = new Auton();
   private final LineUpAndShoot lineUpAndShoot = new LineUpAndShoot();
 
+
   // Timer (for delays)
   public static Timer timer = new Timer();
 
@@ -185,7 +186,7 @@ public class RobotContainer {
     //TOP ROW
     BGTL.whenHeld(climberDown); //this moves the climber up...don't worry about it for right now
     BGTM.whenHeld(climberUp); //this moves the climber down...don't worry about it for right now
-    BGMR.whenPressed(lineUpAndShoot); //REMOVE ONCE DONE TESTING
+    BGMR.whenPressed(() -> Robot.driveTrain.setDesiredAngles(0, 0, 0, 0, false)); //REMOVE ONCE DONE TESTING
 
     //MIDDLE ROW
     BGML.whileHeld(runConveyorSensor); //AUTOBALL PICKUP
