@@ -14,9 +14,11 @@ package frc.robot;
 
 // Import Parameters
 import frc.robot.Parameters;
+import frc.robot.Parameters.driveTrain.auton;
 import frc.robot.commands.ClimberDown;
 import frc.robot.commands.ClimberUp;
-
+import frc.robot.commands.autonomous.autons.Auton;
+import frc.robot.commands.autonomous.autons.LineUpAndShoot;
 // Import all the folders of subsystems
 import frc.robot.commands.conveyor.*;
 import frc.robot.commands.shooter.*;
@@ -71,9 +73,6 @@ public class RobotContainer {
 
   private final RunShooter runShooter = new RunShooter();
 
-  private final HoodHome hoodHome = new HoodHome();
-  private final RunHoodUp runHoodUp = new RunHoodUp();
-  private final RunHoodDown runHoodDown = new RunHoodDown();
 
   private final RunConveyor runConveyor = new RunConveyor();
   private final RunConveyorSensor runConveyorSensor = new RunConveyorSensor();
@@ -83,6 +82,8 @@ public class RobotContainer {
   private final ClimberDown climberDown = new ClimberDown();
   private final ClimberUp climberUp = new ClimberUp();
 
+  private final Auton auton = new Auton();
+  private final LineUpAndShoot lineUpAndShoot = new LineUpAndShoot();
 
   // Timer (for delays)
   public static Timer timer = new Timer();
@@ -182,16 +183,22 @@ public class RobotContainer {
     xboxA.whileHeld(runConveyorBackward);
     */
 
-    BGTL.whenHeld(climberDown);
-    BGTM.whenHeld(climberUp);
+    //TOP ROW
+    BGTL.whenHeld(climberDown); //this moves the climber up...don't worry about it for right now
+    BGTM.whenHeld(climberUp); //this moves the climber down...don't worry about it for right now
+    BGMR.whenPressed(lineUpAndShoot); //REMOVE ONCE DONE TESTING
 
-    BGMR.whileHeld(runConveyor);
-    BGBM.whileHeld(runIntake);
-    BGML.whenPressed(runConveyorSensor);
-    BGBL.whenPressed(ejectBalls);
+    //MIDDLE ROW
+    BGML.whileHeld(runConveyorSensor); //AUTOBALL PICKUP
+    BGMM.whileHeld(runIntakeBackwards); //STREET SWEEPING
+    BGMR.whenPressed(ejectBalls);
 
-    //BGBL.whileHeld(ejectBalls);
-    BGBR.whenPressed(saveSwerveParameters);
+
+    BGBL.whileHeld(runConveyor); //MANUAL
+    BGBM.whileHeld(runIntake); //MANUAL
+    BGBR.whenPressed(auton); //REMOVE THIS ONCE DONE TESTING
+    
+
 
     /*
     // Move conveyor forward
@@ -369,6 +376,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
+    //return new Auton();
     return autonChooser.getSelected();
   }
 }
