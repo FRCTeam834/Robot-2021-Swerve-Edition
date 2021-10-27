@@ -5,6 +5,9 @@
 package frc.robot.commands.autonomous.autons;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.Parameters;
+import frc.robot.commands.conveyor.EmptyConveyor;
+import frc.robot.commands.swerve.DriveDistanceCheap;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -14,6 +17,6 @@ public class Auton extends SequentialCommandGroup {
   public Auton() {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands();
+    addCommands(new DriveDistanceCheap(Parameters.driveTrain.auton.DRIVE_DISTANCE, Parameters.driveTrain.auton.DRIVE_SPEED), new LineUpAndShoot());
   }
 }

@@ -45,6 +45,7 @@ public class EmptyConveyor extends CommandBase {
   public void end(boolean interrupted) {
     Robot.shooter.stop();
     Robot.conveyor.stop();
+    Parameters.conveyor.BALL_COUNT = 0;
   }
 
   // Returns true when the command should end.

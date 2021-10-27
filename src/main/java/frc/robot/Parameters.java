@@ -194,6 +194,13 @@ public final class Parameters {
             public static final double STEER_GEAR_RATIO = 12.8;
             public static final double DRIVE_GEAR_RATIO = 8.16;
         }
+
+        public static final class auton {
+            public static final double DRIVE_DISTANCE = Units.feetToMeters(9); // m
+            public static final double DRIVE_SPEED = .5; // m/s
+            public static final double LINE_UP_DISTANCE = Units.inchesToMeters(10);
+            public static final double LINE_UP_SPEED = -1;
+        }
     }
 
 
@@ -288,6 +295,8 @@ public final class Parameters {
         public static final double INTAKE_TIME = 0.5;
         public static final double UNLOAD_TIME = 4; // Time to unload the entire conveyor (in s)
         public static final double EJECT_TIME = 3; // Time to eject all balls from the conveyor (in s)
+
+        public static double BALL_COUNT = 0;
     }
 
 

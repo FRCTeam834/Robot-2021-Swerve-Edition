@@ -4,29 +4,49 @@
 
 package frc.robot.commands.swerve;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Robot;
 
-public class DriveTime extends CommandBase {
+public class DriveDistanceCheap extends CommandBase {
   /** Creates a new DriveTime. */
-  public DriveTime() {
-    // Use addRequirements() here to declare subsystem dependencies.
+  double time = 0;
+  double linVel = 0;
+  Timer timer = new Timer();
+
+  /**
+   * 
+   * @param distance distance to travel, direction agnostic
+   * @param linVel speed to move at, direction dependent (+/-)
+   */
+  public DriveDistanceCheap(double distance, double linVel) {
+    addRequirements(Robot.driveTrain);
+    time = Math.abs(distance/linVel);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    Robot.driveTrain.setDesiredAngles(0, 0, 0, 0, true);
+    System.out.println("angles zeroed!");
+    timer.start();
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    Robot.driveTrain.setDesiredVelocities(linVel, linVel, linVel , linVel, false);
+  }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    Robot.driveTrain.stopModules();
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return timer.hasElapsed(time);
   }
 }

@@ -22,7 +22,6 @@ public class RunConveyorSensor extends CommandBase {
    */
   Timer timer = new Timer();
   boolean currentReading = false, prevReading = false;
-
   public RunConveyorSensor() {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(Robot.conveyor, Robot.intake);
@@ -36,6 +35,7 @@ public class RunConveyorSensor extends CommandBase {
     Robot.leds.set(Parameters.LEDColors.ORANGE);
     timer.reset();
     timer.stop();
+    Parameters.conveyor.BALL_COUNT++;
   }
 
   // Called every time the scheduler runs while the command is scheduled.

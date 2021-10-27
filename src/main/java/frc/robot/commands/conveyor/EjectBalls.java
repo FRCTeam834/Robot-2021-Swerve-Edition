@@ -54,6 +54,7 @@ public class EjectBalls extends CommandBase {
     // Stop the conveyor
     Robot.intake.stop();
     Robot.conveyor.stop();
+    Parameters.conveyor.BALL_COUNT = 0;
   }
 
   // Returns true when the command should end.
