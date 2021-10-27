@@ -42,6 +42,8 @@ public class DriveDistanceCheap extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     Robot.driveTrain.stopModules();
+    timer.reset();
+    timer.stop();
   }
 
   // Returns true when the command should end.
