@@ -172,7 +172,6 @@ public class RobotContainer {
     rJoystick1.whenPressed(emptyConveyor);
     lJoystick3.whenPressed(zeroNavX);
     lJoystick8.whenPressed(zeroCanCoders);
-    rJoystick2.whileHeld(runConveyor);
     rJoystick8.whenPressed(saveSwerveParameters);
 
 
@@ -184,13 +183,15 @@ public class RobotContainer {
     */
 
     BGTL.whenHeld(climberDown);
-    BGTR.whenHeld(climberUp);
+    BGTM.whenHeld(climberUp);
 
-    BGML.toggleWhenPressed(runShooter);
-    BGMR.toggleWhenPressed(runConveyorSensor);
+    BGMR.whileHeld(runConveyor);
+    BGBM.whileHeld(runIntake);
+    BGML.whenPressed(runConveyorSensor);
+    BGBL.whenPressed(ejectBalls);
 
-    BGBL.whileHeld(ejectBalls);
-    //BGBR.whenPressed(saveSwerveParameters);
+    //BGBL.whileHeld(ejectBalls);
+    BGBR.whenPressed(saveSwerveParameters);
 
     /*
     // Move conveyor forward
@@ -201,7 +202,7 @@ public class RobotContainer {
 
     //BGMR.whenPressed(new ParallelCommandGroup(() -> Robot.conveyor.setSpeed(-.75)),runIntakeBackwards));
     // Stop conveyor
-    BGMM.whenPressed(new InstantCommand(Robot.conveyor::stop, Robot.conveyor));
+    //BGMM.whenPressed(new InstantCommand(Robot.conveyor::stop, Robot.conveyor));
 
     /*Pivot
     xboxA.whileHeld(runHoodDown);
@@ -210,7 +211,7 @@ public class RobotContainer {
     */
 
     // Start intake
-    xboxRB.toggleWhenPressed(runIntake);
+    //xboxRB.toggleWhenPressed(runIntake);
 
     // Reverse intake
     //xboxLB.whenHeld(runIntakeBackwards);

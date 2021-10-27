@@ -110,7 +110,7 @@ public class SwerveModule {
     driveMotor.enableVoltageCompensation(Parameters.driveTrain.nominalVoltage);
     //driveMotor.setOpenLoopRampRate(Parameters.driver.CURRENT_PROFILE.DRIVE_RAMP_RATE);
     driveMotor.setIdleMode(Parameters.driver.currentProfile.driveIdleMode);
-    driveMotor.setSmartCurrentLimit(20);
+    driveMotor.setSmartCurrentLimit(30);
 
     // Reverse the motor direction if specified
     driveMotor.setInverted(reversedDrive);
@@ -457,6 +457,7 @@ public class SwerveModule {
 
     // Encoder offset
     steerCANCoder.configMagnetOffset(Parameters.savedParams.getDouble(name + "_ENCODER_OFFSET", cancoderOffset));
+    steerMotorEncoder.setPosition(getAngle());
 
     // Steer motor feedforward
     steerMotorPID.setFF(Parameters.savedParams.getDouble(name + "_STEER_FF", steerMotorPID.getFF()));

@@ -280,14 +280,14 @@ public final class Parameters {
         public static final int BALL_SENSOR_PORT = 0; // DIO Port#
 
         // Motor speeds
-        public static final double AUTON_SPEED = 0.5;
-        public static final double FORWARD_SPEED = 0.6;
+        public static final double AUTON_SPEED = 0.4;
+        public static final double FORWARD_SPEED = 0.35;
         public static final double BACKWARD_SPEED = -0.75;
 
         // Times
-        public static final double INTAKE_TIME = 1;
-        public static final double UNLOAD_TIME = 5; // Time to unload the entire conveyor (in s)
-        public static final double EJECT_TIME = 4; // Time to eject all balls from the conveyor (in s)
+        public static final double INTAKE_TIME = 0.5;
+        public static final double UNLOAD_TIME = 4; // Time to unload the entire conveyor (in s)
+        public static final double EJECT_TIME = 3; // Time to eject all balls from the conveyor (in s)
     }
 
 
@@ -314,7 +314,7 @@ public final class Parameters {
 
     public class climber {
         public static final int CLIMBER_MOTOR_PORT = 16; //CAN ID#
-        public static final boolean CLIMBER_INVERTED = false;//if it is going the wrong direction
+        public static final boolean CLIMBER_INVERTED = true;//if it is going the wrong direction
         public static final double CLIMBER_MOTOR_SPEED = 1;
         public static final int CLIMBER_LIMIT_SWITCH_PORT = 8;
     }

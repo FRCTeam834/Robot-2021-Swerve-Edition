@@ -40,7 +40,7 @@ public class Conveyor extends SubsystemBase {
 
   // Gets the value of the ball sensor. Returns true if triggered, false if not
   public boolean getBallSensor() {
-    return ballSensor.get();
+    return !ballSensor.get();
   }
 
   // Sets the conveyor to run at desired percentage

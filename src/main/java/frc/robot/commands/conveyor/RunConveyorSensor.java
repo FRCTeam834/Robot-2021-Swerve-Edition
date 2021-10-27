@@ -34,6 +34,8 @@ public class RunConveyorSensor extends CommandBase {
     Robot.conveyor.stop();
     Robot.intake.runForward();
     Robot.leds.set(Parameters.LEDColors.ORANGE);
+    timer.reset();
+    timer.stop();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -67,6 +69,7 @@ public class RunConveyorSensor extends CommandBase {
   public void end(boolean interrupted) {
     Robot.intake.stop();
     Robot.conveyor.stop();
+    timer.stop();
   }
 
   // Returns true when the command should end.

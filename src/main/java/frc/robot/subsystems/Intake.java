@@ -51,7 +51,7 @@ public class Intake extends SubsystemBase {
 
   // Runs the intake backward (ejects balls)
   public void runBackward() {
-    intakeMotor.set(Parameters.intake.BACKWARD_SPEED);
+    intakeMotor.set(-Parameters.intake.BACKWARD_SPEED);
   }
 
 
