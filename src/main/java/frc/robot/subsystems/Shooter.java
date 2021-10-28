@@ -13,6 +13,7 @@ import frc.robot.Parameters;
 // Rev libraries
 import com.revrobotics.CANSparkMax;
 
+import edu.wpi.first.wpilibj.Timer;
 // WPI libraries
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -23,6 +24,9 @@ public class Shooter extends SubsystemBase {
 
   // Create new object for shooter motor
   CANSparkMax shootMotor = new CANSparkMax(Parameters.shooter.MOTOR_ID, CANSparkMax.MotorType.kBrushless);
+
+  // Timer for spool time
+  Timer spoolTime = new Timer();
 
   public Shooter() {
     // Set the inversion
@@ -47,7 +51,16 @@ public class Shooter extends SubsystemBase {
   // Starts the shooter
   public void startup() {
     shootMotor.setVoltage(Parameters.shooter.WHEEL_VOLTAGE);
+    spoolTime.reset();
+    spoolTime.start();
   }
+
+
+  // Checks if the shooter is ready for a ball
+  public boolean isReady() {
+    return spoolTime.hasElapsed(Parameters.shooter.SPOOL_TIME);
+  }
+
 
   // Returns the encoder object of the Neo motor for shooting
   public double getVelocity() {

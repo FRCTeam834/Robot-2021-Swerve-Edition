@@ -26,8 +26,6 @@ public class EmptyConveyor extends CommandBase {
 
     // Start the shooter, wait for it to start up, then begin firing
     Robot.shooter.startup();
-    timer.reset();
-    timer.start();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -35,8 +33,10 @@ public class EmptyConveyor extends CommandBase {
   public void execute() {
 
     // Check if the shooter is spun up
-    if (timer.hasElapsed(Parameters.shooter.SPOOL_TIME)) {
+    if (Robot.shooter.isReady()) {
       Robot.conveyor.runForward();
+      timer.reset();
+      timer.start();
     }
   }
 
@@ -51,6 +51,6 @@ public class EmptyConveyor extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return timer.hasElapsed(Parameters.shooter.SPOOL_TIME + Parameters.conveyor.UNLOAD_TIME);
+    return timer.hasElapsed(Parameters.conveyor.UNLOAD_TIME);
   }
 }
