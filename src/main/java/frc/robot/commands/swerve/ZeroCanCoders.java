@@ -27,6 +27,5 @@ public class ZeroCanCoders extends InstantCommand {
   public void initialize() {
     // Zero each of the modules
     Robot.driveTrain.zeroEncoders();
-    System.out.println("All modules zeroed");
   }
 }

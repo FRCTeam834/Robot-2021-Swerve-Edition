@@ -34,7 +34,7 @@ public class RunShooter extends CommandBase {
   public void initialize() {
 
     // Start the motor at the specified voltage
-    Robot.shooter.setVoltage(Parameters.shooter.WHEEL_VOLTAGE);
+    Robot.shooter.startup();
   }
 
   // Called every time the scheduler runs while the command is scheduled.

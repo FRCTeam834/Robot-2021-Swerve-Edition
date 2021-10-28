@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Parameters;
 import frc.robot.Robot;
 import frc.robot.commands.conveyor.EmptyConveyor;
+import frc.robot.commands.swerve.Drive;
 import frc.robot.commands.swerve.DriveDistanceCheap;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
@@ -19,7 +20,6 @@ public class LineUpAndShoot extends SequentialCommandGroup {
   public LineUpAndShoot() {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new RunCommand(Robot.driveTrain::straightenModules,Robot.driveTrain), new RunCommand(()-> Robot.driveTrain.drive(-Parameters.driveTrain.auton.DRIVE_SPEED, 0, 0 , false), Robot.driveTrain).withTimeout(Parameters.driveTrain.auton.LINEUP_TIME),
-        new EmptyConveyor());
+    addCommands(new Drive(Parameters.driveTrain.auton.LINEUP_TIME), new EmptyConveyor());
   }
 }

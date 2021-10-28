@@ -194,8 +194,6 @@ public class Robot extends TimedRobot {
     leds.set(colorSetting);
 
     // Publish dashboard values
-    SmartDashboard.putNumber("Rot2DAng", navX.getRotation2d().getDegrees());
-    SmartDashboard.putNumber("Shooter RPM", shooter.getVelocity());
     SmartDashboard.putNumber("Ball Count", Parameters.conveyor.BALL_COUNT);
   }
 

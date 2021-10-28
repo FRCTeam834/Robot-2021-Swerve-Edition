@@ -17,12 +17,12 @@ import frc.robot.Parameters;
 import frc.robot.Parameters.driveTrain.auton;
 import frc.robot.commands.ClimberDown;
 import frc.robot.commands.ClimberUp;
+import frc.robot.commands.autonomous.PickupBalls;
 import frc.robot.commands.autonomous.autons.Auton;
 import frc.robot.commands.autonomous.autons.LineUpAndShoot;
 // Import all the folders of subsystems
 import frc.robot.commands.conveyor.*;
 import frc.robot.commands.shooter.*;
-import frc.robot.commands.hood.*;
 import frc.robot.commands.swerve.*;
 import frc.robot.commands.intake.*;
 import frc.robot.commands.swerve.*;
@@ -33,6 +33,7 @@ import frc.robot.enums.ROBOT_STATE;
 // WPI Libraries
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
@@ -82,9 +83,11 @@ public class RobotContainer {
 
   private final ClimberDown climberDown = new ClimberDown();
   private final ClimberUp climberUp = new ClimberUp();
+  private final Drive drive = new Drive(Parameters.driveTrain.auton.LINEUP_TIME);
 
   private final Auton auton = new Auton();
   private final LineUpAndShoot lineUpAndShoot = new LineUpAndShoot();
+  private final PickupBalls pickupBalls = new PickupBalls();
 
   // Timer (for delays)
   public static Timer timer = new Timer();
@@ -163,7 +166,7 @@ public class RobotContainer {
 
     // Left joystick
     lJoystick1.whenPressed(letsRoll2Joysticks);
-    rJoystick1.whenPressed(emptyConveyor);
+    rJoystick1.whenPressed(lineUpAndShoot);
     lJoystick3.whenPressed(zeroNavX);
     lJoystick8.whenPressed(zeroCanCoders);
     rJoystick8.whenPressed(saveSwerveParameters);
@@ -178,16 +181,16 @@ public class RobotContainer {
     // TOP ROW
     BGTL.whenHeld(climberUp); // this moves the climber up...don't worry about it for right now
     BGTM.whenHeld(climberDown); // this moves the climber down...don't worry about it for right now
-    // BGTR.whenPressed(drive.withTimeout(4)); //REMOVE ONCE DONE TESTING
+    //BGTR.whenPressed(auton); //REMOVE ONCE DONE TESTING
 
     // MIDDLE ROW
-    BGML.whenPressed(runConveyorSensor); // AUTOBALL PICKUP
+    BGML.whenPressed(pickupBalls); // AUTOBALL PICKUP
     BGMM.whileHeld(runIntakeBackwards); // STREET SWEEPING
     BGMR.whenPressed(ejectBalls);
 
     BGBL.whileHeld(runConveyor); // MANUAL
     BGBM.whileHeld(runIntake); // MANUAL
-    BGBR.whenPressed(lineUpAndShoot); // REMOVE THIS ONCE DONE TESTING
+    BGBR.whenPressed(runShooter); 
 
     /*
      * // Move conveyor forward BGML.whileHeld(runConveyor);
@@ -354,7 +357,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    // return new Auton();
-    return autonChooser.getSelected();
+    return new Auton();
+    //return autonChooser.getSelected();
   }
 }

@@ -4,37 +4,43 @@
 
 package frc.robot.commands.swerve;
 
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Parameters;
 import frc.robot.Robot;
+import edu.wpi.first.wpilibj.Timer;
 
-public class DriveDistanceCheap extends CommandBase {
-  /** Creates a new DriveTime. */
-  double time = 0;
-  double linVel = 0;
+
+public class Drive extends CommandBase {
+  /** Creates a new Drive. */
   Timer timer = new Timer();
-
-  /**
-   * 
-   * @param distance distance to travel, direction agnostic
-   * @param linVel speed to move at, direction dependent (+/-)
-   */
-  public DriveDistanceCheap(double distance, double linVel) {
+  double time =0;
+  double speed = 0;
+  public Drive(double time) {
+    // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(Robot.driveTrain);
-    time = Math.abs(distance/linVel);
+    this.time = time;
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    Robot.driveTrain.setDesiredAngles(0, 0, 0, 0, true);
+    Robot.driveTrain.straightenModules();
+    timer.reset();
     timer.start();
+    if(time == Parameters.driveTrain.auton.TIME_OFF_LINE)
+    {
+      speed = Parameters.driveTrain.auton.DRIVE_SPEED;
+    }
+    else
+    {
+      speed = Parameters.driveTrain.auton.LINE_UP_SPEED;
+    }
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Robot.driveTrain.drive(-5, 0, 0, false);
+    Robot.driveTrain.drive(speed, 0, 0, false);
   }
 
   // Called once the command ends or is interrupted.

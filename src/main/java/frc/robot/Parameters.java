@@ -218,15 +218,11 @@ public final class Parameters {
 
         public static final class auton {
 
-            public static final double DRIVE_SPEED = -.5;// m/s
-            public static final double TIME_OFF_LINE = 4; // s
+            public static final double DRIVE_SPEED = -2;// m/s //DO NOT CHANGE!
+            public static final double TIME_OFF_LINE = 2.25; // s //DO NOT CHANGE!
 
-            public static final double LINE_UP_SPEED = 1.27; // m/s
-            /*
-            How was the above number determined? 
-            We need to go back 10 inches once the front of our intake hits the front of the powerport. 10 inches is .254 meters. To cover .254 meters in .2 seconds, we need to move at a speed of 1.27 m/s (.254/2)
-            */
-            public static final double LINEUP_TIME = .2; //s
+            public static final double LINE_UP_SPEED = 1.5; // m/s
+            public static final double LINEUP_TIME = .55; //s
             /*
             */
 
