@@ -36,11 +36,10 @@ import frc.robot.Parameters;
 // Import Robot
 import frc.robot.Robot;
 
-
 public class DriveTrain extends SubsystemBase {
   /**
    * Creates a new Drivetrain.
-  */
+   */
 
   // Create the modules
   public SwerveModule frontLeft;
@@ -71,29 +70,42 @@ public class DriveTrain extends SubsystemBase {
   NetworkTableEntry ROTATIONAL_POSITION_ENTRY;
 
   // Define their position (relative to center of robot)
-  Translation2d FL_POS = new Translation2d(Parameters.driveTrain.dimensions.DRIVE_LENGTH / 2, Parameters.driveTrain.dimensions.DRIVE_WIDTH / 2);
-  Translation2d FR_POS = new Translation2d(Parameters.driveTrain.dimensions.DRIVE_LENGTH / 2, -Parameters.driveTrain.dimensions.DRIVE_WIDTH / 2);
-  Translation2d BL_POS = new Translation2d(-Parameters.driveTrain.dimensions.DRIVE_LENGTH / 2, Parameters.driveTrain.dimensions.DRIVE_WIDTH / 2);
-  Translation2d BR_POS = new Translation2d(-Parameters.driveTrain.dimensions.DRIVE_LENGTH / 2, -Parameters.driveTrain.dimensions.DRIVE_WIDTH / 2);
+  Translation2d FL_POS = new Translation2d(Parameters.driveTrain.dimensions.DRIVE_LENGTH / 2,
+      Parameters.driveTrain.dimensions.DRIVE_WIDTH / 2);
+  Translation2d FR_POS = new Translation2d(Parameters.driveTrain.dimensions.DRIVE_LENGTH / 2,
+      -Parameters.driveTrain.dimensions.DRIVE_WIDTH / 2);
+  Translation2d BL_POS = new Translation2d(-Parameters.driveTrain.dimensions.DRIVE_LENGTH / 2,
+      Parameters.driveTrain.dimensions.DRIVE_WIDTH / 2);
+  Translation2d BR_POS = new Translation2d(-Parameters.driveTrain.dimensions.DRIVE_LENGTH / 2,
+      -Parameters.driveTrain.dimensions.DRIVE_WIDTH / 2);
 
   // Create the drivetrain map
   SwerveDriveKinematics kinematics = new SwerveDriveKinematics(FL_POS, FR_POS, BL_POS, BR_POS);
 
   // Pose estimator
-  private SwerveDrivePoseEstimator poseEstimator = new SwerveDrivePoseEstimator(Robot.navX.getRotation2d(), Parameters.positions.STARTING_POS, kinematics, Parameters.driveTrain.movement.POSE_STD_DEV, Parameters.driveTrain.movement.ENCODER_GYRO_DEV, Parameters.driveTrain.movement.VISION_DEVIATION);
+  private SwerveDrivePoseEstimator poseEstimator = new SwerveDrivePoseEstimator(Robot.navX.getRotation2d(),
+      Parameters.positions.STARTING_POS, kinematics, Parameters.driveTrain.movement.POSE_STD_DEV,
+      Parameters.driveTrain.movement.ENCODER_GYRO_DEV, Parameters.driveTrain.movement.VISION_DEVIATION);
 
   // Holomonic drive controller
   private HolonomicDriveController driveController = new HolonomicDriveController(X_MOVE_PID, Y_MOVE_PID, ROTATION_PID);
-
 
   // Setup the drivetrain
   public DriveTrain() {
 
     // Create each swerve module instance
-    frontLeft  = new SwerveModule("FL", Parameters.driveTrain.can.FL_STEER_ID,  Parameters.driveTrain.can.FL_DRIVE_ID,  Parameters.driveTrain.can.FL_CODER_ID,  Parameters.driveTrain.pid.FL_STEER_PID, Parameters.driveTrain.pid.FL_DRIVE_PID, true);
-    frontRight = new SwerveModule("FR", Parameters.driveTrain.can.FR_STEER_ID, Parameters.driveTrain.can.FR_DRIVE_ID, Parameters.driveTrain.can.FR_CODER_ID, Parameters.driveTrain.pid.FR_STEER_PID, Parameters.driveTrain.pid.FR_DRIVE_PID, false);
-    backLeft   = new SwerveModule("BL", Parameters.driveTrain.can.BL_STEER_ID,   Parameters.driveTrain.can.BL_DRIVE_ID,   Parameters.driveTrain.can.BL_CODER_ID,   Parameters.driveTrain.pid.BL_STEER_PID, Parameters.driveTrain.pid.BL_DRIVE_PID, true);
-    backRight  = new SwerveModule("BR", Parameters.driveTrain.can.BR_STEER_ID,  Parameters.driveTrain.can.BR_DRIVE_ID,  Parameters.driveTrain.can.BR_CODER_ID,  Parameters.driveTrain.pid.BR_STEER_PID, Parameters.driveTrain.pid.BR_DRIVE_PID, false);
+    frontLeft = new SwerveModule("FL", Parameters.driveTrain.can.FL_STEER_ID, Parameters.driveTrain.can.FL_DRIVE_ID,
+        Parameters.driveTrain.can.FL_CODER_ID, Parameters.driveTrain.pid.FL_STEER_PID,
+        Parameters.driveTrain.pid.FL_DRIVE_PID, true);
+    frontRight = new SwerveModule("FR", Parameters.driveTrain.can.FR_STEER_ID, Parameters.driveTrain.can.FR_DRIVE_ID,
+        Parameters.driveTrain.can.FR_CODER_ID, Parameters.driveTrain.pid.FR_STEER_PID,
+        Parameters.driveTrain.pid.FR_DRIVE_PID, false);
+    backLeft = new SwerveModule("BL", Parameters.driveTrain.can.BL_STEER_ID, Parameters.driveTrain.can.BL_DRIVE_ID,
+        Parameters.driveTrain.can.BL_CODER_ID, Parameters.driveTrain.pid.BL_STEER_PID,
+        Parameters.driveTrain.pid.BL_DRIVE_PID, true);
+    backRight = new SwerveModule("BR", Parameters.driveTrain.can.BR_STEER_ID, Parameters.driveTrain.can.BR_DRIVE_ID,
+        Parameters.driveTrain.can.BR_CODER_ID, Parameters.driveTrain.pid.BR_STEER_PID,
+        Parameters.driveTrain.pid.BR_DRIVE_PID, false);
 
     // Set up the module's table on NetworkTables
     NetworkTable swerveTable = NetworkTableInstance.getDefault().getTable("Swerve");
@@ -138,55 +150,68 @@ public class DriveTrain extends SubsystemBase {
     resetOdometry(Parameters.positions.STARTING_POS);
   }
 
-
   /**
    * Moves the entire drivetrain with the specified X and Y speed with rotation
-   * @param xSpeed X speed, in m/s
-   * @param ySpeed Y speed, in m/s
-   * @param rot Rotation speed in rad/s
-   * @param fieldRelative If true, robot will use field as X and Y reference, regardless of angle. If false, robot will move in respect to itself
+   * 
+   * @param xSpeed        X speed, in m/s
+   * @param ySpeed        Y speed, in m/s
+   * @param rot           Rotation speed in rad/s
+   * @param fieldRelative If true, robot will use field as X and Y reference,
+   *                      regardless of angle. If false, robot will move in
+   *                      respect to itself
    */
   public void drive(double xSpeed, double ySpeed, double rot, boolean fieldRelative) {
 
     // Set up the modules
     if (fieldRelative) {
-      setModuleStates(ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, rot, Rotation2d.fromDegrees(Robot.navX.getYaw())));
-    }
-    else {
+      setModuleStates(
+          ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, rot, Rotation2d.fromDegrees(Robot.navX.getYaw())));
+    } else {
       setModuleStates(new ChassisSpeeds(xSpeed, ySpeed, rot));
     }
   }
 
-
   /**
-   * Moves the entire drivetrain with specified X and Y speed with rotation around a specified relative center
-   * @param xSpeed X speed, in m/s
-   * @param ySpeed Y speed, in m/s
-   * @param rot Rotation speed in rad/s
-   * @param fieldRelative If true, robot will use field as X and Y reference, regardless of angle. If false, robot will move in respect to itself
-   * @param relativeCenter A Translation2d of the point that the robot is supposed to move around. This point is relative to the frame of the robot
+   * Moves the entire drivetrain with specified X and Y speed with rotation around
+   * a specified relative center
+   * 
+   * @param xSpeed         X speed, in m/s
+   * @param ySpeed         Y speed, in m/s
+   * @param rot            Rotation speed in rad/s
+   * @param fieldRelative  If true, robot will use field as X and Y reference,
+   *                       regardless of angle. If false, robot will move in
+   *                       respect to itself
+   * @param relativeCenter A Translation2d of the point that the robot is supposed
+   *                       to move around. This point is relative to the frame of
+   *                       the robot
    */
-  public void driveRelativeCenter(double xSpeed, double ySpeed, double rot, boolean fieldRelative, Translation2d relativeCenter) {
+  public void driveRelativeCenter(double xSpeed, double ySpeed, double rot, boolean fieldRelative,
+      Translation2d relativeCenter) {
 
     // Drive with selected mode
     if (fieldRelative) {
-      setModuleStates(ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, rot, Robot.navX.getRotation2d()), relativeCenter);
-    }
-    else {
+      setModuleStates(ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, rot, Robot.navX.getRotation2d()),
+          relativeCenter);
+    } else {
       setModuleStates(new ChassisSpeeds(xSpeed, ySpeed, rot), relativeCenter);
     }
   }
 
-
   /**
-   * Moves the entire drivetrain with specified X and Y speed with rotation around a specified absolute center
-   * @param xSpeed X speed, in m/s
-   * @param ySpeed Y speed, in m/s
-   * @param rot Rotation speed in rad/s
-   * @param fieldRelative If true, robot will use field as X and Y reference, regardless of angle. If false, robot will move in respect to itself
-   * @param relativeCenter A Translation2d of the point that the robot is supposed to move around. This point is relative to the field
+   * Moves the entire drivetrain with specified X and Y speed with rotation around
+   * a specified absolute center
+   * 
+   * @param xSpeed         X speed, in m/s
+   * @param ySpeed         Y speed, in m/s
+   * @param rot            Rotation speed in rad/s
+   * @param fieldRelative  If true, robot will use field as X and Y reference,
+   *                       regardless of angle. If false, robot will move in
+   *                       respect to itself
+   * @param relativeCenter A Translation2d of the point that the robot is supposed
+   *                       to move around. This point is relative to the field
    */
-  public void driveAbsoluteCenter(double xSpeed, double ySpeed, double rot, boolean fieldRelative, Translation2d absoluteCenter) {
+  public void driveAbsoluteCenter(double xSpeed, double ySpeed, double rot, boolean fieldRelative,
+      Translation2d absoluteCenter) {
 
     // Get the current position of the robot on the field
     Pose2d currentPose = poseEstimator.getEstimatedPosition();
@@ -199,18 +224,20 @@ public class DriveTrain extends SubsystemBase {
 
     // Set up the modules
     if (fieldRelative) {
-      setModuleStates(ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, rot, Robot.navX.getRotation2d()), centerOfRotation);
-    }
-    else {
+      setModuleStates(ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, rot, Robot.navX.getRotation2d()),
+          centerOfRotation);
+    } else {
       setModuleStates(new ChassisSpeeds(xSpeed, ySpeed, rot), centerOfRotation);
     }
   }
 
-
   /**
    * Sets all of the states of the modules and updates the odometry of the robot
-   * @param chassisSpeeds The desired velocities of the movement of the entire drivetrain
-   * @param centerOfRotation The center of rotation that should be used. This is relative to the robot
+   * 
+   * @param chassisSpeeds    The desired velocities of the movement of the entire
+   *                         drivetrain
+   * @param centerOfRotation The center of rotation that should be used. This is
+   *                         relative to the robot
    */
   private void setModuleStates(ChassisSpeeds chassisSpeeds, Translation2d centerOfRotation) {
 
@@ -230,10 +257,11 @@ public class DriveTrain extends SubsystemBase {
     updateOdometry();
   }
 
-
   /**
    * Sets all of the states of the modules and updates the odometry of the robot
-   * @param chassisSpeeds The desired velocities of the movement of the entire drivetrain
+   * 
+   * @param chassisSpeeds The desired velocities of the movement of the entire
+   *                      drivetrain
    */
   private void setModuleStates(ChassisSpeeds chassisSpeeds) {
 
@@ -253,7 +281,6 @@ public class DriveTrain extends SubsystemBase {
     updateOdometry();
   }
 
-
   /**
    * Halts all of the modules (sets all the motors to 0%)
    */
@@ -266,14 +293,16 @@ public class DriveTrain extends SubsystemBase {
     backRight.stopMotors();
   }
 
-
   /**
-   * Moves all of the swerve modules. If wait is specified, then the function will wait until the modules reach their desired angles.
+   * Moves all of the swerve modules. If wait is specified, then the function will
+   * wait until the modules reach their desired angles.
+   * 
    * @param FLAngle Angle of the front left module
    * @param FRAngle Angle of the front right module
    * @param BLAngle Angle of the back left module
    * @param BRAngle Angle of the back right module
-   * @param wait If true, then this function will block execution until the movement has been completed
+   * @param wait    If true, then this function will block execution until the
+   *                movement has been completed
    */
   public void setDesiredAngles(double FLAngle, double FRAngle, double BLAngle, double BRAngle, boolean wait) {
 
@@ -283,14 +312,15 @@ public class DriveTrain extends SubsystemBase {
       // Create a new timer (for timeout)
       Timer timer = new Timer();
 
-      // Continuously loop, checking to see the current time in seconds. If we've exceeded the timeout, end the loop early
-      while(!(frontLeft.setDesiredAngle(FLAngle) && frontRight.setDesiredAngle(FRAngle) && backLeft.setDesiredAngle(BLAngle) && backRight.setDesiredAngle(BRAngle))) {
+      // Continuously loop, checking to see the current time in seconds. If we've
+      // exceeded the timeout, end the loop early
+      while (!(frontLeft.setDesiredAngle(FLAngle) && frontRight.setDesiredAngle(FRAngle)
+          && backLeft.setDesiredAngle(BLAngle) && backRight.setDesiredAngle(BRAngle))) {
         if (timer.hasElapsed(Parameters.driveTrain.movement.TIMEOUT)) {
           break;
         }
       }
-    }
-    else {
+    } else {
       // Just set the angles, then finish
       frontLeft.setDesiredAngle(FLAngle);
       frontRight.setDesiredAngle(FRAngle);
@@ -299,24 +329,29 @@ public class DriveTrain extends SubsystemBase {
     }
   }
 
-
   /**
-   * Moves the modules to the desired angles, just with an array of angles instead of individual parameters
-   * @param angleArray An array of module angles in form [Front Left, Front Right, Back Left, Back Right]
-   * @param wait If true, then this function will block execution until the movement has been completed
+   * Moves the modules to the desired angles, just with an array of angles instead
+   * of individual parameters
+   * 
+   * @param angleArray An array of module angles in form [Front Left, Front Right,
+   *                   Back Left, Back Right]
+   * @param wait       If true, then this function will block execution until the
+   *                   movement has been completed
    */
   public void setDesiredAngles(double[] angleArray, boolean wait) {
     setDesiredAngles(angleArray[0], angleArray[1], angleArray[2], angleArray[3], wait);
   }
 
-
   /**
-   * Moves all of the swerve modules. If wait is specified, then the function will wait until the modules reach their desired velocities.
+   * Moves all of the swerve modules. If wait is specified, then the function will
+   * wait until the modules reach their desired velocities.
+   * 
    * @param FLAngle Velocity of the front left module
    * @param FRAngle Velocity of the front right module
    * @param BLAngle Velocity of the back left module
    * @param BRAngle Velocity of the back right module
-   * @param wait If true, then this function will block execution until the velocity has been reached
+   * @param wait    If true, then this function will block execution until the
+   *                velocity has been reached
    */
   public void setDesiredVelocities(double FLSpeed, double FRSpeed, double BLSpeed, double BRSpeed, boolean wait) {
 
@@ -326,14 +361,15 @@ public class DriveTrain extends SubsystemBase {
       // Create a new timer (for timeout)
       Timer timer = new Timer();
 
-      // Continuously loop, checking to see the current time in seconds. If we've exceeded the timeout, end the loop early
-      while(!(frontLeft.setDesiredVelocity(FLSpeed) && frontRight.setDesiredVelocity(FRSpeed) && backLeft.setDesiredVelocity(BLSpeed) && backRight.setDesiredVelocity(BRSpeed))) {
+      // Continuously loop, checking to see the current time in seconds. If we've
+      // exceeded the timeout, end the loop early
+      while (!(frontLeft.setDesiredVelocity(FLSpeed) && frontRight.setDesiredVelocity(FRSpeed)
+          && backLeft.setDesiredVelocity(BLSpeed) && backRight.setDesiredVelocity(BRSpeed))) {
         if (timer.hasElapsed(Parameters.driveTrain.movement.TIMEOUT)) {
           break;
         }
       }
-    }
-    else {
+    } else {
       // Just set the angles, then finish
       frontLeft.setDesiredVelocity(FLSpeed);
       frontRight.setDesiredVelocity(FRSpeed);
@@ -342,16 +378,18 @@ public class DriveTrain extends SubsystemBase {
     }
   }
 
-
   /**
-   * Moves the modules to the desired velocities, just with an array of velocities instead of individual parameters
-   * @param speedArray An array of module velocities in form [Front Left, Front Right, Back Left, Back Right]
-   * @param wait If true, then this function will block execution until the velocity has been reached
+   * Moves the modules to the desired velocities, just with an array of velocities
+   * instead of individual parameters
+   * 
+   * @param speedArray An array of module velocities in form [Front Left, Front
+   *                   Right, Back Left, Back Right]
+   * @param wait       If true, then this function will block execution until the
+   *                   velocity has been reached
    */
   public void setDesiredVelocities(double[] speedArray, boolean wait) {
     setDesiredVelocities(speedArray[0], speedArray[1], speedArray[2], speedArray[3], wait);
   }
-
 
   /**
    * Stops the drive wheel of the modules and sets it to hold stopped
@@ -360,9 +398,13 @@ public class DriveTrain extends SubsystemBase {
     setDesiredVelocities(0, 0, 0, 0, false);
   }
 
+  public void straightenModules() {
+    setDesiredAngles(0, 0, 0, 0, false);
+  }
 
   /**
-   * Locks the drivetrain up by halting the modules and moving them in an "X" pattern. Useful for when someone is bullying us
+   * Locks the drivetrain up by halting the modules and moving them in an "X"
+   * pattern. Useful for when someone is bullying us
    */
   public void lockemUp() {
 
@@ -380,29 +422,23 @@ public class DriveTrain extends SubsystemBase {
     backRight.setDesiredAngle(-45);
   }
 
-
   /**
-   * Updates the odometry. Should be called as frequently as possible to reduce error.
+   * Updates the odometry. Should be called as frequently as possible to reduce
+   * error.
    */
   public void updateOdometry() {
-    poseEstimator.update(
-      Robot.navX.getRotation2d(),
-      frontLeft.getState(),
-      frontRight.getState(),
-      backLeft.getState(),
-      backRight.getState()
-    );
+    poseEstimator.update(Robot.navX.getRotation2d(), frontLeft.getState(), frontRight.getState(), backLeft.getState(),
+        backRight.getState());
   }
-
 
   /**
    * Reset the odometry measurements. This is kind of like "homing" the robot
+   * 
    * @param currentPosition The robot's current position
    */
   public void resetOdometry(Pose2d currentPosition) {
     poseEstimator.resetPosition(currentPosition, Robot.navX.getRotation2d());
   }
-
 
   /**
    * Adds a vision position measurement
@@ -411,60 +447,62 @@ public class DriveTrain extends SubsystemBase {
     poseEstimator.addVisionMeasurement(visionRobotPose, timestampSeconds);
   }
 
-
   /**
    * Moves the robot to follow a trajectory
+   * 
    * @param desiredPosition The desired position of the robot
-   * @param linearVelocity The linear velocity, in m/s, to make the robot at max speed
+   * @param linearVelocity  The linear velocity, in m/s, to make the robot at max
+   *                        speed
    */
   public void trajectoryFollow(Pose2d desiredPosition, double linearVelocity) {
 
     // Calculate the speeds for the chassis
-    ChassisSpeeds adjustedSpeeds = driveController.calculate(poseEstimator.getEstimatedPosition(), desiredPosition, linearVelocity, desiredPosition.getRotation());
+    ChassisSpeeds adjustedSpeeds = driveController.calculate(poseEstimator.getEstimatedPosition(), desiredPosition,
+        linearVelocity, desiredPosition.getRotation());
 
     // Set the modules to move at those speeds
     setModuleStates(adjustedSpeeds);
   }
 
-
   /**
    * Gets the estimated X position of the drivetrain on the field
+   * 
    * @return Estimated X position (m)
    */
   public double getXPosition() {
     return poseEstimator.getEstimatedPosition().getX();
   }
 
-
   /**
    * Gets the estimated Y position of the drivetrain on the field
+   * 
    * @return Estimated Y position (m)
    */
   public double getYPosition() {
     return poseEstimator.getEstimatedPosition().getY();
   }
 
-
   /**
    * Gets the estimated angle of the drivetrain on the field
+   * 
    * @return Estimated angle (Rotation2d)
    */
   public Rotation2d getThetaPosition() {
     return poseEstimator.getEstimatedPosition().getRotation();
   }
 
-
   /**
    * Gets the orientation of the robot on the field
+   * 
    * @return The orientation of the robot (Pose2d) (units in m)
    */
   public Pose2d getPose2D() {
     return poseEstimator.getEstimatedPosition();
   }
 
-
   /**
    * Check if the robot is at the reference point of the planned movement
+   * 
    * @return Is the movement finished?
    */
   public boolean finishedMovement() {
@@ -472,7 +510,6 @@ public class DriveTrain extends SubsystemBase {
     // Return if the movement is complete
     return driveController.atReference();
   }
-
 
   // Updates all of the steering parameters, such as PID loops and driver settings
   public void updateParameters() {
@@ -483,24 +520,23 @@ public class DriveTrain extends SubsystemBase {
     Parameters.driveTrain.pid.BL_STEER_PID.setPeakOutput(Parameters.driver.currentProfile.maxModSpeed);
     Parameters.driveTrain.pid.BR_STEER_PID.setPeakOutput(Parameters.driver.currentProfile.maxModSpeed);
 
-    //Parameters.driveTrain.pid.FL_DRIVE_PID.setPeakOutput(Parameters.driver.CURRENT_PROFILE.MAX_SPEED);
-    //Parameters.driveTrain.pid.FR_DRIVE_PID.setPeakOutput(Parameters.driver.CURRENT_PROFILE.MAX_SPEED);
-    //Parameters.driveTrain.pid.BL_DRIVE_PID.setPeakOutput(Parameters.driver.CURRENT_PROFILE.MAX_SPEED);
-    //Parameters.driveTrain.pid.BR_DRIVE_PID.setPeakOutput(Parameters.driver.CURRENT_PROFILE.MAX_SPEED);
+    // Parameters.driveTrain.pid.FL_DRIVE_PID.setPeakOutput(Parameters.driver.CURRENT_PROFILE.MAX_SPEED);
+    // Parameters.driveTrain.pid.FR_DRIVE_PID.setPeakOutput(Parameters.driver.CURRENT_PROFILE.MAX_SPEED);
+    // Parameters.driveTrain.pid.BL_DRIVE_PID.setPeakOutput(Parameters.driver.CURRENT_PROFILE.MAX_SPEED);
+    // Parameters.driveTrain.pid.BR_DRIVE_PID.setPeakOutput(Parameters.driver.CURRENT_PROFILE.MAX_SPEED);
 
     // Set steering parameters
-    frontLeft.setSteerMParams(Parameters.driveTrain.pid.FL_STEER_PID,  Parameters.driver.currentProfile.steerIdleMode);
+    frontLeft.setSteerMParams(Parameters.driveTrain.pid.FL_STEER_PID, Parameters.driver.currentProfile.steerIdleMode);
     frontRight.setSteerMParams(Parameters.driveTrain.pid.FR_STEER_PID, Parameters.driver.currentProfile.steerIdleMode);
-    backLeft.setSteerMParams(Parameters.driveTrain.pid.BL_STEER_PID,   Parameters.driver.currentProfile.steerIdleMode);
-    backRight.setSteerMParams(Parameters.driveTrain.pid.BR_STEER_PID,  Parameters.driver.currentProfile.steerIdleMode);
+    backLeft.setSteerMParams(Parameters.driveTrain.pid.BL_STEER_PID, Parameters.driver.currentProfile.steerIdleMode);
+    backRight.setSteerMParams(Parameters.driveTrain.pid.BR_STEER_PID, Parameters.driver.currentProfile.steerIdleMode);
 
     // Set driving parameters
-    frontLeft.setDriveMParams(Parameters.driveTrain.pid.FL_DRIVE_PID,  Parameters.driver.currentProfile.driveIdleMode);
+    frontLeft.setDriveMParams(Parameters.driveTrain.pid.FL_DRIVE_PID, Parameters.driver.currentProfile.driveIdleMode);
     frontRight.setDriveMParams(Parameters.driveTrain.pid.FR_DRIVE_PID, Parameters.driver.currentProfile.driveIdleMode);
-    backLeft.setDriveMParams(Parameters.driveTrain.pid.BL_DRIVE_PID,   Parameters.driver.currentProfile.driveIdleMode);
-    backRight.setDriveMParams(Parameters.driveTrain.pid.BR_DRIVE_PID,  Parameters.driver.currentProfile.driveIdleMode);
+    backLeft.setDriveMParams(Parameters.driveTrain.pid.BL_DRIVE_PID, Parameters.driver.currentProfile.driveIdleMode);
+    backRight.setDriveMParams(Parameters.driveTrain.pid.BR_DRIVE_PID, Parameters.driver.currentProfile.driveIdleMode);
   }
-
 
   // Sets all of the modules to treat their current position as the zero position.
   public void zeroEncoders() {
@@ -511,7 +547,6 @@ public class DriveTrain extends SubsystemBase {
     backLeft.setEncoderOffset(0);
     backRight.setEncoderOffset(0);
   }
-
 
   // Saves all of the parameters currently in the swerve modules
   public void saveParameters() {
@@ -538,10 +573,11 @@ public class DriveTrain extends SubsystemBase {
     Parameters.savedParams.putDouble("DRIVETRAIN_ROTATION_PID_D", ROTATION_PID.getD());
 
     // Rotation PID (Constraints)
-    Parameters.savedParams.getDouble("DRIVETRAIN_ROTATION_PID_MAX_VEL", Math.toDegrees(ROTATION_CONSTRAINTS.maxVelocity));
-    Parameters.savedParams.getDouble("DRIVETRAIN_ROTATION_PID_MAX_ACCEL", Math.toDegrees(ROTATION_CONSTRAINTS.maxAcceleration));
+    Parameters.savedParams.getDouble("DRIVETRAIN_ROTATION_PID_MAX_VEL",
+        Math.toDegrees(ROTATION_CONSTRAINTS.maxVelocity));
+    Parameters.savedParams.getDouble("DRIVETRAIN_ROTATION_PID_MAX_ACCEL",
+        Math.toDegrees(ROTATION_CONSTRAINTS.maxAcceleration));
   }
-
 
   // Loads all of the currently saved parameters
   public void loadParameters() {
@@ -568,8 +604,10 @@ public class DriveTrain extends SubsystemBase {
     ROTATION_PID.setD(Parameters.savedParams.getDouble("DRIVETRAIN_ROTATION_PID_D", ROTATION_PID.getD()));
 
     // Rotation PID (Constraints)
-    ROTATION_CONSTRAINTS.maxVelocity = Math.toRadians(Parameters.savedParams.getDouble("DRIVETRAIN_ROTATION_PID_MAX_VEL", Math.toDegrees(ROTATION_CONSTRAINTS.maxVelocity)));
-    ROTATION_CONSTRAINTS.maxAcceleration = Math.toRadians(Parameters.savedParams.getDouble("DRIVETRAIN_ROTATION_PID_MAX_ACCEL", Math.toDegrees(ROTATION_CONSTRAINTS.maxAcceleration)));
+    ROTATION_CONSTRAINTS.maxVelocity = Math.toRadians(Parameters.savedParams
+        .getDouble("DRIVETRAIN_ROTATION_PID_MAX_VEL", Math.toDegrees(ROTATION_CONSTRAINTS.maxVelocity)));
+    ROTATION_CONSTRAINTS.maxAcceleration = Math.toRadians(Parameters.savedParams
+        .getDouble("DRIVETRAIN_ROTATION_PID_MAX_ACCEL", Math.toDegrees(ROTATION_CONSTRAINTS.maxAcceleration)));
     ROTATION_PID.setConstraints(ROTATION_CONSTRAINTS);
 
     // Redeclare the drive controller
@@ -578,7 +616,6 @@ public class DriveTrain extends SubsystemBase {
     // Publish the new tuning values
     publishTuningValues();
   }
-
 
   // Loads all of the NetworkTable parameters
   public void pullTuningValues() {
@@ -605,14 +642,15 @@ public class DriveTrain extends SubsystemBase {
     ROTATION_PID.setD(ROTATION_PID_D_ENTRY.getDouble(ROTATION_PID.getD()));
 
     // Rotation PID (Constraints)
-    ROTATION_CONSTRAINTS.maxVelocity = Math.toRadians(ROTATION_PID_MAX_VEL_ENTRY.getDouble(Math.toDegrees(ROTATION_CONSTRAINTS.maxVelocity)));
-    ROTATION_CONSTRAINTS.maxAcceleration = Math.toRadians(ROTATION_PID_MAX_ACCEL_ENTRY.getDouble(Math.toDegrees(ROTATION_CONSTRAINTS.maxAcceleration)));
+    ROTATION_CONSTRAINTS.maxVelocity = Math
+        .toRadians(ROTATION_PID_MAX_VEL_ENTRY.getDouble(Math.toDegrees(ROTATION_CONSTRAINTS.maxVelocity)));
+    ROTATION_CONSTRAINTS.maxAcceleration = Math
+        .toRadians(ROTATION_PID_MAX_ACCEL_ENTRY.getDouble(Math.toDegrees(ROTATION_CONSTRAINTS.maxAcceleration)));
     ROTATION_PID.setConstraints(ROTATION_CONSTRAINTS);
 
     // Redeclare the drive controller
     driveController = new HolonomicDriveController(X_MOVE_PID, Y_MOVE_PID, ROTATION_PID);
   }
-
 
   // Pushes all of the NetworkTable parameters
   public void publishTuningValues() {
@@ -643,7 +681,6 @@ public class DriveTrain extends SubsystemBase {
     ROTATION_PID_MAX_ACCEL_ENTRY.setDouble(Math.toDegrees(ROTATION_CONSTRAINTS.maxAcceleration));
   }
 
-
   // Publish the performance data from each of the modules to the NetworkTable
   public void publishPerformanceData() {
 
@@ -658,7 +695,6 @@ public class DriveTrain extends SubsystemBase {
     Y_POSITION_ENTRY.setDouble(getYPosition());
     ROTATIONAL_POSITION_ENTRY.setDouble(getThetaPosition().getDegrees());
   }
-
 
   @Override
   public void periodic() {

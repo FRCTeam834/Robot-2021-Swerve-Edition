@@ -43,9 +43,8 @@ public class Climber extends SubsystemBase {
     climberMotor.stopMotor();
   }
 
-  //returns true if limit switch is being activated
-  public boolean getLimitBottom()
-  {
+  // returns true if limit switch is being activated
+  public boolean getLimitBottom() {
     return limitBottom.get();
   }
 

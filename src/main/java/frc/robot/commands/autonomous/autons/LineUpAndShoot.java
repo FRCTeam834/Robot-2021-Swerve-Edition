@@ -4,8 +4,10 @@
 
 package frc.robot.commands.autonomous.autons;
 
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Parameters;
+import frc.robot.Robot;
 import frc.robot.commands.conveyor.EmptyConveyor;
 import frc.robot.commands.swerve.DriveDistanceCheap;
 
@@ -17,6 +19,7 @@ public class LineUpAndShoot extends SequentialCommandGroup {
   public LineUpAndShoot() {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new DriveDistanceCheap(Parameters.driveTrain.auton.LINE_UP_DISTANCE,Parameters.driveTrain.auton.LINE_UP_SPEED), new EmptyConveyor());
+    addCommands(new RunCommand(Robot.driveTrain::straightenModules,Robot.driveTrain), new RunCommand(()-> Robot.driveTrain.drive(-Parameters.driveTrain.auton.DRIVE_SPEED, 0, 0 , false), Robot.driveTrain).withTimeout(Parameters.driveTrain.auton.LINEUP_TIME),
+        new EmptyConveyor());
   }
 }

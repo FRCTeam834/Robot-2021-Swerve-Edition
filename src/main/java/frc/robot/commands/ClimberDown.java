@@ -11,6 +11,7 @@ import frc.robot.Robot;
 public class ClimberDown extends CommandBase {
   /** Creates a new ClimberDown. */
   boolean finished;
+
   public ClimberDown() {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(Robot.climber);
@@ -20,10 +21,9 @@ public class ClimberDown extends CommandBase {
   @Override
   public void initialize() {
     finished = false;
-    if(!Robot.climber.getLimitBottom()) {
+    if (!Robot.climber.getLimitBottom()) {
       Robot.climber.down();
-    }
-    else {
+    } else {
       finished = true;
     }
   }
@@ -31,7 +31,7 @@ public class ClimberDown extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(Robot.climber.getLimitBottom()) {
+    if (Robot.climber.getLimitBottom()) {
       finished = true;
       Robot.climber.stop();
     }

@@ -6,7 +6,7 @@
 package frc.robot.subsystems.swerve;
 
 /**
- *  Class that organizes gains used when assigning values to slots
+ * Class that organizes gains used when assigning values to slots
  */
 public class PID_PARAMS {
 
@@ -19,7 +19,7 @@ public class PID_PARAMS {
     public double PEAK_OUTPUT;
 
     // Creating a new set of PID Parameters
-    public PID_PARAMS(double P, double I, double D, double FF, double I_ZONE, double PEAK_OUTPUT){
+    public PID_PARAMS(double P, double I, double D, double FF, double I_ZONE, double PEAK_OUTPUT) {
         this.P = P;
         this.I = I;
         this.D = D;

@@ -14,6 +14,7 @@ package frc.robot;
 
 // Import Parameters
 import frc.robot.Parameters;
+import frc.robot.Parameters.driveTrain.auton;
 import frc.robot.commands.ClimberDown;
 import frc.robot.commands.ClimberUp;
 import frc.robot.commands.autonomous.autons.Auton;
@@ -42,19 +43,21 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.Timer;
 
 /**
- * This class is where the bulk of the robot should be declared.  Since Command-based is a
- * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
- * periodic methods (other than the scheduler calls).  Instead, the structure of the robot
- * (including subsystems, commands, and button mappings) should be declared here.
+ * This class is where the bulk of the robot should be declared. Since
+ * Command-based is a "declarative" paradigm, very little robot logic should
+ * actually be handled in the {@link Robot} periodic methods (other than the
+ * scheduler calls). Instead, the structure of the robot (including subsystems,
+ * commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
 
   // Subsystems
-  //private final ProfilingManagement profilingManagement = new ProfilingManagement();
-  //private final NavX navX = new NavX();
-  //private final DriveTrain driveTrain = new DriveTrain();
-  //private final UltrasonicSensor ultrasonicSensor = new UltrasonicSensor();
+  // private final ProfilingManagement profilingManagement = new
+  // ProfilingManagement();
+  // private final NavX navX = new NavX();
+  // private final DriveTrain driveTrain = new DriveTrain();
+  // private final UltrasonicSensor ultrasonicSensor = new UltrasonicSensor();
 
   // Commands
   private final LetsRoll2Joysticks letsRoll2Joysticks = new LetsRoll2Joysticks();
@@ -72,7 +75,6 @@ public class RobotContainer {
 
   private final RunShooter runShooter = new RunShooter();
 
-
   private final RunConveyor runConveyor = new RunConveyor();
   private final RunConveyorSensor runConveyorSensor = new RunConveyorSensor();
   private final EmptyConveyor emptyConveyor = new EmptyConveyor();
@@ -83,7 +85,6 @@ public class RobotContainer {
 
   private final Auton auton = new Auton();
   private final LineUpAndShoot lineUpAndShoot = new LineUpAndShoot();
-
 
   // Timer (for delays)
   public static Timer timer = new Timer();
@@ -96,10 +97,10 @@ public class RobotContainer {
   private final SendableChooser<Command> autonChooser = new SendableChooser<>();
 
   // Left Joystick button array
-  //public static JoystickButton leftJoystickButtons[];
+  // public static JoystickButton leftJoystickButtons[];
 
   // Right Joystick button array
-  //public static JoystickButton rightJoystickButtons[];
+  // public static JoystickButton rightJoystickButtons[];
 
   // The number of balls currently in the robot
   public static int ballCount;
@@ -110,50 +111,42 @@ public class RobotContainer {
   public static final JoystickButton
   // Left Joystick
   lJoystick1 = new JoystickButton(leftJoystick, 1), lJoystick2 = new JoystickButton(leftJoystick, 2),
-  lJoystick3 = new JoystickButton(leftJoystick, 3), lJoystick4 = new JoystickButton(leftJoystick, 4),
-  lJoystick5 = new JoystickButton(leftJoystick, 5), lJoystick6 = new JoystickButton(leftJoystick, 6),
-  lJoystick7 = new JoystickButton(leftJoystick, 7), lJoystick8 = new JoystickButton(leftJoystick, 8),
-  lJoystick9 = new JoystickButton(leftJoystick, 9), lJoystick10 = new JoystickButton(leftJoystick, 10),
-  lJoystick11 = new JoystickButton(leftJoystick, 11),
+      lJoystick3 = new JoystickButton(leftJoystick, 3), lJoystick4 = new JoystickButton(leftJoystick, 4),
+      lJoystick5 = new JoystickButton(leftJoystick, 5), lJoystick6 = new JoystickButton(leftJoystick, 6),
+      lJoystick7 = new JoystickButton(leftJoystick, 7), lJoystick8 = new JoystickButton(leftJoystick, 8),
+      lJoystick9 = new JoystickButton(leftJoystick, 9), lJoystick10 = new JoystickButton(leftJoystick, 10),
+      lJoystick11 = new JoystickButton(leftJoystick, 11),
 
-  // Right Joystick
-  rJoystick1 = new JoystickButton(rightJoystick, 1), rJoystick2 = new JoystickButton(rightJoystick, 2),
-  rJoystick3 = new JoystickButton(rightJoystick, 3), rJoystick4 = new JoystickButton(rightJoystick, 4),
-  rJoystick5 = new JoystickButton(rightJoystick, 5), rJoystick6 = new JoystickButton(rightJoystick, 6),
-  rJoystick7 = new JoystickButton(rightJoystick, 7), rJoystick8 = new JoystickButton(rightJoystick, 8),
-  rJoystick9 = new JoystickButton(rightJoystick, 9), rJoystick10 = new JoystickButton(rightJoystick, 10),
-  rJoystick11 = new JoystickButton(rightJoystick, 11),
+      // Right Joystick
+      rJoystick1 = new JoystickButton(rightJoystick, 1), rJoystick2 = new JoystickButton(rightJoystick, 2),
+      rJoystick3 = new JoystickButton(rightJoystick, 3), rJoystick4 = new JoystickButton(rightJoystick, 4),
+      rJoystick5 = new JoystickButton(rightJoystick, 5), rJoystick6 = new JoystickButton(rightJoystick, 6),
+      rJoystick7 = new JoystickButton(rightJoystick, 7), rJoystick8 = new JoystickButton(rightJoystick, 8),
+      rJoystick9 = new JoystickButton(rightJoystick, 9), rJoystick10 = new JoystickButton(rightJoystick, 10),
+      rJoystick11 = new JoystickButton(rightJoystick, 11),
 
-  // Arcade Buttons
-  /*
-  Button Naming Convention:
-  BG = Button Group
-  TL = Top Left
-  TM = Top Middle
-  TR = Top Right
-  ML = Middle Left
-  MM = Middle Middle
-  MR = Middle Right
-  BL = Bottom Left
-  BM = Bottom Middle
-  BR = Bottom Right
-  */
+      // Arcade Buttons
+      /*
+       * Button Naming Convention: BG = Button Group TL = Top Left TM = Top Middle TR
+       * = Top Right ML = Middle Left MM = Middle Middle MR = Middle Right BL = Bottom
+       * Left BM = Bottom Middle BR = Bottom Right
+       */
 
-  BGTL = new JoystickButton(launchpad, 7), BGTM = new JoystickButton(launchpad, 2),
-  BGTR = new JoystickButton(launchpad, 4), BGML = new JoystickButton(launchpad, 1),
-  BGMM = new JoystickButton(launchpad, 6),
-  BGMR = new JoystickButton(launchpad, 3),
-  BGBL = new JoystickButton(launchpad, 10), BGBM = new JoystickButton(launchpad, 9),
-  BGBR = new JoystickButton(launchpad, 8);
+      BGTL = new JoystickButton(launchpad, 7), BGTM = new JoystickButton(launchpad, 2),
+      BGTR = new JoystickButton(launchpad, 4), BGML = new JoystickButton(launchpad, 1),
+      BGMM = new JoystickButton(launchpad, 6), BGMR = new JoystickButton(launchpad, 3),
+      BGBL = new JoystickButton(launchpad, 10), BGBM = new JoystickButton(launchpad, 9),
+      BGBR = new JoystickButton(launchpad, 8);
 
   // Xbox Buttons
-  private final JoystickButton xboxStart = new JoystickButton(xbox, Button.kStart.value), xboxBack = new JoystickButton(xbox, Button.kBack.value),
-  xboxB = new JoystickButton(xbox, Button.kB.value), xboxA = new JoystickButton(xbox, Button.kA.value), xboxY = new JoystickButton(xbox, Button.kY.value),
-  xboxX = new JoystickButton(xbox, Button.kX.value), xboxLB = new JoystickButton(xbox, Button.kBumperLeft.value), xboxRB = new JoystickButton(xbox, Button.kBumperRight.value),
-  xboxLJB = new JoystickButton(xbox, 9);
+  private final JoystickButton xboxStart = new JoystickButton(xbox, Button.kStart.value),
+      xboxBack = new JoystickButton(xbox, Button.kBack.value), xboxB = new JoystickButton(xbox, Button.kB.value),
+      xboxA = new JoystickButton(xbox, Button.kA.value), xboxY = new JoystickButton(xbox, Button.kY.value),
+      xboxX = new JoystickButton(xbox, Button.kX.value), xboxLB = new JoystickButton(xbox, Button.kBumperLeft.value),
+      xboxRB = new JoystickButton(xbox, Button.kBumperRight.value), xboxLJB = new JoystickButton(xbox, 9);
 
   /**
-   * The container for the robot.  Contains subsystems, OI devices, and commands.
+   * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
     // Configure the button bindings
@@ -161,10 +154,10 @@ public class RobotContainer {
   }
 
   /**
-   * Use this method to define your button->command mappings.  Buttons can be created by
-   * instantiating a {@link GenericHID} or one of its subclasses ({@link
-   * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a
-   * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
+   * Use this method to define your button->command mappings. Buttons can be
+   * created by instantiating a {@link GenericHID} or one of its subclasses
+   * ({@link edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then
+   * passing it to a {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
 
@@ -175,125 +168,105 @@ public class RobotContainer {
     lJoystick8.whenPressed(zeroCanCoders);
     rJoystick8.whenPressed(saveSwerveParameters);
 
-
     /*
-    xboxY.toggleWhenPressed(new StartEndCommand(Robot.shooter::setShooter,Robot.shooter::stop, Robot.shooter));
-    xboxX.whileHeld(runIntake);
-    xboxB.whileHeld(runConveyor);
-    xboxA.whileHeld(runConveyorBackward);
-    */
+     * xboxY.toggleWhenPressed(new
+     * StartEndCommand(Robot.shooter::setShooter,Robot.shooter::stop,
+     * Robot.shooter)); xboxX.whileHeld(runIntake); xboxB.whileHeld(runConveyor);
+     * xboxA.whileHeld(runConveyorBackward);
+     */
 
-    //TOP ROW
-    BGTL.whenHeld(climberDown); //this moves the climber up...don't worry about it for right now
-    BGTM.whenHeld(climberUp); //this moves the climber down...don't worry about it for right now
-    BGMR.whenPressed(() -> Robot.driveTrain.setDesiredAngles(0, 0, 0, 0, false)); //REMOVE ONCE DONE TESTING
+    // TOP ROW
+    BGTL.whenHeld(climberUp); // this moves the climber up...don't worry about it for right now
+    BGTM.whenHeld(climberDown); // this moves the climber down...don't worry about it for right now
+    // BGTR.whenPressed(drive.withTimeout(4)); //REMOVE ONCE DONE TESTING
 
-    //MIDDLE ROW
-    BGML.whileHeld(runConveyorSensor); //AUTOBALL PICKUP
-    BGMM.whileHeld(runIntakeBackwards); //STREET SWEEPING
+    // MIDDLE ROW
+    BGML.whenPressed(runConveyorSensor); // AUTOBALL PICKUP
+    BGMM.whileHeld(runIntakeBackwards); // STREET SWEEPING
     BGMR.whenPressed(ejectBalls);
 
-
-    BGBL.whileHeld(runConveyor); //MANUAL
-    BGBM.whileHeld(runIntake); //MANUAL
-    BGBR.whenPressed(auton); //REMOVE THIS ONCE DONE TESTING
-    
-
+    BGBL.whileHeld(runConveyor); // MANUAL
+    BGBM.whileHeld(runIntake); // MANUAL
+    BGBR.whenPressed(lineUpAndShoot); // REMOVE THIS ONCE DONE TESTING
 
     /*
-    // Move conveyor forward
-    BGML.whileHeld(runConveyor);
-    */
+     * // Move conveyor forward BGML.whileHeld(runConveyor);
+     */
     // Run conveyor backward
     // BGMR.whenPressed(() -> Robot.conveyor.setSpeed(-.75));
 
-    //BGMR.whenPressed(new ParallelCommandGroup(() -> Robot.conveyor.setSpeed(-.75)),runIntakeBackwards));
+    // BGMR.whenPressed(new ParallelCommandGroup(() ->
+    // Robot.conveyor.setSpeed(-.75)),runIntakeBackwards));
     // Stop conveyor
-    //BGMM.whenPressed(new InstantCommand(Robot.conveyor::stop, Robot.conveyor));
+    // BGMM.whenPressed(new InstantCommand(Robot.conveyor::stop, Robot.conveyor));
 
-    /*Pivot
-    xboxA.whileHeld(runHoodDown);
-    xboxY.whileHeld(runHoodUp);
-    xboxX.whenPressed(hoodHome);
-    */
+    /*
+     * Pivot xboxA.whileHeld(runHoodDown); xboxY.whileHeld(runHoodUp);
+     * xboxX.whenPressed(hoodHome);
+     */
 
     // Start intake
-    //xboxRB.toggleWhenPressed(runIntake);
+    // xboxRB.toggleWhenPressed(runIntake);
 
     // Reverse intake
-    //xboxLB.whenHeld(runIntakeBackwards);
+    // xboxLB.whenHeld(runIntakeBackwards);
 
-    /*Climber
-    BGTR.whileHeld(climberUp);
-    BGMR.whileHeld(climberDown);
-    */
     /*
-    // Try to assign the left joystick
-    try {
-      leftJoystick = new Joystick(0);
-
-      // If we get here, then the left joystick was successful and we can try the right joystick
-      try {
-        rightJoystick = new Joystick(1);
-
-        // Both joysticks are present
-        robotState = ROBOT_STATE.TWO_JOYSTICKS;
-
-      }
-      catch (Exception e) {
-
-        // We only have one joystick, the left
-        robotState = ROBOT_STATE.ONE_JOYSTICK;
-      }
-
-    }
-    catch (Exception e) {
-
-      // No joysticks detected
-      robotState = ROBOT_STATE.NO_JOYSTICKS;
-    }
-
-
-    // Setup the robot based on the state of it
-    if (robotState == ROBOT_STATE.TWO_JOYSTICKS) {
-      // Full setup
-
-      // Left Joystick button assignment (buttons array starts at 0)
-      for(int buttonIndex = 0; buttonIndex < Parameters.joysticks.JOYSTICK_BUTTON_COUNT; buttonIndex++) {
-        leftJoystickButtons[buttonIndex] = new JoystickButton(leftJoystick, buttonIndex);
-      }
-
-      // Right Joystick button assignment (buttons array starts at 0)
-      for(int buttonIndex = 0; buttonIndex < Parameters.joysticks.JOYSTICK_BUTTON_COUNT; buttonIndex++) {
-        rightJoystickButtons[buttonIndex] = new JoystickButton(rightJoystick, buttonIndex);
-      }
-
-      // Command setup
-      // Configure the command (on the second button of the joystick)
-
-    }
-    else if (robotState == ROBOT_STATE.ONE_JOYSTICK) {
-      // Left Joystick button assignment (buttons array starts at 0)
-      for(int buttonIndex = 1; buttonIndex <= Parameters.joysticks.JOYSTICK_BUTTON_COUNT; buttonIndex++) {
-        leftJoystickButtons[buttonIndex - 1] = new JoystickButton(leftJoystick, buttonIndex);
-      }
-
-      // Command setup
-      // Configure the command (on the second button of the joystick)
-      leftJoystickButtons[0].whenPressed(letsRoll1Joystick);
-      leftJoystickButtons[1].whenPressed(saveSwerveParameters);
-      leftJoystickButtons[2].whenPressed(pullNtSwerveParams);
-      //leftJoystickButtons[3].whenPressed(testModulePID);
-      leftJoystickButtons[4].whenPressed(testMovementPID);
-      leftJoystickButtons[7].whenPressed(zeroCanCoders);
-    }
-    else {
-      // No joysticks (show mode)
-
-      // Command setup
-
-    }
-    */
+     * Climber BGTR.whileHeld(climberUp); BGMR.whileHeld(climberDown);
+     */
+    /*
+     * // Try to assign the left joystick try { leftJoystick = new Joystick(0);
+     * 
+     * // If we get here, then the left joystick was successful and we can try the
+     * right joystick try { rightJoystick = new Joystick(1);
+     * 
+     * // Both joysticks are present robotState = ROBOT_STATE.TWO_JOYSTICKS;
+     * 
+     * } catch (Exception e) {
+     * 
+     * // We only have one joystick, the left robotState = ROBOT_STATE.ONE_JOYSTICK;
+     * }
+     * 
+     * } catch (Exception e) {
+     * 
+     * // No joysticks detected robotState = ROBOT_STATE.NO_JOYSTICKS; }
+     * 
+     * 
+     * // Setup the robot based on the state of it if (robotState ==
+     * ROBOT_STATE.TWO_JOYSTICKS) { // Full setup
+     * 
+     * // Left Joystick button assignment (buttons array starts at 0) for(int
+     * buttonIndex = 0; buttonIndex < Parameters.joysticks.JOYSTICK_BUTTON_COUNT;
+     * buttonIndex++) { leftJoystickButtons[buttonIndex] = new
+     * JoystickButton(leftJoystick, buttonIndex); }
+     * 
+     * // Right Joystick button assignment (buttons array starts at 0) for(int
+     * buttonIndex = 0; buttonIndex < Parameters.joysticks.JOYSTICK_BUTTON_COUNT;
+     * buttonIndex++) { rightJoystickButtons[buttonIndex] = new
+     * JoystickButton(rightJoystick, buttonIndex); }
+     * 
+     * // Command setup // Configure the command (on the second button of the
+     * joystick)
+     * 
+     * } else if (robotState == ROBOT_STATE.ONE_JOYSTICK) { // Left Joystick button
+     * assignment (buttons array starts at 0) for(int buttonIndex = 1; buttonIndex
+     * <= Parameters.joysticks.JOYSTICK_BUTTON_COUNT; buttonIndex++) {
+     * leftJoystickButtons[buttonIndex - 1] = new JoystickButton(leftJoystick,
+     * buttonIndex); }
+     * 
+     * // Command setup // Configure the command (on the second button of the
+     * joystick) leftJoystickButtons[0].whenPressed(letsRoll1Joystick);
+     * leftJoystickButtons[1].whenPressed(saveSwerveParameters);
+     * leftJoystickButtons[2].whenPressed(pullNtSwerveParams);
+     * //leftJoystickButtons[3].whenPressed(testModulePID);
+     * leftJoystickButtons[4].whenPressed(testMovementPID);
+     * leftJoystickButtons[7].whenPressed(zeroCanCoders); } else { // No joysticks
+     * (show mode)
+     * 
+     * // Command setup
+     * 
+     * }
+     */
 
   }
 
@@ -316,37 +289,43 @@ public class RobotContainer {
   // Return a constrained Joystick value
   public static double constrainJoystick(double rawValue) {
 
-    // If the value is out of tolerance, then zero it. Otherwise return the value of the joystick
+    // If the value is out of tolerance, then zero it. Otherwise return the value of
+    // the joystick
     if (Math.abs(rawValue) < Parameters.driver.currentProfile.joystickParams.getDeadzone()) {
       return 0;
-    }
-    else {
+    } else {
       switch (Parameters.driver.currentProfile.joystickParams.getOutputType()) {
         case LINEAR: {
           return rawValue;
         }
         case ZEROED_LINEAR: {
           /**
-           * Implements the equation: output = (x - t) / (1 - t)
-           * Unfortunately, we need to deal with negative values, so we need to take the abs value, then
-           * multiply by the sign of the number
-           * Pop this into Desmos, you can see a visual output: y=\frac{x-t}{1-t}\left\{0\le y\le1\right\}
-           * Define t as a variable between 0 and 1
-           * This equation allows the output to start at 0 when leaving the threshold,
-           * then scales it so that the maximum output of the joysticks is always 1
+           * Implements the equation: output = (x - t) / (1 - t) Unfortunately, we need to
+           * deal with negative values, so we need to take the abs value, then multiply by
+           * the sign of the number Pop this into Desmos, you can see a visual output:
+           * y=\frac{x-t}{1-t}\left\{0\le y\le1\right\} Define t as a variable between 0
+           * and 1 This equation allows the output to start at 0 when leaving the
+           * threshold, then scales it so that the maximum output of the joysticks is
+           * always 1
            */
-          return Math.signum(rawValue) * ((Math.abs(rawValue) - Parameters.driver.currentProfile.joystickParams.getDeadzone()) / (1 - Parameters.driver.currentProfile.joystickParams.getDeadzone()));
+          return Math.signum(rawValue)
+              * ((Math.abs(rawValue) - Parameters.driver.currentProfile.joystickParams.getDeadzone())
+                  / (1 - Parameters.driver.currentProfile.joystickParams.getDeadzone()));
         }
         case ZEROED_QUAD: {
           /**
-           * Implements a quadratic curve, with the vertex at (t,0) and scaled to pass through the point (1,1)
+           * Implements a quadratic curve, with the vertex at (t,0) and scaled to pass
+           * through the point (1,1)
            */
-          return Math.signum(rawValue) * (Math.pow(Math.abs(rawValue) - Parameters.driver.currentProfile.joystickParams.getDeadzone(), 2) / Math.pow(Parameters.driver.currentProfile.joystickParams.getDeadzone() - 1, 2));
+          return Math.signum(rawValue)
+              * (Math.pow(Math.abs(rawValue) - Parameters.driver.currentProfile.joystickParams.getDeadzone(), 2)
+                  / Math.pow(Parameters.driver.currentProfile.joystickParams.getDeadzone() - 1, 2));
         }
         case ZEROED_QUAD_LINEAR: {
           /**
-           * Implements an output for the joysticks that uses a quadratic on the lower end and a linear slope up to 1.
-           * I'm not going to bother explaining it, here's the graph: https://www.desmos.com/calculator/5lqgnstb1k
+           * Implements an output for the joysticks that uses a quadratic on the lower end
+           * and a linear slope up to 1. I'm not going to bother explaining it, here's the
+           * graph: https://www.desmos.com/calculator/5lqgnstb1k
            */
 
           // No need to implement the threshold checking, that is done above
@@ -354,11 +333,11 @@ public class RobotContainer {
 
             // This is the quadratic range, return the result of the scaled quadratic
             return (Math.signum(rawValue) * Parameters.driver.currentProfile.joystickParams.getRampRate()
-                   * Math.pow(Math.abs(rawValue) - Parameters.driver.currentProfile.joystickParams.getDeadzone(), 2));
-          }
-          else {
+                * Math.pow(Math.abs(rawValue) - Parameters.driver.currentProfile.joystickParams.getDeadzone(), 2));
+          } else {
             // Linear equation range
-            return Math.signum(rawValue) * ((Parameters.driver.currentProfile.joystickParams.getLinearSlope() * (Math.abs(rawValue) - 1)) + 1);
+            return Math.signum(rawValue)
+                * ((Parameters.driver.currentProfile.joystickParams.getLinearSlope() * (Math.abs(rawValue) - 1)) + 1);
           }
         }
         default:
@@ -368,7 +347,6 @@ public class RobotContainer {
     }
   }
 
-
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
@@ -376,7 +354,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    //return new Auton();
+    // return new Auton();
     return autonChooser.getSelected();
   }
 }

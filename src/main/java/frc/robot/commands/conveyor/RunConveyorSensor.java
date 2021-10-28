@@ -44,6 +44,13 @@ public class RunConveyorSensor extends CommandBase {
 
     // Set the current reading value (makes code faster and prevents errors)
     currentReading = Robot.conveyor.getBallSensor();
+    if(currentReading == false)
+    {
+      System.out.println("broken");
+    }
+    else{
+      System.out.println("not broken");
+    }
 
     // Start moving the conveyor if there is a new ball detected
     if (!prevReading && currentReading) {

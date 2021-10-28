@@ -35,7 +35,8 @@ public class DriveDistanceCheap extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Robot.driveTrain.setDesiredVelocities(linVel, linVel, linVel , linVel, false);
+    System.out.println("exectute");
+    Robot.driveTrain.drive(-5, 0, 0, false);
   }
 
   // Called once the command ends or is interrupted.

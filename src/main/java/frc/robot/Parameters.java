@@ -62,7 +62,8 @@ public final class Parameters {
         public static final int BUILD_TEAM_BRAIN_CELLS = 1; // Brain cells owned by the build team
         public static final int CODING_TEAM_BRAIN_CELLS = 5; // Same as the amount of coding team members
         public static final int SHRIMP_ON_THE_BARBIE = 3; // Number of shrimp on the barbecue
-        public static final int ANDREWS_PROGRESS_WHEN_AROUND_SAFETY_TEAM = -10; // What happens when Andrew is around the safety team... backwards progress
+        public static final int ANDREWS_PROGRESS_WHEN_AROUND_SAFETY_TEAM = -10; // What happens when Andrew is around
+                                                                                // the safety team... backwards progress
         public static final int CHRISTIAN_FORTNITE_WINS = 38; // The number of the lead programmer's Fortnite wins
     }
 
@@ -72,23 +73,35 @@ public final class Parameters {
         /**
          * A quick way of referencing driver parameters
          *
-         * @param NAME                 The name of the driver
-         * @param JOYSTICK_PARAMS      The joystick parameters to use
-         * @param MAX_STEER_SPEED      Maximum deg/s of rotational speed
-         * @param DRIVE_RAMP_RATE      The speed at which the drivetrain ramps to full speed. Prevents sudden jerks. Maybe something to override?
-         * @param lockemUp            If the swerve should lock the modules at 45 degrees, effectively hitting the brakes. Hard on the modules, but worth it in competition
-         * @param fieldCentric        If the robot should treat itself as forward or if the field's forward should be forward
-         * @param maxModSpeed            Maximum speed of modules in m/s
-         * @param driveIdleMode      If the drive motors should coast or brake after they exceed the current set speed. Coasting makes the driving smoother, but braking makes it more aggressive
-         * @param steerIdleMode      If the steering motor should coast of brake after they exceed the current set speed. Modules will most likely only work with braking enabled
-        */
+         * @param NAME            The name of the driver
+         * @param JOYSTICK_PARAMS The joystick parameters to use
+         * @param MAX_STEER_SPEED Maximum deg/s of rotational speed
+         * @param DRIVE_RAMP_RATE The speed at which the drivetrain ramps to full speed.
+         *                        Prevents sudden jerks. Maybe something to override?
+         * @param lockemUp        If the swerve should lock the modules at 45 degrees,
+         *                        effectively hitting the brakes. Hard on the modules,
+         *                        but worth it in competition
+         * @param fieldCentric    If the robot should treat itself as forward or if the
+         *                        field's forward should be forward
+         * @param maxModSpeed     Maximum speed of modules in m/s
+         * @param driveIdleMode   If the drive motors should coast or brake after they
+         *                        exceed the current set speed. Coasting makes the
+         *                        driving smoother, but braking makes it more aggressive
+         * @param steerIdleMode   If the steering motor should coast of brake after they
+         *                        exceed the current set speed. Modules will most likely
+         *                        only work with braking enabled
+         */
         public static DriverProfile[] driverProfiles = {
-            new DriverProfile("CAP1Sup", new JoystickParams(0.075, JOYSTICK_OUTPUT_TYPES.ZEROED_QUAD), 360.0, 0.5, true, true, 8.0, IdleMode.kBrake, IdleMode.kBrake),
-            new DriverProfile("Test", new JoystickParams(0.1, JOYSTICK_OUTPUT_TYPES.ZEROED_LINEAR), 180.0, 0.5, true, false, 1.0, IdleMode.kBrake, IdleMode.kBrake)
-        };
+                new DriverProfile("CAP1Sup", new JoystickParams(0.075, JOYSTICK_OUTPUT_TYPES.ZEROED_QUAD), 360.0, 0.5,
+                        true, true, 8.0, IdleMode.kBrake, IdleMode.kBrake),
+                new DriverProfile("Test", new JoystickParams(0.1, JOYSTICK_OUTPUT_TYPES.ZEROED_LINEAR), 180.0, 0.5,
+                        true, false, 1.0, IdleMode.kBrake, IdleMode.kBrake) };
 
         // Default profile (must be kept!)
-        public static final DriverProfile defaultDriverProfile = driverProfiles[0]; //new DriverProfile("Default", 0.15, 45.0, 0.5, true, true, 1.0, IdleMode.kBrake, IdleMode.kBrake);
+        public static final DriverProfile defaultDriverProfile = driverProfiles[0]; // new DriverProfile("Default",
+                                                                                    // 0.15, 45.0, 0.5, true, true, 1.0,
+                                                                                    // IdleMode.kBrake,
+                                                                                    // IdleMode.kBrake);
 
         // Current Driver Profile being used
         public static DriverProfile currentProfile = driverProfiles[0];
@@ -128,7 +141,6 @@ public final class Parameters {
             public static final int BR_CODER_ID = 12;
         }
 
-
         // All of the chassis dimensions
         public static final class dimensions {
 
@@ -136,9 +148,10 @@ public final class Parameters {
             public static final double DRIVE_LENGTH = Units.inchesToMeters(22.4);
             public static final double DRIVE_WIDTH = Units.inchesToMeters(22.4);
             public static final double MODULE_WHEEL_DIA_IN = 4; // Inches
-            public static final double MODULE_WHEEL_DIA_M = Units.inchesToMeters(MODULE_WHEEL_DIA_IN); // Meters (for odometry calculations)
+            public static final double MODULE_WHEEL_DIA_M = Units.inchesToMeters(MODULE_WHEEL_DIA_IN); // Meters (for
+                                                                                                       // odometry
+                                                                                                       // calculations)
         }
-
 
         // All of the maximums
         public static final class maximums {
@@ -147,28 +160,33 @@ public final class Parameters {
             public static final double MAX_ACCEL = 500000000; // (RPMM)
         }
 
-
         // All of the PID parameters
         public static final class pid {
             /**
-             * PID parameters
-             * Gains used in each module's steering motor, to be adjusted accordingly
-             * Gains(kp, ki, kd, feedforward, iZone, peak output);
+             * PID parameters Gains used in each module's steering motor, to be adjusted
+             * accordingly Gains(kp, ki, kd, feedforward, iZone, peak output);
              */
-            public static PID_PARAMS FL_STEER_PID = new PID_PARAMS(0.00000009, 0.0, 0.000, driveTrain.pid.MODULE_S_FF, 0, driver.currentProfile.maxModSpeed);
-            public static PID_PARAMS FR_STEER_PID = new PID_PARAMS(0.00000009, 0.0, 0.000, driveTrain.pid.MODULE_S_FF, 0, driver.currentProfile.maxModSpeed);
-            public static PID_PARAMS BL_STEER_PID = new PID_PARAMS(0.00000009, 0.0, 0.000, driveTrain.pid.MODULE_S_FF, 0, driver.currentProfile.maxModSpeed);
-            public static PID_PARAMS BR_STEER_PID = new PID_PARAMS(0.00000009, 0.0, 0.000, driveTrain.pid.MODULE_S_FF, 0, driver.currentProfile.maxModSpeed);
+            public static PID_PARAMS FL_STEER_PID = new PID_PARAMS(0.00000009, 0.0, 0.000, driveTrain.pid.MODULE_S_FF,
+                    0, driver.currentProfile.maxModSpeed);
+            public static PID_PARAMS FR_STEER_PID = new PID_PARAMS(0.00000009, 0.0, 0.000, driveTrain.pid.MODULE_S_FF,
+                    0, driver.currentProfile.maxModSpeed);
+            public static PID_PARAMS BL_STEER_PID = new PID_PARAMS(0.00000009, 0.0, 0.000, driveTrain.pid.MODULE_S_FF,
+                    0, driver.currentProfile.maxModSpeed);
+            public static PID_PARAMS BR_STEER_PID = new PID_PARAMS(0.00000009, 0.0, 0.000, driveTrain.pid.MODULE_S_FF,
+                    0, driver.currentProfile.maxModSpeed);
 
-            public static PID_PARAMS FL_DRIVE_PID = new PID_PARAMS(0.500, 0.0, 0.00, driveTrain.pid.MODULE_D_FF, 0, driver.currentProfile.maxModSpeed);
-            public static PID_PARAMS FR_DRIVE_PID = new PID_PARAMS(0.500, 0.0, 0.00, driveTrain.pid.MODULE_D_FF, 0, driver.currentProfile.maxModSpeed);
-            public static PID_PARAMS BL_DRIVE_PID = new PID_PARAMS(0.500, 0.0, 0.00, driveTrain.pid.MODULE_D_FF, 0, driver.currentProfile.maxModSpeed);
-            public static PID_PARAMS BR_DRIVE_PID = new PID_PARAMS(0.500, 0.0, 0.00, driveTrain.pid.MODULE_D_FF, 0, driver.currentProfile.maxModSpeed);
+            public static PID_PARAMS FL_DRIVE_PID = new PID_PARAMS(0.500, 0.0, 0.00, driveTrain.pid.MODULE_D_FF, 0,
+                    driver.currentProfile.maxModSpeed);
+            public static PID_PARAMS FR_DRIVE_PID = new PID_PARAMS(0.500, 0.0, 0.00, driveTrain.pid.MODULE_D_FF, 0,
+                    driver.currentProfile.maxModSpeed);
+            public static PID_PARAMS BL_DRIVE_PID = new PID_PARAMS(0.500, 0.0, 0.00, driveTrain.pid.MODULE_D_FF, 0,
+                    driver.currentProfile.maxModSpeed);
+            public static PID_PARAMS BR_DRIVE_PID = new PID_PARAMS(0.500, 0.0, 0.00, driveTrain.pid.MODULE_D_FF, 0,
+                    driver.currentProfile.maxModSpeed);
 
             public static final double MODULE_S_FF = 0.000000; // Must be tuned for the modules!
             public static final double MODULE_D_FF = 0.000000; // Maybe: 0.000156;
         }
-
 
         // All of the movement control parameters
         public static final class movement {
@@ -177,9 +195,12 @@ public final class Parameters {
             public static final double TIMEOUT = 10; // seconds
 
             // Pose estimator parameters (units are m, m, radians)
-            public static final Matrix<N3,N1> POSE_STD_DEV = new MatBuilder<>(Nat.N3(), Nat.N1()).fill(0.02, 0.02, Math.toRadians(0.125));
-            public static final Matrix<N1,N1> ENCODER_GYRO_DEV = new MatBuilder<>(Nat.N1(), Nat.N1()).fill(Math.toRadians(0.125));
-            public static final Matrix<N3,N1> VISION_DEVIATION = new MatBuilder<>(Nat.N3(), Nat.N1()).fill(0.02, 0.02, Math.toRadians(0.125));
+            public static final Matrix<N3, N1> POSE_STD_DEV = new MatBuilder<>(Nat.N3(), Nat.N1()).fill(0.02, 0.02,
+                    Math.toRadians(0.125));
+            public static final Matrix<N1, N1> ENCODER_GYRO_DEV = new MatBuilder<>(Nat.N1(), Nat.N1())
+                    .fill(Math.toRadians(0.125));
+            public static final Matrix<N3, N1> VISION_DEVIATION = new MatBuilder<>(Nat.N3(), Nat.N1()).fill(0.02, 0.02,
+                    Math.toRadians(0.125));
 
             // PID controller (rotation constraints are max velocity and max acceleration)
             public static PIDController movementPID = new PIDController(1, 0, 0);
@@ -196,28 +217,37 @@ public final class Parameters {
         }
 
         public static final class auton {
-            public static final double DRIVE_DISTANCE = Units.feetToMeters(9); // m
-            public static final double DRIVE_SPEED = .5; // m/s
-            public static final double LINE_UP_DISTANCE = Units.inchesToMeters(10);
-            public static final double LINE_UP_SPEED = -1;
+
+            public static final double DRIVE_SPEED = -.5;// m/s
+            public static final double TIME_OFF_LINE = 4; // s
+
+            public static final double LINE_UP_SPEED = 1.27; // m/s
+            /*
+            How was the above number determined? 
+            We need to go back 10 inches once the front of our intake hits the front of the powerport. 10 inches is .254 meters. To cover .254 meters in .2 seconds, we need to move at a speed of 1.27 m/s (.254/2)
+            */
+            public static final double LINEUP_TIME = .2; //s
+            /*
+            */
+
+
         }
     }
 
-
     // DriverStation instance
     public static DriverStation driverStation = DriverStation.getInstance();
-
 
     // All of the starting position data
     public static final class positions {
 
         // All of the possible starting positions (and their angles)
-        public static final Pose2d[] POSSIBLE_STARTING_POSITIONS = {new Pose2d(0, 0, Rotation2d.fromDegrees(0)), new Pose2d(0, 0, Rotation2d.fromDegrees(0)), new Pose2d(0, 0, Rotation2d.fromDegrees(0))};
+        public static final Pose2d[] POSSIBLE_STARTING_POSITIONS = { new Pose2d(0, 0, Rotation2d.fromDegrees(0)),
+                new Pose2d(0, 0, Rotation2d.fromDegrees(0)), new Pose2d(0, 0, Rotation2d.fromDegrees(0)) };
 
         // Actual starting position (declared in the global scope)
-        public static final Pose2d STARTING_POS = Parameters.positions.POSSIBLE_STARTING_POSITIONS[Parameters.driverStation.getLocation() - 1];
+        public static final Pose2d STARTING_POS = Parameters.positions.POSSIBLE_STARTING_POSITIONS[Parameters.driverStation
+                .getLocation() - 1];
     }
-
 
     // All of the joystick variables
     public static final class joysticks {
@@ -226,7 +256,6 @@ public final class Parameters {
         // Joysticks have 11 buttons
         public static final int JOYSTICK_BUTTON_COUNT = 11;
     }
-
 
     // Vision parameters - used for distance calculations
     public static final class camera {
@@ -292,13 +321,12 @@ public final class Parameters {
         public static final double BACKWARD_SPEED = -0.75;
 
         // Times
-        public static final double INTAKE_TIME = 0.5;
+        public static final double INTAKE_TIME = 0.35;
         public static final double UNLOAD_TIME = 4; // Time to unload the entire conveyor (in s)
         public static final double EJECT_TIME = 3; // Time to eject all balls from the conveyor (in s)
 
         public static double BALL_COUNT = 0;
     }
-
 
     // Auton Constants
     public static final class auton {
@@ -306,7 +334,7 @@ public final class Parameters {
         public static final double CONVEYOR_SPEED = 1;
     }
 
-     // LED Values (for style)
+    // LED Values (for style)
     public static final class LEDColors {
         public static final double LAVA_RAINBOW = -.87;
         public static final double STROBE_RED = -.11;
@@ -322,8 +350,8 @@ public final class Parameters {
     }
 
     public class climber {
-        public static final int CLIMBER_MOTOR_PORT = 16; //CAN ID#
-        public static final boolean CLIMBER_INVERTED = true;//if it is going the wrong direction
+        public static final int CLIMBER_MOTOR_PORT = 16; // CAN ID#
+        public static final boolean CLIMBER_INVERTED = false;// if it is going the wrong direction
         public static final double CLIMBER_MOTOR_SPEED = 1;
         public static final int CLIMBER_LIMIT_SWITCH_PORT = 8;
     }

@@ -17,7 +17,6 @@ import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-
 public class Conveyor extends SubsystemBase {
   /**
    * Creates a new Conveyor.
