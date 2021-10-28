@@ -6,6 +6,7 @@ package frc.robot.commands.conveyor;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Parameters;
 import frc.robot.Robot;
 
 public class RunConveryorTime extends CommandBase {

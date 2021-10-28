@@ -63,6 +63,7 @@ public class RobotContainer {
   // Commands
   private final LetsRoll2Joysticks letsRoll2Joysticks = new LetsRoll2Joysticks();
   private final LetsRoll1Joystick letsRoll1Joystick = new LetsRoll1Joystick();
+  private final Turn180 turn180 = new Turn180();
   private final ZeroCanCoders zeroCanCoders = new ZeroCanCoders();
   private final PullNTSwerveParams pullNtSwerveParams = new PullNTSwerveParams();
   private final TestModulePID testModulePID = new TestModulePID();
@@ -168,6 +169,7 @@ public class RobotContainer {
     lJoystick1.whenPressed(letsRoll2Joysticks);
     rJoystick1.whenPressed(lineUpAndShoot);
     lJoystick3.whenPressed(zeroNavX);
+    lJoystick2.whenPressed(turn180);
     lJoystick8.whenPressed(zeroCanCoders);
     rJoystick8.whenPressed(saveSwerveParameters);
 
@@ -190,7 +192,7 @@ public class RobotContainer {
 
     BGBL.whileHeld(runConveyor); // MANUAL
     BGBM.whileHeld(runIntake); // MANUAL
-    BGBR.whenPressed(runShooter); 
+    BGBR.whenPressed(runShooter);
 
     /*
      * // Move conveyor forward BGML.whileHeld(runConveyor);
@@ -219,44 +221,44 @@ public class RobotContainer {
      */
     /*
      * // Try to assign the left joystick try { leftJoystick = new Joystick(0);
-     * 
+     *
      * // If we get here, then the left joystick was successful and we can try the
      * right joystick try { rightJoystick = new Joystick(1);
-     * 
+     *
      * // Both joysticks are present robotState = ROBOT_STATE.TWO_JOYSTICKS;
-     * 
+     *
      * } catch (Exception e) {
-     * 
+     *
      * // We only have one joystick, the left robotState = ROBOT_STATE.ONE_JOYSTICK;
      * }
-     * 
+     *
      * } catch (Exception e) {
-     * 
+     *
      * // No joysticks detected robotState = ROBOT_STATE.NO_JOYSTICKS; }
-     * 
-     * 
+     *
+     *
      * // Setup the robot based on the state of it if (robotState ==
      * ROBOT_STATE.TWO_JOYSTICKS) { // Full setup
-     * 
+     *
      * // Left Joystick button assignment (buttons array starts at 0) for(int
      * buttonIndex = 0; buttonIndex < Parameters.joysticks.JOYSTICK_BUTTON_COUNT;
      * buttonIndex++) { leftJoystickButtons[buttonIndex] = new
      * JoystickButton(leftJoystick, buttonIndex); }
-     * 
+     *
      * // Right Joystick button assignment (buttons array starts at 0) for(int
      * buttonIndex = 0; buttonIndex < Parameters.joysticks.JOYSTICK_BUTTON_COUNT;
      * buttonIndex++) { rightJoystickButtons[buttonIndex] = new
      * JoystickButton(rightJoystick, buttonIndex); }
-     * 
+     *
      * // Command setup // Configure the command (on the second button of the
      * joystick)
-     * 
+     *
      * } else if (robotState == ROBOT_STATE.ONE_JOYSTICK) { // Left Joystick button
      * assignment (buttons array starts at 0) for(int buttonIndex = 1; buttonIndex
      * <= Parameters.joysticks.JOYSTICK_BUTTON_COUNT; buttonIndex++) {
      * leftJoystickButtons[buttonIndex - 1] = new JoystickButton(leftJoystick,
      * buttonIndex); }
-     * 
+     *
      * // Command setup // Configure the command (on the second button of the
      * joystick) leftJoystickButtons[0].whenPressed(letsRoll1Joystick);
      * leftJoystickButtons[1].whenPressed(saveSwerveParameters);
@@ -265,9 +267,9 @@ public class RobotContainer {
      * leftJoystickButtons[4].whenPressed(testMovementPID);
      * leftJoystickButtons[7].whenPressed(zeroCanCoders); } else { // No joysticks
      * (show mode)
-     * 
+     *
      * // Command setup
-     * 
+     *
      * }
      */
 

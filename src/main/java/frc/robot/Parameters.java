@@ -328,6 +328,7 @@ public final class Parameters {
     public static final class auton {
         public static final double CONVEYOR_RUN_TIME = 3;
         public static final double CONVEYOR_SPEED = 1;
+        public static final double TURN_180_STEER_PERCENT = 0.5;
     }
 
     // LED Values (for style)
