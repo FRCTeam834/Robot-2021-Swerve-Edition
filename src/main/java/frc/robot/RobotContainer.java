@@ -169,7 +169,6 @@ public class RobotContainer {
     lJoystick1.whenPressed(letsRoll2Joysticks);
     rJoystick1.whenPressed(lineUpAndShoot);
     lJoystick3.whenPressed(zeroNavX);
-    lJoystick2.whenPressed(turn180);
     lJoystick8.whenPressed(zeroCanCoders);
     rJoystick8.whenPressed(saveSwerveParameters);
 
