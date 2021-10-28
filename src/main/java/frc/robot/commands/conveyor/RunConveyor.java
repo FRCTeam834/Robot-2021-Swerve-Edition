@@ -33,7 +33,7 @@ public class RunConveyor extends CommandBase {
 
     // Set the conveyor to the correct speed
     Robot.conveyor.runForward();
-    
+
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -47,10 +47,10 @@ public class RunConveyor extends CommandBase {
   public void end(boolean interrupted) {
 
     // Stop the motor, we're finished
-    if(true)
-    {
-      Robot.conveyor.stop();
-    }
+    Robot.conveyor.stop();
+
+    // Reset the ball count
+    Parameters.conveyor.BALL_COUNT = 0;
   }
 
   // Returns true when the command should end.

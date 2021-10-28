@@ -31,7 +31,14 @@ public class RunConveryorTime extends CommandBase {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+
+    // Stop the conveyor motor once finished
+    Robot.conveyor.stop();
+
+    // Reset the ball count
+    Parameters.conveyor.BALL_COUNT = 0;
+  }
 
   // Returns true when the command should end.
   @Override
