@@ -13,9 +13,9 @@ import frc.robot.Parameters;
 // Rev libraries
 import com.revrobotics.CANSparkMax;
 
-import edu.wpi.first.wpilibj.Timer;
 // WPI libraries
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj.Timer;
 
 public class Shooter extends SubsystemBase {
   /**
