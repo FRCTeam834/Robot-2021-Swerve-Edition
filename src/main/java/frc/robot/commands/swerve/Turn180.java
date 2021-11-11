@@ -31,8 +31,8 @@ public class Turn180 extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Robot.driveTrain.drive(RobotContainer.constrainJoystick(RobotContainer.rightJoystick.getY()) * Parameters.driver.currentProfile.maxModSpeed,
-        RobotContainer.constrainJoystick(RobotContainer.rightJoystick.getX()) * Parameters.driver.currentProfile.maxModSpeed,
+    Robot.driveTrain.drive(RobotContainer.constrainJoystick(RobotContainer.rightJoystick.getY()) * Parameters.driver.currentProfile.maxModVelocity,
+        RobotContainer.constrainJoystick(RobotContainer.rightJoystick.getX()) * Parameters.driver.currentProfile.maxModVelocity,
         startingAngle > 0 ? -1 : 1 * Parameters.auton.TURN_180_STEER_PERCENT * Parameters.driver.currentProfile.maxSteerRate, false);
   }
 

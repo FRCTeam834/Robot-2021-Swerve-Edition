@@ -15,7 +15,7 @@ public class DriveDistanceCheap extends CommandBase {
   Timer timer = new Timer();
 
   /**
-   * 
+   *
    * @param distance distance to travel, direction agnostic
    * @param linVel speed to move at, direction dependent (+/-)
    */
@@ -27,7 +27,7 @@ public class DriveDistanceCheap extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    Robot.driveTrain.setDesiredAngles(0, 0, 0, 0, true);
+    Robot.driveTrain.setDesiredAngles(0, 0, 0, 0);
     timer.start();
   }
 
