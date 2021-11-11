@@ -158,6 +158,7 @@ public class DriveTrain extends SubsystemBase {
     resetOdometry(Parameters.positions.STARTING_POS);
   }
 
+
   /**
    * Moves the entire drivetrain with the specified X and Y velocity with rotation
    * @param xVelocity X velocity, in m/s
@@ -175,6 +176,7 @@ public class DriveTrain extends SubsystemBase {
       setModuleStates(new ChassisSpeeds(xVelocity, yVelocity, rot));
     }
   }
+
 
   /**
    * Moves the entire drivetrain with specified X and Y velocity with rotation around a specified relative center
@@ -194,6 +196,7 @@ public class DriveTrain extends SubsystemBase {
       setModuleStates(new ChassisSpeeds(xVelocity, yVelocity, rot), relativeCenter);
     }
   }
+
 
   /**
    * Moves the entire drivetrain with specified X and Y velocity with rotation around a specified absolute center
@@ -217,6 +220,7 @@ public class DriveTrain extends SubsystemBase {
     // Run the modules using the relative position that was just calculated
     driveRelativeCenter(xVelocity, yVelocity, rot, fieldRelative, centerOfRotation);
   }
+
 
   /**
    * Sets all of the states of the modules and updates the odometry of the robot
@@ -244,6 +248,7 @@ public class DriveTrain extends SubsystemBase {
     updateOdometry();
   }
 
+
   /**
    * Sets all of the states of the modules and updates the odometry of the robot
    *
@@ -268,6 +273,7 @@ public class DriveTrain extends SubsystemBase {
     updateOdometry();
   }
 
+
   /**
    * Halts all of the modules (sets all the motors to 0%)
    */
@@ -279,6 +285,7 @@ public class DriveTrain extends SubsystemBase {
     backLeft.stopMotors();
     backRight.stopMotors();
   }
+
 
   /**
    * Moves all of the swerve modules to the specified angles
@@ -296,6 +303,7 @@ public class DriveTrain extends SubsystemBase {
     backRight.setDesiredAngle(BRAngle);
   }
 
+
   /**
    * Moves the modules to the desired angles, just with an array of angles instead of individual parameters
    * @param angleArray An array of module angles in form [Front Left, Front Right, Back Left, Back Right]
@@ -303,6 +311,7 @@ public class DriveTrain extends SubsystemBase {
   public void setDesiredAngles(double[] angleArray) {
     setDesiredAngles(angleArray[0], angleArray[1], angleArray[2], angleArray[3]);
   }
+
 
   /**
    * Sets all of the swerve modules to their specified velocities
@@ -320,6 +329,7 @@ public class DriveTrain extends SubsystemBase {
     backRight.setDesiredVelocity(BRVelocity);
   }
 
+
   /**
    * Moves the modules to the desired velocities, just with an array of velocities instead of individual parameters
    * @param velocityArray An array of module velocities in form [Front Left, Front Right, Back Left, Back Right]
@@ -328,6 +338,7 @@ public class DriveTrain extends SubsystemBase {
     setDesiredVelocities(velocityArray[0], velocityArray[1], velocityArray[2], velocityArray[3]);
   }
 
+
   /**
    * Stops the drive wheel of the modules and sets it to hold stopped
    */
@@ -335,9 +346,14 @@ public class DriveTrain extends SubsystemBase {
     setDesiredVelocities(0, 0, 0, 0);
   }
 
+
+  /**
+   * Sets the modules so that they all point forward
+   */
   public void straightenModules() {
     setDesiredAngles(0, 0, 0, 0);
   }
+
 
   /**
    * Locks the drivetrain up by halting the modules and moving them in an "X"
@@ -359,6 +375,7 @@ public class DriveTrain extends SubsystemBase {
     backRight.setDesiredAngle(-45);
   }
 
+
   /**
    * Updates the odometry. Should be called as frequently as possible to reduce
    * error.
@@ -367,6 +384,7 @@ public class DriveTrain extends SubsystemBase {
     poseEstimator.update(Robot.navX.getRotation2d(), frontLeft.getState(), frontRight.getState(), backLeft.getState(),
         backRight.getState());
   }
+
 
   /**
    * Reset the odometry measurements. This is kind of like "homing" the robot
@@ -377,12 +395,14 @@ public class DriveTrain extends SubsystemBase {
     poseEstimator.resetPosition(currentPosition, Robot.navX.getRotation2d());
   }
 
+
   /**
    * Adds a vision position measurement
    */
   public void visionPositionMeasurement(Pose2d visionRobotPose) {
     poseEstimator.addVisionMeasurement(visionRobotPose, Timer.getFPGATimestamp());
   }
+
 
   /**
    * Moves the robot to follow a trajectory
@@ -399,6 +419,7 @@ public class DriveTrain extends SubsystemBase {
     setModuleStates(adjustedVelocities);
   }
 
+
   /**
    * Gets the estimated X position of the drivetrain on the field
    *
@@ -407,6 +428,7 @@ public class DriveTrain extends SubsystemBase {
   public double getXPosition() {
     return poseEstimator.getEstimatedPosition().getX();
   }
+
 
   /**
    * Gets the estimated Y position of the drivetrain on the field
@@ -417,6 +439,7 @@ public class DriveTrain extends SubsystemBase {
     return poseEstimator.getEstimatedPosition().getY();
   }
 
+
   /**
    * Gets the estimated angle of the drivetrain on the field
    *
@@ -425,6 +448,7 @@ public class DriveTrain extends SubsystemBase {
   public Rotation2d getThetaPosition() {
     return poseEstimator.getEstimatedPosition().getRotation();
   }
+
 
   /**
    * Gets the orientation of the robot on the field
@@ -435,6 +459,7 @@ public class DriveTrain extends SubsystemBase {
     return poseEstimator.getEstimatedPosition();
   }
 
+
   /**
    * Check if the robot is at the reference point of the planned movement
    *
@@ -444,7 +469,10 @@ public class DriveTrain extends SubsystemBase {
     return driveController.atReference();
   }
 
-  // Updates all of the steering parameters, such as PID loops and driver settings
+
+  /**
+   * Updates all of the steering parameters, such as PID loops and driver settings
+   */
   public void updateParameters() {
 
     // Update the PID parameters with the new driver profile values
@@ -507,7 +535,10 @@ public class DriveTrain extends SubsystemBase {
         Math.toDegrees(ROTATION_CONSTRAINTS.maxAcceleration));
   }
 
-  // Loads all of the currently saved parameters
+
+  /**
+   * Loads all of the currently saved parameters
+   */
   public void loadParameters() {
 
     // Load module values
@@ -545,7 +576,10 @@ public class DriveTrain extends SubsystemBase {
     publishTuningValues();
   }
 
-  // Loads all of the NetworkTable parameters
+
+  /**
+   * Loads all of the NetworkTable parameters
+   */
   public void pullTuningValues() {
 
     // Don't mess with NetworkTables unless we have to
@@ -582,7 +616,10 @@ public class DriveTrain extends SubsystemBase {
     }
   }
 
-  // Pushes all of the NetworkTable parameters
+
+  /**
+   * Pushes all of the NetworkTable parameters
+   */
   public void publishTuningValues() {
 
     // Don't mess with NetworkTables unless we have to
@@ -615,7 +652,10 @@ public class DriveTrain extends SubsystemBase {
     }
   }
 
-  // Publish the performance data from each of the modules to the NetworkTable
+
+  /**
+   * Publish the performance data from each of the modules to the NetworkTable
+   */
   public void publishPerformanceData() {
 
     // Don't mess with NetworkTables unless we have to
@@ -633,6 +673,7 @@ public class DriveTrain extends SubsystemBase {
       ROTATIONAL_POSITION_ENTRY.setDouble(getThetaPosition().getDegrees());
     }
   }
+
 
   @Override
   public void periodic() {
