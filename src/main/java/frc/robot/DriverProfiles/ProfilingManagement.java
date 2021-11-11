@@ -17,7 +17,10 @@ import frc.robot.Parameters;
 
 // Robot instance
 import frc.robot.Robot;
-import frc.robot.enums.JOYSTICK_OUTPUT_TYPES;
+
+// Enums
+import frc.robot.enums.ControlInputs;
+import frc.robot.enums.JoystickOutputTypes;
 
 // Vendor Libraries
 import com.revrobotics.CANSparkMax.IdleMode;
@@ -54,7 +57,7 @@ public class ProfilingManagement extends SubsystemBase {
     DriverProfile selectedProfile = driverProfileChooser.getSelected();
 
     // Check to make sure that the profile isn't the same as the previous one
-    if(selectedProfile != Parameters.driver.currentProfile) {
+    if(!selectedProfile.equals(Parameters.driver.currentProfile)) {
 
       // Update the current profile with the new one
       updateCurrentProfile(selectedProfile);
@@ -81,31 +84,21 @@ public class ProfilingManagement extends SubsystemBase {
     // Saves the input profile for next boot
 
     // Strings
-    Parameters.savedParams.putString("NAME",              profile.name);
+    Parameters.savedParams.putString("NAME",               profile.name);
 
     // Ints / Doubles
-    Parameters.savedParams.putDouble("JOYSTICK_DEADZONE",   profile.joystickParams.getDeadzone());
-    Parameters.savedParams.putDouble("JOYSTICK_RAMP_CONST", profile.joystickParams.getRampRate());
-    Parameters.savedParams.putInt("JOYSTICK_OUTPUT_TYPE",   profile.joystickParams.getOutputType().getInt());
-    Parameters.savedParams.putDouble("MAX_STEER_SPEED",     profile.maxSteerRate);
-    Parameters.savedParams.putDouble("DRIVE_RAMP_RATE",     profile.driveRampRate);
-    Parameters.savedParams.putDouble("MAX_SPEED",           profile.maxModSpeed);
+    Parameters.savedParams.putDouble("JOYSTICK_DEADZONE",  profile.joystickParams.getDeadzone());
+    Parameters.savedParams.putDouble("JOYSTICK_RAMP_RATE", profile.joystickParams.getRampRate());
+    Parameters.savedParams.putInt("JOYSTICK_OUTPUT_TYPE",  profile.joystickParams.getOutputType().getInt());
+    Parameters.savedParams.putInt("CONTROL_INPUTS",        profile.inputType.getInt());
+    Parameters.savedParams.putDouble("MAX_STEER_RATE",     profile.maxSteerRate);
+    Parameters.savedParams.putDouble("MAX_MOD_VELOCITY",   profile.maxModVelocity);
+    Parameters.savedParams.putInt("DRIVE_BRAKE_MODE",      profile.driveIdleMode.value);
+    Parameters.savedParams.putInt("STEER_BRAKE_MODE",      profile.steerIdleMode.value);
 
     // Booleans
-    Parameters.savedParams.putBoolean("LOCKEM_UP",        profile.lockemUp);
-    Parameters.savedParams.putBoolean("FIELD_CENTRIC",    profile.fieldCentric);
-
-    // Special
-
-    // IdleMode is not a supported type of the Preferences class, so brake will be true and coast will be false
-    if (profile.driveIdleMode == IdleMode.kBrake) {
-      // Brake
-      Parameters.savedParams.putBoolean("BRAKE", true);
-    }
-    else {
-      // Coast
-      Parameters.savedParams.putBoolean("BRAKE", false);
-    }
+    Parameters.savedParams.putBoolean("LOCKEM_UP",         profile.lockemUp);
+    Parameters.savedParams.putBoolean("FIELD_CENTRIC",     profile.fieldCentric);
   }
 
 
@@ -121,38 +114,19 @@ public class ProfilingManagement extends SubsystemBase {
     // Ints / Doubles
     double deadzone                  = Parameters.savedParams.getDouble("JOYSTICK_DEADZONE", Parameters.driver.defaultDriverProfile.joystickParams.getDeadzone());
     double rampRate                  = Parameters.savedParams.getDouble("JOYSTICK_RAMP_RATE", Parameters.driver.defaultDriverProfile.joystickParams.getRampRate());
-    JOYSTICK_OUTPUT_TYPES outputType = JOYSTICK_OUTPUT_TYPES.fromInt(Parameters.savedParams.getInt("JOYSTICK_OUTPUT_TYPE", Parameters.driver.defaultDriverProfile.joystickParams.getOutputType().getInt()));
+    JoystickOutputTypes outputType = JoystickOutputTypes.fromInt(Parameters.savedParams.getInt("JOYSTICK_OUTPUT_TYPE", Parameters.driver.defaultDriverProfile.joystickParams.getOutputType().getInt()));
+    profile.inputType                = ControlInputs.fromInt(Parameters.savedParams.getInt("CONTROL_INPUTS", Parameters.driver.defaultDriverProfile.inputType.getInt()));
     profile.joystickParams           = new JoystickParams(deadzone, outputType, rampRate);
-    profile.maxSteerRate             = Parameters.savedParams.getDouble("MAX_STEER_SPEED",   Parameters.driver.defaultDriverProfile.maxSteerRate);
-    profile.driveRampRate            = Parameters.savedParams.getDouble("DRIVE_RAMP_RATE",   Parameters.driver.defaultDriverProfile.driveRampRate);
-    profile.maxModSpeed              = Parameters.savedParams.getDouble("MAX_SPEED",         Parameters.driver.defaultDriverProfile.maxModSpeed);
+    profile.maxSteerRate             = Parameters.savedParams.getDouble("MAX_STEER_RATE",     Parameters.driver.defaultDriverProfile.maxSteerRate);
+    profile.maxModVelocity           = Parameters.savedParams.getDouble("MAX_MOD_VELOCITY", Parameters.driver.defaultDriverProfile.maxModVelocity);
 
     // Booleans
     profile.lockemUp         =  Parameters.savedParams.getBoolean("LOCKEM_UP",        Parameters.driver.defaultDriverProfile.lockemUp);
     profile.fieldCentric     =  Parameters.savedParams.getBoolean("FIELD_CENTRIC",    Parameters.driver.defaultDriverProfile.fieldCentric);
 
-    // Special
-
-    // IdleMode is not a supported type of the Preferences class, so brake will be true and coast will be false
-    boolean defaultBrakeMode;
-
-    if (Parameters.driver.defaultDriverProfile.driveIdleMode == IdleMode.kBrake) {
-      // Brake
-      defaultBrakeMode = true;
-    }
-    else {
-      // Coast
-      defaultBrakeMode = false;
-    }
-
-    if (Parameters.savedParams.getBoolean("BRAKE", defaultBrakeMode)) {
-      // Brake
-      profile.driveIdleMode = IdleMode.kBrake;
-    }
-    else {
-      // Coast
-      profile.driveIdleMode = IdleMode.kCoast;
-    }
+    // Special (the braking modes)
+    profile.driveIdleMode    = Parameters.savedParams.getInt("DRIVE_BRAKE_MODE", profile.driveIdleMode.value) == 0 ? IdleMode.kCoast : IdleMode.kBrake;
+    profile.steerIdleMode    = Parameters.savedParams.getInt("STEER_BRAKE_MODE", profile.steerIdleMode.value) == 0 ? IdleMode.kCoast : IdleMode.kBrake;
 
     // Set the current profile to the values we just obtained
     Parameters.driver.currentProfile = profile;

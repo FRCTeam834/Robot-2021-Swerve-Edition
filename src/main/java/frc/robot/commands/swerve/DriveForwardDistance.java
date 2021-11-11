@@ -17,6 +17,9 @@ import frc.robot.Robot;
 
 // WPI libraries
 import edu.wpi.first.wpilibj.geometry.Pose2d;
+import edu.wpi.first.wpilibj.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.geometry.Transform2d;
+import edu.wpi.first.wpilibj.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class DriveForwardDistance extends CommandBase {
@@ -57,10 +60,15 @@ public class DriveForwardDistance extends CommandBase {
 
     // Get the current position
     Pose2d currentPosition = Robot.driveTrain.getPose2D();
-    double newX = currentPosition.getX() + (distance * currentPosition.getRotation().getCos());
-    double newY = currentPosition.getY() + (distance * currentPosition.getRotation().getSin());
-    this.desiredPose2d = new Pose2d(newX, newY, currentPosition.getRotation());
-    this.linearVel = Parameters.driver.currentProfile.maxModSpeed;
+
+    // Physics equations (done with basic logic)
+    //double newX = currentPosition.getX() + (distance * currentPosition.getRotation().getCos());
+    //double newY = currentPosition.getY() + (distance * currentPosition.getRotation().getSin());
+    //this.desiredPose2d = new Pose2d(newX, newY, currentPosition.getRotation());
+
+    // WPI equations (should work better)
+    this.desiredPose2d = currentPosition.transformBy(new Transform2d(new Translation2d(distance, 0), new Rotation2d()));
+    this.linearVel = Parameters.driver.currentProfile.maxModVelocity;
   }
 
 

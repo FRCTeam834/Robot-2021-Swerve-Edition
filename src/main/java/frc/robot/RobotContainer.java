@@ -28,7 +28,7 @@ import frc.robot.commands.intake.*;
 import frc.robot.commands.swerve.*;
 
 // Enums
-import frc.robot.enums.ROBOT_STATE;
+import frc.robot.enums.RobotState;
 
 // WPI Libraries
 import edu.wpi.first.wpilibj2.command.Command;
@@ -110,7 +110,7 @@ public class RobotContainer {
   public static int ballCount;
 
   // The robot's state
-  public static ROBOT_STATE robotState;
+  public static RobotState robotState;
 
   public static final JoystickButton
   // Left Joystick

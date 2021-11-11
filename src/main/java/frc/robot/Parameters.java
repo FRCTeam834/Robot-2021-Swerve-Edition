@@ -15,9 +15,11 @@ package frc.robot;
 // Internal libraries
 import frc.robot.DriverProfiles.DriverProfile;
 import frc.robot.DriverProfiles.JoystickParams;
-import frc.robot.enums.JOYSTICK_OUTPUT_TYPES;
-import frc.robot.subsystems.swerve.PID_PARAMS;
+import frc.robot.enums.ControlInputs;
+import frc.robot.enums.JoystickOutputTypes;
+import frc.robot.utilityClasses.PIDParams;
 
+import com.revrobotics.ControlType;
 // Vendor libraries
 import com.revrobotics.CANSparkMax.IdleMode;
 
@@ -27,8 +29,6 @@ import edu.wpi.first.wpiutil.math.MatBuilder;
 import edu.wpi.first.wpiutil.math.Matrix;
 import edu.wpi.first.wpiutil.math.Nat;
 import edu.wpi.first.wpiutil.math.numbers.*;
-//import edu.wpi.first.networktables.NetworkTable;
-//import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.controller.ProfiledPIDController;
@@ -51,6 +51,7 @@ public final class Parameters {
 
     // Enables all debug statements
     public static final boolean debug = false;
+    public static final boolean networkTables = false;
 
     // All of the fun parameters
     public static final class funParameters {
@@ -73,35 +74,23 @@ public final class Parameters {
         /**
          * A quick way of referencing driver parameters
          *
-         * @param NAME            The name of the driver
-         * @param JOYSTICK_PARAMS The joystick parameters to use
-         * @param MAX_STEER_SPEED Maximum deg/s of rotational speed
-         * @param DRIVE_RAMP_RATE The speed at which the drivetrain ramps to full speed.
-         *                        Prevents sudden jerks. Maybe something to override?
-         * @param lockemUp        If the swerve should lock the modules at 45 degrees,
-         *                        effectively hitting the brakes. Hard on the modules,
-         *                        but worth it in competition
-         * @param fieldCentric    If the robot should treat itself as forward or if the
-         *                        field's forward should be forward
-         * @param maxModSpeed     Maximum speed of modules in m/s
-         * @param driveIdleMode   If the drive motors should coast or brake after they
-         *                        exceed the current set speed. Coasting makes the
-         *                        driving smoother, but braking makes it more aggressive
-         * @param steerIdleMode   If the steering motor should coast of brake after they
-         *                        exceed the current set speed. Modules will most likely
-         *                        only work with braking enabled
+         * @param name           The name of the driver
+         * @param joystickParams The joystick parameters to use
+         * @param maxSteerRate   Maximum deg/s of rotational velocity
+         * @param lockemUp       If the swerve should lock the modules at 45 degrees, effectively hitting the brakes. Hard on the modules, but worth it in competition
+         * @param fieldCentric   If the robot should treat itself as forward or if the field's forward should be forward
+         * @param maxModVelocity Maximum velocity of modules in m/s
+         * @param driveIdleMode  If the drive motors should coast or brake after they exceed the current set velocity. Coasting makes the driving smoother, but braking makes it more aggressive
+         * @param steerIdleMode  If the steering motor should coast of brake after they exceed the current set velocity. Modules will most likely only work with braking enabled
+         * @param inputType      The devices used to control the robot
          */
         public static DriverProfile[] driverProfiles = {
-                new DriverProfile("CAP1Sup", new JoystickParams(0.075, JOYSTICK_OUTPUT_TYPES.ZEROED_QUAD), 360.0, 0.5,
-                        true, true, 8.0, IdleMode.kBrake, IdleMode.kBrake),
-                new DriverProfile("Test", new JoystickParams(0.1, JOYSTICK_OUTPUT_TYPES.ZEROED_LINEAR), 180.0, 0.5,
-                        true, false, 1.0, IdleMode.kBrake, IdleMode.kBrake) };
+            new DriverProfile("CAP1Sup", new JoystickParams(0.075, JoystickOutputTypes.ZEROED_QUAD), 180.0, true, false, 8.0, IdleMode.kBrake, IdleMode.kBrake, ControlInputs.JOYSTICKS),
+            new DriverProfile("Test", new JoystickParams(0.1, JoystickOutputTypes.ZEROED_LINEAR), 45.0, true, false, 1.0, IdleMode.kBrake, IdleMode.kBrake, ControlInputs.JOYSTICKS)
+        };
 
         // Default profile (must be kept!)
-        public static final DriverProfile defaultDriverProfile = driverProfiles[0]; // new DriverProfile("Default",
-                                                                                    // 0.15, 45.0, 0.5, true, true, 1.0,
-                                                                                    // IdleMode.kBrake,
-                                                                                    // IdleMode.kBrake);
+        public static final DriverProfile defaultDriverProfile = driverProfiles[0];
 
         // Current Driver Profile being used
         public static DriverProfile currentProfile = driverProfiles[0];
@@ -116,7 +105,7 @@ public final class Parameters {
 
         // Tolerances for completing movements
         public static final double angleTolerance = 2; // deg
-        public static final double speedTolerance = 0.01; // m/s
+        public static final double velocityTolerance = 0.01; // m/s
 
         // Nominal voltage
         public static final double nominalVoltage = 12;
@@ -155,9 +144,11 @@ public final class Parameters {
 
         // All of the maximums
         public static final class maximums {
-            public static final double MAX_MODULE_SPEED = 8; // (m/s)
+            public static final double MAX_MODULE_VELOCITY = 8; // (m/s)
             public static final double MAX_VELOCITY = 10000; // (RPM)
             public static final double MAX_ACCEL = 500000000; // (RPMM)
+            public static final int MAX_STEER_CURRENT = 20; // Amps
+            public static final int MAX_DRIVE_CURRENT = 50; // Amps
         }
 
         // All of the PID parameters
@@ -166,23 +157,15 @@ public final class Parameters {
              * PID parameters Gains used in each module's steering motor, to be adjusted
              * accordingly Gains(kp, ki, kd, feedforward, iZone, peak output);
              */
-            public static PID_PARAMS FL_STEER_PID = new PID_PARAMS(0.00000009, 0.0, 0.000, driveTrain.pid.MODULE_S_FF,
-                    0, driver.currentProfile.maxModSpeed);
-            public static PID_PARAMS FR_STEER_PID = new PID_PARAMS(0.00000009, 0.0, 0.000, driveTrain.pid.MODULE_S_FF,
-                    0, driver.currentProfile.maxModSpeed);
-            public static PID_PARAMS BL_STEER_PID = new PID_PARAMS(0.00000009, 0.0, 0.000, driveTrain.pid.MODULE_S_FF,
-                    0, driver.currentProfile.maxModSpeed);
-            public static PID_PARAMS BR_STEER_PID = new PID_PARAMS(0.00000009, 0.0, 0.000, driveTrain.pid.MODULE_S_FF,
-                    0, driver.currentProfile.maxModSpeed);
+            public static PIDParams FL_STEER_PID = new PIDParams(1.0, 0.0, 0.1, driveTrain.pid.MODULE_S_FF, driver.currentProfile.maxModVelocity, ControlType.kPosition);
+            public static PIDParams FR_STEER_PID = new PIDParams(1.0, 0.0, 0.1, driveTrain.pid.MODULE_S_FF, driver.currentProfile.maxModVelocity, ControlType.kPosition);
+            public static PIDParams BL_STEER_PID = new PIDParams(1.0, 0.0, 0.1, driveTrain.pid.MODULE_S_FF, driver.currentProfile.maxModVelocity, ControlType.kPosition);
+            public static PIDParams BR_STEER_PID = new PIDParams(1.0, 0.0, 0.1, driveTrain.pid.MODULE_S_FF, driver.currentProfile.maxModVelocity, ControlType.kPosition);
 
-            public static PID_PARAMS FL_DRIVE_PID = new PID_PARAMS(0.500, 0.0, 0.00, driveTrain.pid.MODULE_D_FF, 0,
-                    driver.currentProfile.maxModSpeed);
-            public static PID_PARAMS FR_DRIVE_PID = new PID_PARAMS(0.500, 0.0, 0.00, driveTrain.pid.MODULE_D_FF, 0,
-                    driver.currentProfile.maxModSpeed);
-            public static PID_PARAMS BL_DRIVE_PID = new PID_PARAMS(0.500, 0.0, 0.00, driveTrain.pid.MODULE_D_FF, 0,
-                    driver.currentProfile.maxModSpeed);
-            public static PID_PARAMS BR_DRIVE_PID = new PID_PARAMS(0.500, 0.0, 0.00, driveTrain.pid.MODULE_D_FF, 0,
-                    driver.currentProfile.maxModSpeed);
+            public static PIDParams FL_DRIVE_PID = new PIDParams(0.500, 0.0, 0.00, driveTrain.pid.MODULE_D_FF, driver.currentProfile.maxModVelocity, ControlType.kVelocity);
+            public static PIDParams FR_DRIVE_PID = new PIDParams(0.500, 0.0, 0.00, driveTrain.pid.MODULE_D_FF, driver.currentProfile.maxModVelocity, ControlType.kVelocity);
+            public static PIDParams BL_DRIVE_PID = new PIDParams(0.500, 0.0, 0.00, driveTrain.pid.MODULE_D_FF, driver.currentProfile.maxModVelocity, ControlType.kVelocity);
+            public static PIDParams BR_DRIVE_PID = new PIDParams(0.500, 0.0, 0.00, driveTrain.pid.MODULE_D_FF, driver.currentProfile.maxModVelocity, ControlType.kVelocity);
 
             public static final double MODULE_S_FF = 0.000000; // Must be tuned for the modules!
             public static final double MODULE_D_FF = 0.000000; // Maybe: 0.000156;
