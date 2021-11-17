@@ -26,6 +26,7 @@ public class EmptyConveyor extends CommandBase {
 
     // Start the shooter, wait for it to start up, then begin firing
     Robot.shooter.startup();
+    timer.reset();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -45,7 +46,8 @@ public class EmptyConveyor extends CommandBase {
   public void end(boolean interrupted) {
     Robot.shooter.stop();
     Robot.conveyor.stop();
-    Parameters.conveyor.BALL_COUNT = 0;
+    timer.stop();
+    timer.reset();
   }
 
   // Returns true when the command should end.

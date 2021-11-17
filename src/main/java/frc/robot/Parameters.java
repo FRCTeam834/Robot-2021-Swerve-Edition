@@ -205,7 +205,7 @@ public final class Parameters {
             public static final double TIME_OFF_LINE = 2.25; // s //DO NOT CHANGE!
 
             public static final double LINE_UP_SPEED = 1.5; // m/s
-            public static final double LINEUP_TIME = .6; //s
+            public static final double LINEUP_TIME = .5; //s
             /*
             */
 

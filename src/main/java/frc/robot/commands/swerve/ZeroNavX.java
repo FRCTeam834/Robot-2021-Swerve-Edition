@@ -26,7 +26,5 @@ public class ZeroNavX extends InstantCommand {
   @Override
   public void initialize() {
     Robot.navX.resetYaw();
-    Robot.driveTrain
-        .resetOdometry(new Pose2d(Robot.driveTrain.getPose2D().getTranslation(), Robot.navX.getRotation2d()));
   }
 }

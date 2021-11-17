@@ -69,14 +69,12 @@ public class RunConveyorSensor extends CommandBase {
     Robot.intake.stop();
     Robot.conveyor.stop();
     timer.stop();
-    if (Parameters.conveyor.BALL_COUNT < 4) {
-      Parameters.conveyor.BALL_COUNT++;
-    }
+    timer.reset();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return timer.hasElapsed(Parameters.conveyor.INTAKE_TIME) || (Parameters.conveyor.BALL_COUNT >= 4);
+    return timer.hasElapsed(Parameters.conveyor.INTAKE_TIME);
   }
 }

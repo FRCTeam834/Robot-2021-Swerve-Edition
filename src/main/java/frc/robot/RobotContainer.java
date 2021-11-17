@@ -167,7 +167,7 @@ public class RobotContainer {
 
     // Left joystick
     lJoystick1.whenPressed(letsRoll2Joysticks);
-    rJoystick1.whenPressed(lineUpAndShoot);
+    rJoystick1.whenPressed(lineUpAndShoot.withTimeout(6));
     lJoystick3.whenPressed(zeroNavX);
     lJoystick8.whenPressed(zeroCanCoders);
     rJoystick8.whenPressed(saveSwerveParameters);
@@ -187,7 +187,7 @@ public class RobotContainer {
     // MIDDLE ROW
     BGML.whenPressed(pickupBalls); // AUTOBALL PICKUP
     BGMM.whileHeld(runIntakeBackwards); // STREET SWEEPING
-    BGMR.whenPressed(ejectBalls);
+    BGTR.whenPressed((ejectBalls));
 
     BGBL.whileHeld(runConveyor); // MANUAL
     BGBM.whileHeld(runIntake); // MANUAL
