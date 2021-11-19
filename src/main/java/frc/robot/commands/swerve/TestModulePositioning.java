@@ -6,7 +6,6 @@
  * @author Christian Piper (@CAP1Sup)
  * @since 4/8/21
  */
-
 package frc.robot.commands.swerve;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -41,7 +40,7 @@ public class TestModulePositioning extends CommandBase {
     joystickValues = RobotContainer.getJoystickValues();
 
     // Multiply each of the elements by the angle value
-    for(int index = 0; index < joystickValues.length; index++) {
+    for (int index = 0; index < joystickValues.length; index++) {
       joystickValues[index] = joystickValues[index] * 360;
     }
 

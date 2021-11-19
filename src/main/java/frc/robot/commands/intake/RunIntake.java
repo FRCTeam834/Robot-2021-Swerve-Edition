@@ -7,18 +7,17 @@
 
 package frc.robot.commands.intake;
 
-// Robot
+/**
+ * @author Christian Piper (@CAP1Sup), Mohammed Durrani (@mdurrani808)
+ * @since 5/26/21
+ */
+
+// Imports
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 
-// Parameters
-
-// WPI libraries
-import edu.wpi.first.wpilibj2.command.CommandBase;
-
 public class RunIntake extends CommandBase {
-  /**
-   * Creates a new RunIntake.
-   */
+  /** Creates a new RunIntake. */
   public RunIntake() {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(Robot.intake);

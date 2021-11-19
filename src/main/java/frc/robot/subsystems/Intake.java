@@ -7,19 +7,13 @@
 
 package frc.robot.subsystems;
 
-// Parameters
+// Imports
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Parameters;
 
-// CTRE Victor library
-import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
-
-// WPI libraries
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
 public class Intake extends SubsystemBase {
-  /**
-   * Creates a new BallIntake.
-   */
+  /** Creates a new BallIntake. */
 
   // Main intake motor declaration
   WPI_VictorSPX intakeMotor = new WPI_VictorSPX(Parameters.intake.MOTOR_ID);
@@ -55,5 +49,4 @@ public class Intake extends SubsystemBase {
   public void stop() {
     intakeMotor.stopMotor();
   }
-
 }

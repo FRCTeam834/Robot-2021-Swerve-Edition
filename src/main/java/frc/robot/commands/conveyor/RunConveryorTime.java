@@ -4,15 +4,22 @@
 
 package frc.robot.commands.conveyor;
 
+/**
+ * @author Christian Piper (@CAP1Sup), Mohammed Durrani (@mdurrani808)
+ * @since 10/27/21
+ */
+
+// Imports
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Parameters;
 import frc.robot.Robot;
 
 public class RunConveryorTime extends CommandBase {
   /** Creates a new RunConveryorTime. */
   Timer timer = new Timer();
+
   double time;
+
   public RunConveryorTime(double time) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.time = time;
@@ -21,6 +28,7 @@ public class RunConveryorTime extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    timer.reset();
     timer.start();
   }
 
@@ -36,9 +44,6 @@ public class RunConveryorTime extends CommandBase {
 
     // Stop the conveyor motor once finished
     Robot.conveyor.stop();
-
-    // Reset the ball count
-    Parameters.conveyor.BALL_COUNT = 0;
   }
 
   // Returns true when the command should end.

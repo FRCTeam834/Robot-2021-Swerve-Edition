@@ -7,20 +7,13 @@
 
 package frc.robot.commands.autonomous;
 
-// Import Parameters
+// Imports
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Parameters;
-
-// Import Robot
 import frc.robot.Robot;
 
-// WPI libraries
-import edu.wpi.first.wpilibj2.command.CommandBase;
-
 public class ShooterToSpeed extends CommandBase {
-  /**
-   * Creates a new ShooterToSpeed.
-   */
-
+  /** Creates a new ShooterToSpeed. */
   public ShooterToSpeed() {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(Robot.shooter);

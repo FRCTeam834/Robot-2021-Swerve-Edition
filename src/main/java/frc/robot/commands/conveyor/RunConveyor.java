@@ -7,21 +7,13 @@
 
 package frc.robot.commands.conveyor;
 
-// Import Parameters
+// Imports
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Parameters;
-
-// Import Robot
 import frc.robot.Robot;
 
-// WPI libraries
-import edu.wpi.first.wpilibj2.command.CommandBase;
-
 public class RunConveyor extends CommandBase {
-  /**
-   * Creates a new RunConveyor.
-   */
-
-
+  /** Creates a new RunConveyor. */
   public RunConveyor() {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(Robot.conveyor);
@@ -33,7 +25,6 @@ public class RunConveyor extends CommandBase {
 
     // Set the conveyor to the correct speed
     Robot.conveyor.runForward();
-
   }
 
   // Called every time the scheduler runs while the command is scheduled.

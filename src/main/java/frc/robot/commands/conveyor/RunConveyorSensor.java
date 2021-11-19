@@ -4,23 +4,25 @@
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
-// ! Needs more work
 package frc.robot.commands.conveyor;
 
+/**
+ * @author Christian Piper (@CAP1Sup), Mohammed Durrani (@mdurrani808)
+ * @since 5/26/21
+ */
+
+// Imports
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Parameters;
-// Robot, RobotContainer
 import frc.robot.Robot;
 
-// WPI libraries
-import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj.Timer;
-
 public class RunConveyorSensor extends CommandBase {
-  /**
-   * Creates a new RunConveyorSensor.
-   */
+  /** Creates a new RunConveyorSensor. */
   Timer timer = new Timer();
+
   boolean currentReading = false, prevReading = false;
+
   public RunConveyorSensor() {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(Robot.conveyor, Robot.intake);

@@ -7,24 +7,22 @@
 
 package frc.robot.commands.conveyor;
 
-// Import Parameters
-import frc.robot.Parameters;
+/**
+ * @author Christian Piper (@CAP1Sup), Mohammed Durrani (@mdurrani808)
+ * @since 5/26/21
+ */
 
-// Import Robot
-import frc.robot.Robot;
+// Imports
 import edu.wpi.first.wpilibj.Timer;
-
-// WPI libraries
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Parameters;
+import frc.robot.Robot;
 
 public class EjectBalls extends CommandBase {
 
   Timer timer = new Timer();
 
-  /**
-   * Creates a new RunConveyor.
-   */
-
+  /** Creates a new RunConveyor. */
   public EjectBalls() {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(Robot.conveyor);

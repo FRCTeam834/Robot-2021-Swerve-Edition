@@ -7,6 +7,7 @@
 
 package frc.robot.commands.autonomous;
 
+// Imports
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import frc.robot.commands.conveyor.RunConveyorSensor;
 import frc.robot.commands.swerve.DriveForwardDistance;
@@ -15,9 +16,7 @@ import frc.robot.commands.swerve.DriveForwardDistance;
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
 public class DriveAndIntake extends ParallelRaceGroup {
-  /**
-   * Creates a new DriveAndIntake.
-   */
+  /** Creates a new DriveAndIntake. */
   public DriveAndIntake(double distance) {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());

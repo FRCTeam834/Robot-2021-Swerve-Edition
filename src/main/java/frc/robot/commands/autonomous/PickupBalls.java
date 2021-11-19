@@ -4,6 +4,7 @@
 
 package frc.robot.commands.autonomous;
 
+// Imports
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.conveyor.RunConveyorSensor;
 
@@ -15,6 +16,10 @@ public class PickupBalls extends SequentialCommandGroup {
   public PickupBalls() {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new RunConveyorSensor(), new RunConveyorSensor(), new RunConveyorSensor(), new RunConveyorSensor());
+    addCommands(
+        new RunConveyorSensor(),
+        new RunConveyorSensor(),
+        new RunConveyorSensor(),
+        new RunConveyorSensor());
   }
 }

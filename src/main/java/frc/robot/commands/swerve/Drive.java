@@ -4,17 +4,18 @@
 
 package frc.robot.commands.swerve;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Parameters;
 import frc.robot.Robot;
-import edu.wpi.first.wpilibj.Timer;
-
 
 public class Drive extends CommandBase {
   /** Creates a new Drive. */
   Timer timer = new Timer();
-  double time =0;
+
+  double time = 0;
   double speed = 0;
+
   public Drive(double time) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(Robot.driveTrain);
@@ -27,12 +28,9 @@ public class Drive extends CommandBase {
     Robot.driveTrain.straightenModules();
     timer.reset();
     timer.start();
-    if(time == Parameters.driveTrain.auton.TIME_OFF_LINE)
-    {
+    if (time == Parameters.driveTrain.auton.TIME_OFF_LINE) {
       speed = Parameters.driveTrain.auton.DRIVE_SPEED;
-    }
-    else
-    {
+    } else {
       speed = Parameters.driveTrain.auton.LINE_UP_SPEED;
     }
   }

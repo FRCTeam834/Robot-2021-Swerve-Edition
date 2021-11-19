@@ -6,7 +6,6 @@
  * @author Christian Piper (@CAP1Sup)
  * @since 3/9/21
  */
-
 package frc.robot.commands.swerve;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;

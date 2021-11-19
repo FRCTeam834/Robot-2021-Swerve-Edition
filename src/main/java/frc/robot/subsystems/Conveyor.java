@@ -7,23 +7,18 @@
 
 package frc.robot.subsystems;
 
-// Parameters
-import frc.robot.Parameters;
-
-// CTRE libraries
+// Imports
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
-
-// WPI libraries
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Parameters;
 
 public class Conveyor extends SubsystemBase {
-  /**
-   * Creates a new Conveyor.
-   */
+  /** Creates a new Conveyor. */
 
   // Create all of the new objects
   WPI_VictorSPX conveyorMotor = new WPI_VictorSPX(Parameters.conveyor.MOTOR_ID);
+
   DigitalInput ballSensor = new DigitalInput(Parameters.conveyor.BALL_SENSOR_PORT);
 
   public Conveyor() {

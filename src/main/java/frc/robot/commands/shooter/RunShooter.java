@@ -7,21 +7,12 @@
 
 package frc.robot.commands.shooter;
 
-// Robot
+import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Parameters;
 import frc.robot.Robot;
 
-// Parameters
-import frc.robot.Parameters;
-
-
-
-// WPI libraries
-import edu.wpi.first.wpilibj2.command.CommandBase;
-
 public class RunShooter extends CommandBase {
-  /**
-   * Creates a new RunShooter.
-   */
+  /** Creates a new RunShooter. */
   public RunShooter() {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(Robot.shooter);

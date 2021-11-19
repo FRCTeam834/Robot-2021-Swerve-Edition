@@ -31,9 +31,17 @@ public class Turn180 extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Robot.driveTrain.drive(RobotContainer.constrainJoystick(RobotContainer.rightJoystick.getY()) * Parameters.driver.currentProfile.maxModVelocity,
-        RobotContainer.constrainJoystick(RobotContainer.rightJoystick.getX()) * Parameters.driver.currentProfile.maxModVelocity,
-        startingAngle > 0 ? -1 : 1 * Parameters.auton.TURN_180_STEER_PERCENT * Parameters.driver.currentProfile.maxSteerRate, false);
+    Robot.driveTrain.drive(
+        RobotContainer.constrainJoystick(RobotContainer.rightJoystick.getY())
+            * Parameters.driver.currentProfile.maxModVelocity,
+        RobotContainer.constrainJoystick(RobotContainer.rightJoystick.getX())
+            * Parameters.driver.currentProfile.maxModVelocity,
+        startingAngle > 0
+            ? -1
+            : 1
+                * Parameters.auton.TURN_180_STEER_PERCENT
+                * Parameters.driver.currentProfile.maxSteerRate,
+        false);
   }
 
   // Called once the command ends or is interrupted.
@@ -51,8 +59,7 @@ public class Turn180 extends CommandBase {
 
       // The starting angle is positive, so we need to subtract the yaw from it
       return ((startingAngle - Robot.navX.getYaw()) > 180);
-    }
-    else {
+    } else {
       // The starting angle is negative, so we need to subtract it from the yaw
       return ((Robot.navX.getYaw() - startingAngle) > 180);
     }

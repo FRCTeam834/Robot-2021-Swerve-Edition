@@ -6,34 +6,31 @@
  * @author Christian Piper (@CAP1Sup)
  * @since 5/26/20
  */
-
 package frc.robot.commands.swerve;
 
-// Parameters
-import frc.robot.Parameters;
-
-// Robot
-import frc.robot.Robot;
-
-// WPI libraries
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.geometry.Transform2d;
 import edu.wpi.first.wpilibj.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Parameters;
+import frc.robot.Robot;
 
 public class DriveForwardDistance extends CommandBase {
   /** Moves the robot to the desired position */
 
   // Main carrier variables
   Pose2d desiredPose2d;
+
   double linearVel;
 
   // Move forward at the set linear velocity
   /**
    * Move forward at a specified linear velocity
+   *
    * @param distance Distance to move forward (m)
-   * @param linearVelocity Speed at which to move forward (m/s) (this value will be limited by the max module speeds set in the driver profile)
+   * @param linearVelocity Speed at which to move forward (m/s) (this value will be limited by the
+   *     max module speeds set in the driver profile)
    */
   public DriveForwardDistance(double distance, double linearVelocity) {
 
@@ -48,9 +45,9 @@ public class DriveForwardDistance extends CommandBase {
     this.linearVel = linearVelocity;
   }
 
-
   /**
    * Move forward specified distance, defaulting to current driver profile for the linear speed
+   *
    * @param distance Distance to move forward (m)
    */
   public DriveForwardDistance(double distance) {
@@ -62,20 +59,20 @@ public class DriveForwardDistance extends CommandBase {
     Pose2d currentPosition = Robot.driveTrain.getPose2D();
 
     // Physics equations (done with basic logic)
-    //double newX = currentPosition.getX() + (distance * currentPosition.getRotation().getCos());
-    //double newY = currentPosition.getY() + (distance * currentPosition.getRotation().getSin());
-    //this.desiredPose2d = new Pose2d(newX, newY, currentPosition.getRotation());
+    // double newX = currentPosition.getX() + (distance * currentPosition.getRotation().getCos());
+    // double newY = currentPosition.getY() + (distance * currentPosition.getRotation().getSin());
+    // this.desiredPose2d = new Pose2d(newX, newY, currentPosition.getRotation());
 
     // WPI equations (should work better)
-    this.desiredPose2d = currentPosition.transformBy(new Transform2d(new Translation2d(distance, 0), new Rotation2d()));
+    this.desiredPose2d =
+        currentPosition.transformBy(
+            new Transform2d(new Translation2d(distance, 0), new Rotation2d()));
     this.linearVel = Parameters.driver.currentProfile.maxModVelocity;
   }
-
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {}
-
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override

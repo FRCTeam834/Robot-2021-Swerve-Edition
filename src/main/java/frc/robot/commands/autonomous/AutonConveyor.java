@@ -7,20 +7,14 @@
 
 package frc.robot.commands.autonomous;
 
-// Parameters
+// Imports
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Parameters;
-
-// Robot
 import frc.robot.Robot;
 
-// WPI libraries
-import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj.Timer;
-
 public class AutonConveyor extends CommandBase {
-  /**
-   * Creates a new AutonConveyor.
-   */
+  /** Creates a new AutonConveyor. */
 
   // Create a timer
   Timer timer = new Timer();

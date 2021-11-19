@@ -8,17 +8,14 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
-
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
 import frc.robot.Parameters;
 
 public class Climber extends SubsystemBase {
-  /**
-   * Creates a new Climber.
-   */
+  /** Creates a new Climber. */
   WPI_VictorSPX climberMotor = new WPI_VictorSPX(Parameters.climber.CLIMBER_MOTOR_PORT);
+
   DigitalInput limitBottom = new DigitalInput(Parameters.climber.CLIMBER_LIMIT_SWITCH_PORT);
 
   public Climber() {
@@ -46,5 +43,4 @@ public class Climber extends SubsystemBase {
   public boolean getLimitBottom() {
     return limitBottom.get();
   }
-
 }

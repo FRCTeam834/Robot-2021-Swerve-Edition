@@ -11,17 +11,17 @@ import frc.robot.Robot;
 public class DriveDistanceCheap extends CommandBase {
   /** Creates a new DriveTime. */
   double time = 0;
+
   double linVel = 0;
   Timer timer = new Timer();
 
   /**
-   *
    * @param distance distance to travel, direction agnostic
    * @param linVel speed to move at, direction dependent (+/-)
    */
   public DriveDistanceCheap(double distance, double linVel) {
     addRequirements(Robot.driveTrain);
-    time = Math.abs(distance/linVel);
+    time = Math.abs(distance / linVel);
   }
 
   // Called when the command is initially scheduled.

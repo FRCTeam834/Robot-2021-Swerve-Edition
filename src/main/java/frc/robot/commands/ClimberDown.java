@@ -40,7 +40,6 @@ public class ClimberDown extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     Robot.climber.stop();
-
   }
 
   // Returns true when the command should end.

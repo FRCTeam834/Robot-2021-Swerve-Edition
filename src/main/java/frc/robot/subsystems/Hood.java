@@ -7,24 +7,19 @@
 
 package frc.robot.subsystems;
 
-// Parameters
-import frc.robot.Parameters;
-
-// CTRE libraries
+// Imports
 import com.ctre.phoenix.motorcontrol.TalonSRXFeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-
-// WPI libraries
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Parameters;
 
 public class Hood extends SubsystemBase {
-  /**
-   * Creates a new ShooterPivot.
-   */
+  /** Creates a new ShooterPivot. */
 
   // Create new motor and limit switch objects
   WPI_TalonSRX hoodMotor = new WPI_TalonSRX(Parameters.hood.MOTOR_ID);
+
   DigitalInput limitSwitch = new DigitalInput(Parameters.hood.LIMIT_SWITCH_PORT);
 
   // The desired angle of the pivot

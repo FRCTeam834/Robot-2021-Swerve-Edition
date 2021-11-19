@@ -7,18 +7,17 @@
 
 package frc.robot.commands.intake;
 
-// Robot
+/**
+ * @author Christian Piper (@CAP1Sup)
+ * @since 5/26/21
+ */
+
+// Imports
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 
-// Parameters
-
-// WPI libraries
-import edu.wpi.first.wpilibj2.command.CommandBase;
-
 public class RunIntakeBackwards extends CommandBase {
-  /**
-   * Creates a new RunIntake.
-   */
+  /** Creates a new RunIntake. */
   public RunIntakeBackwards() {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(Robot.intake);
@@ -27,16 +26,12 @@ public class RunIntakeBackwards extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-
     Robot.intake.runBackward();
-
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-
-  }
+  public void execute() {}
 
   // Called once the command ends or is interrupted.
   @Override
