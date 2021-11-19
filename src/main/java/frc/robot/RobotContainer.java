@@ -13,8 +13,6 @@
 package frc.robot;
 
 // Import Parameters
-import frc.robot.Parameters;
-import frc.robot.Parameters.driveTrain.auton;
 import frc.robot.commands.ClimberDown;
 import frc.robot.commands.ClimberUp;
 import frc.robot.commands.autonomous.PickupBalls;
@@ -33,9 +31,6 @@ import frc.robot.enums.RobotState;
 
 // WPI Libraries
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.RunCommand;
-import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;

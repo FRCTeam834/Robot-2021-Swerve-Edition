@@ -10,7 +10,6 @@ package frc.robot.commands.conveyor;
 import frc.robot.Parameters;
 // Robot, RobotContainer
 import frc.robot.Robot;
-import frc.robot.RobotContainer;
 
 // WPI libraries
 import edu.wpi.first.wpilibj2.command.CommandBase;

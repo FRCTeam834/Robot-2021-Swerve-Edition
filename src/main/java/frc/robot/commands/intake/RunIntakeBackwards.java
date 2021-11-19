@@ -11,7 +11,6 @@ package frc.robot.commands.intake;
 import frc.robot.Robot;
 
 // Parameters
-import frc.robot.Parameters;
 
 // WPI libraries
 import edu.wpi.first.wpilibj2.command.CommandBase;

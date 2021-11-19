@@ -9,7 +9,6 @@ package frc.robot.subsystems;
 
 // Parameters
 import frc.robot.Parameters;
-import frc.robot.Parameters.intake;
 
 // CTRE Victor library
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;

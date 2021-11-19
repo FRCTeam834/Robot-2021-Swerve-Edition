@@ -11,7 +11,6 @@ package frc.robot.subsystems;
 import frc.robot.Parameters;
 
 // CTRE libraries
-import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.TalonSRXFeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
@@ -82,9 +81,9 @@ public class Hood extends SubsystemBase {
   /*
    * // Moves the pivot to the desired angle public void setDesiredAngle(double
    * desiredAngle) {
-   * 
+   *
    * // Save the new value this.desiredAngle = desiredAngle;
-   * 
+   *
    * // Set the motor to move to the new position
    * pivotMotor.set(ControlMode.Position, ((desiredAngle / 360) * 4096) /
    * Parameters.shooter.HOOD_GEAR_RATIO); }
