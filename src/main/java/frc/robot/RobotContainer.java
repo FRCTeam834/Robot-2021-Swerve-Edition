@@ -20,6 +20,7 @@ import frc.robot.commands.ClimberUp;
 import frc.robot.commands.autonomous.PickupBalls;
 import frc.robot.commands.autonomous.autons.Auton;
 import frc.robot.commands.autonomous.autons.LineUpAndShoot;
+
 // Import all the folders of subsystems
 import frc.robot.commands.conveyor.*;
 import frc.robot.commands.shooter.*;
@@ -71,6 +72,7 @@ public class RobotContainer {
   private final TestModuleVelocity testModuleVelocity = new TestModuleVelocity();
   private final SaveSwerveParameters saveSwerveParameters = new SaveSwerveParameters();
   private final ZeroNavX zeroNavX = new ZeroNavX();
+  private final StraightenWheels straightenWheels = new StraightenWheels();
 
   private final RunIntake runIntake = new RunIntake();
   private final RunIntakeBackwards runIntakeBackwards = new RunIntakeBackwards();
@@ -170,7 +172,11 @@ public class RobotContainer {
     rJoystick1.whenPressed(lineUpAndShoot.withTimeout(6));
     lJoystick3.whenPressed(zeroNavX);
     lJoystick8.whenPressed(zeroCanCoders);
+    lJoystick9.whenPressed(straightenWheels);
     rJoystick8.whenPressed(saveSwerveParameters);
+
+    // Right joystick
+    rJoystick1.toggleWhenPressed(zeroNavX);
 
     /*
      * xboxY.toggleWhenPressed(new
