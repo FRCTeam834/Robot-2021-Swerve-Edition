@@ -6,6 +6,7 @@ package frc.robot.commands.autonomous.autons;
 
 // Imports
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+
 import frc.robot.Parameters;
 import frc.robot.commands.swerve.Drive;
 
@@ -13,10 +14,10 @@ import frc.robot.commands.swerve.Drive;
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class Auton extends SequentialCommandGroup {
-  /** Creates a new Auton. */
-  public Auton() {
-    // Add your commands in the addCommands() call, e.g.
-    // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new Drive(Parameters.driveTrain.auton.TIME_OFF_LINE), new LineUpAndShoot());
-  }
+    /** Creates a new Auton. */
+    public Auton() {
+        // Add your commands in the addCommands() call, e.g.
+        // addCommands(new FooCommand(), new BarCommand());
+        addCommands(new Drive(Parameters.driveTrain.auton.TIME_OFF_LINE), new LineUpAndShoot());
+    }
 }

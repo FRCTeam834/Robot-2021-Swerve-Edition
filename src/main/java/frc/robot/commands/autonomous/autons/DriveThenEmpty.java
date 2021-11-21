@@ -11,6 +11,7 @@ package frc.robot.commands.autonomous.autons;
 // Imports
 import edu.wpi.first.wpilibj.util.Units;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+
 import frc.robot.commands.conveyor.EmptyConveyor;
 import frc.robot.commands.swerve.DriveForwardDistance;
 
@@ -18,10 +19,10 @@ import frc.robot.commands.swerve.DriveForwardDistance;
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class DriveThenEmpty extends SequentialCommandGroup {
-  /** Creates a new DriveThenEmpty. */
-  public DriveThenEmpty() {
-    // Add your commands in the addCommands() call, e.g.
-    // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new DriveForwardDistance(-Units.inchesToMeters(10)), new EmptyConveyor());
-  }
+    /** Creates a new DriveThenEmpty. */
+    public DriveThenEmpty() {
+        // Add your commands in the addCommands() call, e.g.
+        // addCommands(new FooCommand(), new BarCommand());
+        addCommands(new DriveForwardDistance(-Units.inchesToMeters(10)), new EmptyConveyor());
+    }
 }

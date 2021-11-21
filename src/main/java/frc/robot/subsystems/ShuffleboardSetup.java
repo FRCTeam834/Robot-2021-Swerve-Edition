@@ -12,17 +12,17 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class ShuffleboardSetup extends SubsystemBase {
-  /** Creates a new ShuffleboardSetup. */
-  private ShuffleboardTab driverProfileTab = Shuffleboard.getTab("Driver_Profile");
+    /** Creates a new ShuffleboardSetup. */
+    private ShuffleboardTab driverProfileTab = Shuffleboard.getTab("Driver_Profile");
 
-  public ShuffleboardSetup() {
-    // driverProfileTab.add("Driver Name", "Christian
-    // Piper").withWidget(BuiltInWidgets.kRelay);
+    public ShuffleboardSetup() {
+        // driverProfileTab.add("Driver Name", "Christian
+        // Piper").withWidget(BuiltInWidgets.kRelay);
 
-  }
+    }
 
-  @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
-  }
+    @Override
+    public void periodic() {
+        // This method will be called once per scheduler run
+    }
 }

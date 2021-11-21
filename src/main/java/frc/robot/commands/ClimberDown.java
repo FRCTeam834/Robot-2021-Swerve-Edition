@@ -5,46 +5,47 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+
 import frc.robot.Robot;
 
 public class ClimberDown extends CommandBase {
-  /** Creates a new ClimberDown. */
-  boolean finished;
+    /** Creates a new ClimberDown. */
+    boolean finished;
 
-  public ClimberDown() {
-    // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(Robot.climber);
-  }
-
-  // Called when the command is initially scheduled.
-  @Override
-  public void initialize() {
-    finished = false;
-    if (!Robot.climber.getLimitBottom()) {
-      Robot.climber.down();
-    } else {
-      finished = true;
+    public ClimberDown() {
+        // Use addRequirements() here to declare subsystem dependencies.
+        addRequirements(Robot.climber);
     }
-  }
 
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {
-    if (Robot.climber.getLimitBottom()) {
-      finished = true;
-      Robot.climber.stop();
+    // Called when the command is initially scheduled.
+    @Override
+    public void initialize() {
+        finished = false;
+        if (!Robot.climber.getLimitBottom()) {
+            Robot.climber.down();
+        } else {
+            finished = true;
+        }
     }
-  }
 
-  // Called once the command ends or is interrupted.
-  @Override
-  public void end(boolean interrupted) {
-    Robot.climber.stop();
-  }
+    // Called every time the scheduler runs while the command is scheduled.
+    @Override
+    public void execute() {
+        if (Robot.climber.getLimitBottom()) {
+            finished = true;
+            Robot.climber.stop();
+        }
+    }
 
-  // Returns true when the command should end.
-  @Override
-  public boolean isFinished() {
-    return false;
-  }
+    // Called once the command ends or is interrupted.
+    @Override
+    public void end(boolean interrupted) {
+        Robot.climber.stop();
+    }
+
+    // Returns true when the command should end.
+    @Override
+    public boolean isFinished() {
+        return false;
+    }
 }

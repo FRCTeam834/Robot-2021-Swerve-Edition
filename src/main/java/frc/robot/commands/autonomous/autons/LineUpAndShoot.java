@@ -6,6 +6,7 @@ package frc.robot.commands.autonomous.autons;
 
 // Imports
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+
 import frc.robot.Parameters;
 import frc.robot.commands.conveyor.EmptyConveyor;
 import frc.robot.commands.swerve.Drive;
@@ -14,10 +15,10 @@ import frc.robot.commands.swerve.Drive;
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class LineUpAndShoot extends SequentialCommandGroup {
-  /** Creates a new LineUpAndShoot. */
-  public LineUpAndShoot() {
-    // Add your commands in the addCommands() call, e.g.
-    // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new Drive(Parameters.driveTrain.auton.LINEUP_TIME), new EmptyConveyor());
-  }
+    /** Creates a new LineUpAndShoot. */
+    public LineUpAndShoot() {
+        // Add your commands in the addCommands() call, e.g.
+        // addCommands(new FooCommand(), new BarCommand());
+        addCommands(new Drive(Parameters.driveTrain.auton.LINEUP_TIME), new EmptyConveyor());
+    }
 }

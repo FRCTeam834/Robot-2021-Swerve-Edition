@@ -14,68 +14,69 @@ package frc.robot.commands.conveyor;
 // Imports
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+
 import frc.robot.Parameters;
 import frc.robot.Robot;
 
 public class RunConveyorSensor extends CommandBase {
-  /** Creates a new RunConveyorSensor. */
-  Timer timer = new Timer();
+    /** Creates a new RunConveyorSensor. */
+    Timer timer = new Timer();
 
-  boolean currentReading = false, prevReading = false;
+    boolean currentReading = false, prevReading = false;
 
-  public RunConveyorSensor() {
-    // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(Robot.conveyor, Robot.intake);
-  }
-
-  // Called when the command is initially scheduled.
-  @Override
-  public void initialize() {
-    Robot.conveyor.stop();
-    Robot.intake.runForward();
-    Robot.leds.set(Parameters.LEDColors.ORANGE);
-    timer.reset();
-    timer.stop();
-  }
-
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {
-
-    // Set the current reading value (makes code faster and prevents errors)
-    currentReading = Robot.conveyor.getBallSensor();
-
-    // Start moving the conveyor if there is a new ball detected
-    if (!prevReading && currentReading) {
-      Robot.intake.stop();
-      Robot.conveyor.runForward();
-
-    }
-    // Start the timer once the ball has passed
-    else if (prevReading && !currentReading) {
-      timer.reset();
-      timer.start();
+    public RunConveyorSensor() {
+        // Use addRequirements() here to declare subsystem dependencies.
+        addRequirements(Robot.conveyor, Robot.intake);
     }
 
-    // Fix the prev reading value for the next cycle
-    prevReading = currentReading;
+    // Called when the command is initially scheduled.
+    @Override
+    public void initialize() {
+        Robot.conveyor.stop();
+        Robot.intake.runForward();
+        Robot.leds.set(Parameters.LEDColors.ORANGE);
+        timer.reset();
+        timer.stop();
+    }
 
-    // Continuously set the LED color to orange
-    Robot.leds.set(Parameters.LEDColors.ORANGE);
-  }
+    // Called every time the scheduler runs while the command is scheduled.
+    @Override
+    public void execute() {
 
-  // Called once the command ends or is interrupted.
-  @Override
-  public void end(boolean interrupted) {
-    Robot.intake.stop();
-    Robot.conveyor.stop();
-    timer.stop();
-    timer.reset();
-  }
+        // Set the current reading value (makes code faster and prevents errors)
+        currentReading = Robot.conveyor.getBallSensor();
 
-  // Returns true when the command should end.
-  @Override
-  public boolean isFinished() {
-    return timer.hasElapsed(Parameters.conveyor.INTAKE_TIME);
-  }
+        // Start moving the conveyor if there is a new ball detected
+        if (!prevReading && currentReading) {
+            Robot.intake.stop();
+            Robot.conveyor.runForward();
+
+        }
+        // Start the timer once the ball has passed
+        else if (prevReading && !currentReading) {
+            timer.reset();
+            timer.start();
+        }
+
+        // Fix the prev reading value for the next cycle
+        prevReading = currentReading;
+
+        // Continuously set the LED color to orange
+        Robot.leds.set(Parameters.LEDColors.ORANGE);
+    }
+
+    // Called once the command ends or is interrupted.
+    @Override
+    public void end(boolean interrupted) {
+        Robot.intake.stop();
+        Robot.conveyor.stop();
+        timer.stop();
+        timer.reset();
+    }
+
+    // Returns true when the command should end.
+    @Override
+    public boolean isFinished() {
+        return timer.hasElapsed(Parameters.conveyor.INTAKE_TIME);
+    }
 }

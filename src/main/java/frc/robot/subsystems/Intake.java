@@ -9,44 +9,46 @@ package frc.robot.subsystems;
 
 // Imports
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
 import frc.robot.Parameters;
 
 public class Intake extends SubsystemBase {
-  /** Creates a new BallIntake. */
+    /** Creates a new BallIntake. */
 
-  // Main intake motor declaration
-  WPI_VictorSPX intakeMotor = new WPI_VictorSPX(Parameters.intake.MOTOR_ID);
+    // Main intake motor declaration
+    WPI_VictorSPX intakeMotor = new WPI_VictorSPX(Parameters.intake.MOTOR_ID);
 
-  public Intake() {
-    // Set if the intake should be inverted
-    intakeMotor.setInverted(Parameters.intake.INVERTED);
-  }
+    public Intake() {
+        // Set if the intake should be inverted
+        intakeMotor.setInverted(Parameters.intake.INVERTED);
+    }
 
-  @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
-  }
+    @Override
+    public void periodic() {
+        // This method will be called once per scheduler run
+    }
 
-  // Start the intake at desired speed
-  public void setSpeed(double speed) {
+    // Start the intake at desired speed
+    public void setSpeed(double speed) {
 
-    // Just set the intake to the correct speed
-    intakeMotor.set(speed);
-  }
+        // Just set the intake to the correct speed
+        intakeMotor.set(speed);
+    }
 
-  // Runs the intake forward (loads balls in)
-  public void runForward() {
-    intakeMotor.set(Parameters.intake.FORWARD_SPEED);
-  }
+    // Runs the intake forward (loads balls in)
+    public void runForward() {
+        intakeMotor.set(Parameters.intake.FORWARD_SPEED);
+    }
 
-  // Runs the intake backward (ejects balls)
-  public void runBackward() {
-    intakeMotor.set(-Parameters.intake.BACKWARD_SPEED);
-  }
+    // Runs the intake backward (ejects balls)
+    public void runBackward() {
+        intakeMotor.set(-Parameters.intake.BACKWARD_SPEED);
+    }
 
-  // Stop the intake (by setting it to zero)
-  public void stop() {
-    intakeMotor.stopMotor();
-  }
+    // Stop the intake (by setting it to zero)
+    public void stop() {
+        intakeMotor.stopMotor();
+    }
 }

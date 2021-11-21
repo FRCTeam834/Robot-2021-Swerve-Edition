@@ -20,6 +20,7 @@ import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+
 import frc.robot.DriverProfiles.ProfilingManagement;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Conveyor;
@@ -37,154 +38,156 @@ import frc.robot.subsystems.swerve.DriveTrain;
  */
 public class Robot extends TimedRobot {
 
-  // Main defines
-  private Command m_autonomousCommand;
-  private RobotContainer m_robotContainer;
+    // Main defines
+    private Command m_autonomousCommand;
+    private RobotContainer m_robotContainer;
 
-  // Subsystems
-  public static ProfilingManagement profilingManagement;
-  public static NavX navX;
-  public static DriveTrain driveTrain;
-  public static Intake intake;
-  public static Shooter shooter;
-  public static Conveyor conveyor;
-  public static Climber climber;
-  public UsbCamera camera;
-  public static Hood hood;
+    // Subsystems
+    public static ProfilingManagement profilingManagement;
+    public static NavX navX;
+    public static DriveTrain driveTrain;
+    public static Intake intake;
+    public static Shooter shooter;
+    public static Conveyor conveyor;
+    public static Climber climber;
+    public UsbCamera camera;
+    public static Hood hood;
 
-  // Lights!
-  public static double colorSetting = -.45;
-  public static Spark leds;
+    // Lights!
+    public static double colorSetting = -.45;
+    public static Spark leds;
 
-  // Global variables
-  String gameData = "";
-
-  // Commands
-  // public static LetsRoll2Joysticks letsRoll2Joysticks;
-  // public static LetsRoll1Joystick letsRoll1Joystick;
-  // public static ZeroCanCoders zeroCanCoders;
-  // public static PullNTSwerveParams pullNTSwerveParams;
-  // public static TestModulePID testPID;
-  // public static SaveSwerveParameters saveSwerveParameters;
-
-  /**
-   * This function is run when the robot is first started up and should be used for any
-   * initialization code.
-   */
-  @Override
-  public void robotInit() {
-
-    // Profiling management should be first to avoid errors!
-    profilingManagement = new ProfilingManagement();
-    navX = new NavX();
-    driveTrain = new DriveTrain();
-    shooter = new Shooter();
-    hood = new Hood();
-    climber = new Climber();
-    intake = new Intake();
-    // controlPanelManip = new ControlPanelManip();
-    conveyor = new Conveyor();
-    // EVSNetworkTables = new EVSNetworkTables();
-    m_robotContainer = new RobotContainer();
-    driveTrain.resetOdometry(new Pose2d());
-    leds = new Spark(9);
+    // Global variables
+    String gameData = "";
 
     // Commands
-    // letsRoll2Joysticks = new LetsRoll2Joysticks();
-    // letsRoll1Joystick = new LetsRoll1Joystick();
-    // zeroCanCoders = new ZeroCanCoders();
-    // pullNTSwerveParams = new PullNTSwerveParams();
-    // testPID = new TestModulePID();
-    // saveSwerveParameters = new SaveSwerveParameters();
+    // public static LetsRoll2Joysticks letsRoll2Joysticks;
+    // public static LetsRoll1Joystick letsRoll1Joystick;
+    // public static ZeroCanCoders zeroCanCoders;
+    // public static PullNTSwerveParams pullNTSwerveParams;
+    // public static TestModulePID testPID;
+    // public static SaveSwerveParameters saveSwerveParameters;
 
-    // Instantiate our RobotContainer. This will perform all our button bindings,
-    // and put our
-    // autonomous chooser on the dashboard.
-    m_robotContainer = new RobotContainer();
+    /**
+     * This function is run when the robot is first started up and should be used for any
+     * initialization code.
+     */
+    @Override
+    public void robotInit() {
 
-    // Reset the robot's yaw
-    navX.resetYaw();
-  }
+        // Profiling management should be first to avoid errors!
+        profilingManagement = new ProfilingManagement();
+        navX = new NavX();
+        driveTrain = new DriveTrain();
+        shooter = new Shooter();
+        hood = new Hood();
+        climber = new Climber();
+        intake = new Intake();
+        // controlPanelManip = new ControlPanelManip();
+        conveyor = new Conveyor();
+        // EVSNetworkTables = new EVSNetworkTables();
+        m_robotContainer = new RobotContainer();
+        driveTrain.resetOdometry(new Pose2d());
+        leds = new Spark(9);
 
-  /**
-   * This function is called every robot packet, no matter the mode. Use this for items like
-   * diagnostics that you want ran during disabled, autonomous, teleoperated and test.
-   *
-   * <p>This runs after the mode specific periodic functions, but before LiveWindow and
-   * SmartDashboard integrated updating.
-   */
-  @Override
-  public void robotPeriodic() {
-    // Runs the Scheduler. This is responsible for polling buttons, adding
-    // newly-scheduled
-    // commands, running already-scheduled commands, removing finished or
-    // interrupted commands,
-    // and running subsystem periodic() methods. This must be called from the
-    // robot's periodic
-    // block in order for anything in the Command-based framework to work.
-    gameData = DriverStation.getInstance().getGameSpecificMessage();
-    CommandScheduler.getInstance().run();
-  }
+        // Commands
+        // letsRoll2Joysticks = new LetsRoll2Joysticks();
+        // letsRoll1Joystick = new LetsRoll1Joystick();
+        // zeroCanCoders = new ZeroCanCoders();
+        // pullNTSwerveParams = new PullNTSwerveParams();
+        // testPID = new TestModulePID();
+        // saveSwerveParameters = new SaveSwerveParameters();
 
-  public void simulationPeriodic() {
-    DriverStation.getInstance().silenceJoystickConnectionWarning(true);
-  }
+        // Instantiate our RobotContainer. This will perform all our button bindings,
+        // and put our
+        // autonomous chooser on the dashboard.
+        m_robotContainer = new RobotContainer();
 
-  /** This function is called once each time the robot enters Disabled mode. */
-  @Override
-  public void disabledInit() {}
-
-  @Override
-  public void disabledPeriodic() {}
-
-  /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
-  @Override
-  public void autonomousInit() {
-    m_autonomousCommand = m_robotContainer.getAutonomousCommand();
-
-    // schedule the autonomous command (example)
-    if (m_autonomousCommand != null) {
-      m_autonomousCommand.schedule();
+        // Reset the robot's yaw
+        navX.resetYaw();
     }
-  }
 
-  /** This function is called periodically during autonomous. */
-  @Override
-  public void autonomousPeriodic() {
-
-    // Set the LED value
-    leds.set(colorSetting);
-  }
-
-  @Override
-  public void teleopInit() {
-    // This makes sure that the autonomous stops running when
-    // teleop starts running. If you want the autonomous to
-    // continue until interrupted by another command, remove
-    // this line or comment it out.
-    if (m_autonomousCommand != null) {
-      m_autonomousCommand.cancel();
+    /**
+     * This function is called every robot packet, no matter the mode. Use this for items like
+     * diagnostics that you want ran during disabled, autonomous, teleoperated and test.
+     *
+     * <p>This runs after the mode specific periodic functions, but before LiveWindow and
+     * SmartDashboard integrated updating.
+     */
+    @Override
+    public void robotPeriodic() {
+        // Runs the Scheduler. This is responsible for polling buttons, adding
+        // newly-scheduled
+        // commands, running already-scheduled commands, removing finished or
+        // interrupted commands,
+        // and running subsystem periodic() methods. This must be called from the
+        // robot's periodic
+        // block in order for anything in the Command-based framework to work.
+        gameData = DriverStation.getInstance().getGameSpecificMessage();
+        CommandScheduler.getInstance().run();
     }
-  }
 
-  /** This function is called periodically during operator control. */
-  @Override
-  public void teleopPeriodic() {
+    public void simulationPeriodic() {
+        DriverStation.getInstance().silenceJoystickConnectionWarning(true);
+    }
 
-    // Set the LED value
-    leds.set(colorSetting);
+    /** This function is called once each time the robot enters Disabled mode. */
+    @Override
+    public void disabledInit() {}
 
-    // Publish dashboard values
-    SmartDashboard.putNumber("Ball Count", Parameters.conveyor.BALL_COUNT);
-  }
+    @Override
+    public void disabledPeriodic() {}
 
-  @Override
-  public void testInit() {
-    // Cancels all running commands at the start of test mode.
-    CommandScheduler.getInstance().cancelAll();
-  }
+    /**
+     * This autonomous runs the autonomous command selected by your {@link RobotContainer} class.
+     */
+    @Override
+    public void autonomousInit() {
+        m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
-  /** This function is called periodically during test mode. */
-  @Override
-  public void testPeriodic() {}
+        // schedule the autonomous command (example)
+        if (m_autonomousCommand != null) {
+            m_autonomousCommand.schedule();
+        }
+    }
+
+    /** This function is called periodically during autonomous. */
+    @Override
+    public void autonomousPeriodic() {
+
+        // Set the LED value
+        leds.set(colorSetting);
+    }
+
+    @Override
+    public void teleopInit() {
+        // This makes sure that the autonomous stops running when
+        // teleop starts running. If you want the autonomous to
+        // continue until interrupted by another command, remove
+        // this line or comment it out.
+        if (m_autonomousCommand != null) {
+            m_autonomousCommand.cancel();
+        }
+    }
+
+    /** This function is called periodically during operator control. */
+    @Override
+    public void teleopPeriodic() {
+
+        // Set the LED value
+        leds.set(colorSetting);
+
+        // Publish dashboard values
+        SmartDashboard.putNumber("Ball Count", Parameters.conveyor.BALL_COUNT);
+    }
+
+    @Override
+    public void testInit() {
+        // Cancels all running commands at the start of test mode.
+        CommandScheduler.getInstance().cancelAll();
+    }
+
+    /** This function is called periodically during test mode. */
+    @Override
+    public void testPeriodic() {}
 }

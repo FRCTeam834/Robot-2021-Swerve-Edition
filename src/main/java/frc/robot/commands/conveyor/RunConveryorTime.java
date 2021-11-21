@@ -12,43 +12,44 @@ package frc.robot.commands.conveyor;
 // Imports
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+
 import frc.robot.Robot;
 
 public class RunConveryorTime extends CommandBase {
-  /** Creates a new RunConveryorTime. */
-  Timer timer = new Timer();
+    /** Creates a new RunConveryorTime. */
+    Timer timer = new Timer();
 
-  double time;
+    double time;
 
-  public RunConveryorTime(double time) {
-    // Use addRequirements() here to declare subsystem dependencies.
-    this.time = time;
-  }
+    public RunConveryorTime(double time) {
+        // Use addRequirements() here to declare subsystem dependencies.
+        this.time = time;
+    }
 
-  // Called when the command is initially scheduled.
-  @Override
-  public void initialize() {
-    timer.reset();
-    timer.start();
-  }
+    // Called when the command is initially scheduled.
+    @Override
+    public void initialize() {
+        timer.reset();
+        timer.start();
+    }
 
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {
-    Robot.conveyor.runForward();
-  }
+    // Called every time the scheduler runs while the command is scheduled.
+    @Override
+    public void execute() {
+        Robot.conveyor.runForward();
+    }
 
-  // Called once the command ends or is interrupted.
-  @Override
-  public void end(boolean interrupted) {
+    // Called once the command ends or is interrupted.
+    @Override
+    public void end(boolean interrupted) {
 
-    // Stop the conveyor motor once finished
-    Robot.conveyor.stop();
-  }
+        // Stop the conveyor motor once finished
+        Robot.conveyor.stop();
+    }
 
-  // Returns true when the command should end.
-  @Override
-  public boolean isFinished() {
-    return timer.hasElapsed(time);
-  }
+    // Returns true when the command should end.
+    @Override
+    public boolean isFinished() {
+        return timer.hasElapsed(time);
+    }
 }

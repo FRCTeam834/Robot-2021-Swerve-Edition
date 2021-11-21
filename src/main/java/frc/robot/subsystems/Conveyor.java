@@ -9,51 +9,53 @@ package frc.robot.subsystems;
 
 // Imports
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
 import frc.robot.Parameters;
 
 public class Conveyor extends SubsystemBase {
-  /** Creates a new Conveyor. */
+    /** Creates a new Conveyor. */
 
-  // Create all of the new objects
-  WPI_VictorSPX conveyorMotor = new WPI_VictorSPX(Parameters.conveyor.MOTOR_ID);
+    // Create all of the new objects
+    WPI_VictorSPX conveyorMotor = new WPI_VictorSPX(Parameters.conveyor.MOTOR_ID);
 
-  DigitalInput ballSensor = new DigitalInput(Parameters.conveyor.BALL_SENSOR_PORT);
+    DigitalInput ballSensor = new DigitalInput(Parameters.conveyor.BALL_SENSOR_PORT);
 
-  public Conveyor() {
+    public Conveyor() {
 
-    // Set the direction of the motor
-    conveyorMotor.setInverted(Parameters.conveyor.INVERTED);
-  }
+        // Set the direction of the motor
+        conveyorMotor.setInverted(Parameters.conveyor.INVERTED);
+    }
 
-  @Override
-  public void periodic() {
-    // This method will be called once per schedule run
-  }
+    @Override
+    public void periodic() {
+        // This method will be called once per schedule run
+    }
 
-  // Gets the value of the ball sensor. Returns true if triggered, false if not
-  public boolean getBallSensor() {
-    return !ballSensor.get();
-  }
+    // Gets the value of the ball sensor. Returns true if triggered, false if not
+    public boolean getBallSensor() {
+        return !ballSensor.get();
+    }
 
-  // Sets the conveyor to run at desired percentage
-  public void setSpeed(double speed) {
-    conveyorMotor.set(speed);
-  }
+    // Sets the conveyor to run at desired percentage
+    public void setSpeed(double speed) {
+        conveyorMotor.set(speed);
+    }
 
-  // Runs the conveyor forward (loads balls in)
-  public void runForward() {
-    conveyorMotor.set(Parameters.conveyor.FORWARD_SPEED);
-  }
+    // Runs the conveyor forward (loads balls in)
+    public void runForward() {
+        conveyorMotor.set(Parameters.conveyor.FORWARD_SPEED);
+    }
 
-  // Runs the conveyor backward (ejects balls)
-  public void runBackward() {
-    conveyorMotor.set(Parameters.conveyor.BACKWARD_SPEED);
-  }
+    // Runs the conveyor backward (ejects balls)
+    public void runBackward() {
+        conveyorMotor.set(Parameters.conveyor.BACKWARD_SPEED);
+    }
 
-  // Stops the conveyor
-  public void stop() {
-    conveyorMotor.stopMotor();
-  }
+    // Stops the conveyor
+    public void stop() {
+        conveyorMotor.stopMotor();
+    }
 }

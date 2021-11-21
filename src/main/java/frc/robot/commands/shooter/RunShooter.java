@@ -8,42 +8,43 @@
 package frc.robot.commands.shooter;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+
 import frc.robot.Parameters;
 import frc.robot.Robot;
 
 public class RunShooter extends CommandBase {
-  /** Creates a new RunShooter. */
-  public RunShooter() {
-    // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(Robot.shooter);
-  }
+    /** Creates a new RunShooter. */
+    public RunShooter() {
+        // Use addRequirements() here to declare subsystem dependencies.
+        addRequirements(Robot.shooter);
+    }
 
-  // Called when the command is initially scheduled.
-  @Override
-  public void initialize() {
+    // Called when the command is initially scheduled.
+    @Override
+    public void initialize() {
 
-    // Start the motor at the specified voltage
-    Robot.shooter.startup();
-  }
+        // Start the motor at the specified voltage
+        Robot.shooter.startup();
+    }
 
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {
-    Robot.leds.set(Parameters.LEDColors.PINK);
-  }
+    // Called every time the scheduler runs while the command is scheduled.
+    @Override
+    public void execute() {
+        Robot.leds.set(Parameters.LEDColors.PINK);
+    }
 
-  // Called once the command ends or is interrupted.
-  @Override
-  public void end(boolean interrupted) {
+    // Called once the command ends or is interrupted.
+    @Override
+    public void end(boolean interrupted) {
 
-    // Stop the motor
-    Robot.shooter.stop();
-    Robot.leds.set(Parameters.LEDColors.PARTY);
-  }
+        // Stop the motor
+        Robot.shooter.stop();
+        Robot.leds.set(Parameters.LEDColors.PARTY);
+    }
 
-  // Returns true when the command should end.
-  @Override
-  public boolean isFinished() {
-    return false;
-  }
+    // Returns true when the command should end.
+    @Override
+    public boolean isFinished() {
+        return false;
+    }
 }

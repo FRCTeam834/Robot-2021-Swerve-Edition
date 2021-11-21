@@ -6,20 +6,21 @@ package frc.robot.commands.autonomous;
 
 // Imports
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+
 import frc.robot.commands.conveyor.RunConveyorSensor;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class PickupBalls extends SequentialCommandGroup {
-  /** Creates a new PickupBalls. */
-  public PickupBalls() {
-    // Add your commands in the addCommands() call, e.g.
-    // addCommands(new FooCommand(), new BarCommand());
-    addCommands(
-        new RunConveyorSensor(),
-        new RunConveyorSensor(),
-        new RunConveyorSensor(),
-        new RunConveyorSensor());
-  }
+    /** Creates a new PickupBalls. */
+    public PickupBalls() {
+        // Add your commands in the addCommands() call, e.g.
+        // addCommands(new FooCommand(), new BarCommand());
+        addCommands(
+                new RunConveyorSensor(),
+                new RunConveyorSensor(),
+                new RunConveyorSensor(),
+                new RunConveyorSensor());
+    }
 }
