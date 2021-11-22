@@ -12,6 +12,7 @@
  */
 package frc.robot;
 
+// Imports
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Spark;
@@ -83,9 +84,7 @@ public class Robot extends TimedRobot {
         hood = new Hood();
         climber = new Climber();
         intake = new Intake();
-        // controlPanelManip = new ControlPanelManip();
         conveyor = new Conveyor();
-        // EVSNetworkTables = new EVSNetworkTables();
         m_robotContainer = new RobotContainer();
         driveTrain.resetOdometry(new Pose2d());
         leds = new Spark(9);

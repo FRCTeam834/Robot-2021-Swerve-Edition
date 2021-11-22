@@ -8,6 +8,7 @@
  */
 package frc.robot.commands.swerve;
 
+// Imports
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.geometry.Transform2d;
@@ -25,7 +26,6 @@ public class DriveForwardDistance extends CommandBase {
 
     double linearVel;
 
-    // Move forward at the set linear velocity
     /**
      * Move forward at a specified linear velocity
      *

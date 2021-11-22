@@ -12,6 +12,7 @@
  */
 package frc.robot;
 
+// Imports
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Timer;
@@ -40,13 +41,6 @@ import frc.robot.enums.RobotState;
  */
 public class RobotContainer {
     // The robot's subsystems and commands are defined here...
-
-    // Subsystems
-    // private final ProfilingManagement profilingManagement = new
-    // ProfilingManagement();
-    // private final NavX navX = new NavX();
-    // private final DriveTrain driveTrain = new DriveTrain();
-    // private final UltrasonicSensor ultrasonicSensor = new UltrasonicSensor();
 
     // Commands
     private final LetsRoll2Joysticks letsRoll2Joysticks = new LetsRoll2Joysticks();
@@ -94,9 +88,6 @@ public class RobotContainer {
 
     // Right Joystick button array
     // public static JoystickButton rightJoystickButtons[];
-
-    // The number of balls currently in the robot
-    public static int ballCount;
 
     // The robot's state
     public static RobotState robotState;

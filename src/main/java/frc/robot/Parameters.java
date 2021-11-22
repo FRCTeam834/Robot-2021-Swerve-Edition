@@ -12,6 +12,7 @@
  */
 package frc.robot;
 
+// Imports
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.ControlType;
 
@@ -61,8 +62,7 @@ public final class Parameters {
                 5; // Same as the amount of coding team members
         public static final int SHRIMP_ON_THE_BARBIE = 3; // Number of shrimp on the barbecue
         public static final int ANDREWS_PROGRESS_WHEN_AROUND_SAFETY_TEAM =
-                -10; // What happens when Andrew is around
-        // the safety team... backwards progress
+                -10; // What happens when Andrew is around the safety team... backwards progress
         public static final int CHRISTIAN_FORTNITE_WINS =
                 38; // The number of the lead programmer's Fortnite wins
     }
@@ -159,9 +159,7 @@ public final class Parameters {
             public static final double DRIVE_WIDTH = Units.inchesToMeters(22.4);
             public static final double MODULE_WHEEL_DIA_IN = 4; // Inches
             public static final double MODULE_WHEEL_DIA_M =
-                    Units.inchesToMeters(MODULE_WHEEL_DIA_IN); // Meters (for
-            // odometry
-            // calculations)
+                    Units.inchesToMeters(MODULE_WHEEL_DIA_IN); // Meters (for odometry calculations)
         }
 
         // All of the maximums

@@ -1,6 +1,7 @@
 /** @author Christian Piper (@CAP1Sup) */
 package frc.robot.utilityClasses;
 
+// Imports
 import com.revrobotics.CANError;
 import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMax;

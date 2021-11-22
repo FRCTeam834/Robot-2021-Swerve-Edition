@@ -4,6 +4,7 @@
  */
 package frc.robot.utilityClasses;
 
+// Imports
 import com.revrobotics.ControlType;
 
 /** Class that organizes gains used when assigning values to slots */
