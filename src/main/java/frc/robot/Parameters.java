@@ -287,7 +287,6 @@ public final class Parameters {
             public static final double LINEUP_TIME = .5; // s
 
             public static final double TURN_180_STEER_RATE_PERCENT = 0.5; // Percentage of maxSteerRate (from driver profile)
-
         }
     }
 
