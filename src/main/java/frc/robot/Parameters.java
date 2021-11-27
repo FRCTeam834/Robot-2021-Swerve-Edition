@@ -285,8 +285,8 @@ public final class Parameters {
 
             public static final double LINE_UP_SPEED = 1.5; // m/s
             public static final double LINEUP_TIME = .5; // s
-            /*
-             */
+
+            public static final double TURN_180_VELOCITY_PERCENT = 0.5; // Percentage of maxModVelocity (from driver profile)
 
         }
     }
@@ -392,13 +392,8 @@ public final class Parameters {
                 3; // Time to eject all balls from the conveyor (in s)
 
         public static double BALL_COUNT = 0;
-    }
 
-    // Auton Constants
-    public static final class auton {
-        public static final double CONVEYOR_RUN_TIME = 3;
-        public static final double CONVEYOR_SPEED = 1;
-        public static final double TURN_180_STEER_PERCENT = 0.5;
+        public static final double AUTON_RUN_TIME = 3;
     }
 
     // LED Values (for style)

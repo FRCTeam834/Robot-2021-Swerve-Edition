@@ -30,7 +30,7 @@ public class AutonConveyor extends CommandBase {
     public void initialize() {
 
         // Set to the default auton speed
-        Robot.conveyor.setSpeed(Parameters.auton.CONVEYOR_SPEED);
+        Robot.conveyor.setSpeed(Parameters.conveyor.AUTON_SPEED);
 
         // Reset the timer, starting it from 0
         timer.reset();
@@ -64,6 +64,6 @@ public class AutonConveyor extends CommandBase {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return timer.hasElapsed(Parameters.auton.CONVEYOR_RUN_TIME);
+        return timer.hasElapsed(Parameters.conveyor.AUTON_RUN_TIME);
     }
 }
