@@ -286,8 +286,8 @@ public final class Parameters {
             public static final double LINE_UP_SPEED = 1.5; // m/s
             public static final double LINEUP_TIME = .5; // s
 
-            public static final double TURN_180_VELOCITY_PERCENT = 0.5; // Percentage of maxModVelocity (from driver profile)
-
+            public static final double TURN_180_VELOCITY_PERCENT =
+                    0.5; // Percentage of maxModVelocity (from driver profile)
         }
     }
 
