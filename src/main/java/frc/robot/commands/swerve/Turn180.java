@@ -40,7 +40,7 @@ public class Turn180 extends CommandBase {
                 startingAngle > 0
                         ? -1
                         : 1
-                                * Parameters.driveTrain.auton.TURN_180_VELOCITY_PERCENT
+                                * Parameters.driveTrain.auton.TURN_180_STEER_RATE_PERCENT
                                 * Parameters.driver.currentProfile.maxSteerRate,
                 false);
     }
