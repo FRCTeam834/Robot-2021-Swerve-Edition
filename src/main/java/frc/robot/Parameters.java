@@ -177,40 +177,43 @@ public final class Parameters {
              * PID parameters Gains used in each module's steering motor, to be adjusted accordingly
              * Gains(kp, ki, kd, feedforward, iZone, peak output);
              */
+            // Steer PID
             public static PIDParams FL_STEER_PID =
                     new PIDParams(
-                            1.0,
+                            0.00000009,
                             0.0,
-                            0.1,
+                            0.0,
                             driveTrain.pid.MODULE_S_FF,
                             driver.currentProfile.maxModVelocity,
-                            ControlType.kPosition);
+                            ControlType.kSmartMotion);
 
             public static PIDParams FR_STEER_PID =
                     new PIDParams(
-                            1.0,
+                            0.00000009,
                             0.0,
-                            0.1,
+                            0.0,
                             driveTrain.pid.MODULE_S_FF,
                             driver.currentProfile.maxModVelocity,
-                            ControlType.kPosition);
+                            ControlType.kSmartMotion);
             public static PIDParams BL_STEER_PID =
                     new PIDParams(
-                            1.0,
+                            0.00000009,
                             0.0,
-                            0.1,
+                            0.0,
                             driveTrain.pid.MODULE_S_FF,
                             driver.currentProfile.maxModVelocity,
-                            ControlType.kPosition);
+                            ControlType.kSmartMotion);
             public static PIDParams BR_STEER_PID =
                     new PIDParams(
-                            1.0,
+                            0.00000009,
                             0.0,
-                            0.1,
+                            0.0,
                             driveTrain.pid.MODULE_S_FF,
                             driver.currentProfile.maxModVelocity,
-                            ControlType.kPosition);
+                            ControlType.kSmartMotion);
 
+
+            // Drive PID
             public static PIDParams FL_DRIVE_PID =
                     new PIDParams(
                             0.500,
