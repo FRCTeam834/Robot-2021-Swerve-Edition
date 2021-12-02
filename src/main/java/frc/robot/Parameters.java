@@ -212,7 +212,6 @@ public final class Parameters {
                             driver.currentProfile.maxModVelocity,
                             ControlType.kSmartMotion);
 
-
             // Drive PID
             public static PIDParams FL_DRIVE_PID =
                     new PIDParams(

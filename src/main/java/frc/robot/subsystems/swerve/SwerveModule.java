@@ -112,12 +112,13 @@ public class SwerveModule {
         // Steer motor encoder (position is converted from rotations to degrees)
         // (For the conversion factor) First we multiply by 360 to convert rotations to degrees,
         // then divide by the steer gear ratio because the motor must move that many times for a
-        // full module rotation. For the velocity, we can use the same conversion factor and divide by 60 to convert RPM
+        // full module rotation. For the velocity, we can use the same conversion factor and divide
+        // by 60 to convert RPM
         // to deg/s
         steerMotorEncoder = steerMotor.getEncoder();
         steerMotorEncoder.setPositionConversionFactor(
                 360.0 / Parameters.driveTrain.ratios.STEER_GEAR_RATIO);
-        //steerMotorEncoder.setVelocityConversionFactor(
+        // steerMotorEncoder.setVelocityConversionFactor(
         //        360.0 / (Parameters.driveTrain.ratios.STEER_GEAR_RATIO * 60));
         // ! Reset the module's conversion factor to 1
         // ! Hopefully this should fix the issues with the SmartMotion params
@@ -172,7 +173,7 @@ public class SwerveModule {
         driveMotorEncoder.setVelocityConversionFactor(
                 (Math.PI * Parameters.driveTrain.dimensions.MODULE_WHEEL_DIA_M)
                         / (60.0 * Parameters.driveTrain.ratios.DRIVE_GEAR_RATIO));
-        //driveMotorEncoder.setPositionConversionFactor(
+        // driveMotorEncoder.setPositionConversionFactor(
         //        (Math.PI * Parameters.driveTrain.dimensions.MODULE_WHEEL_DIA_M)
         //                / Parameters.driveTrain.ratios.DRIVE_GEAR_RATIO);
         // ! Reset the position conversion factor back to 1
