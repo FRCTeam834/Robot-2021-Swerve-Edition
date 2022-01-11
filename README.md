@@ -1,4 +1,4 @@
-# Robot 2021 Swerve Edition
+# Robot 2022 Swerve Edition
 
 ![Build](https://github.com/FRCTeam834/Robot-2021-Swerve-Edition/workflows/CI/badge.svg)
 
